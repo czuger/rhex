@@ -22,11 +22,21 @@ hexa = Hex::Axial.new( 10, 10 )
 
 # Get hexes surrounding it
 hexa.get_surrounding_hexs
-# => [#<Hex::Axial:0x007fbf482f9f68 @q=10, @r=9>, #<Hex::Axial:0x007fbf482f9f40 @q=11, @r=9>, #<Hex::Axial:0x007fbf482f9ef0 @q=11, @r=10>, #<Hex::Axial:0x007fbf482f9ec8 @q=10, @r=11>, #<Hex::Axial:0x007fbf482f9ea0 @q=9, @r=11>, #<Hex::Axial:0x007fbf482f9e78 @q=9, @r=10>]
+# => [#<Hex::Axial:0x007fbf482f9f68 @q=10, @r=9>, #<Hex::Axial:0x007fbf482f9f40 @q=11, @r=9>, ... ]
 
 # Get distance between two hexagons
 hexb = Hex::Axial.new( 20, 20 )
 hexa.distance(hexb)
 # => 20
+
+# Check if a hex is adjacent to another hex
+hexa.hex_surrounding_hex?(hexb)
+# => false
+
+# Get the nearset hex from a hexes list
+hexc = Hex::Axial.new( 20, 13 )
+hlist = [ hexb, hexc ]
+hexa.nearest_hex(hlist)
+# => #<Hex::Axial:0x007fbf482ad528 @q=20, @r=13>
 ```
 
