@@ -40,3 +40,5 @@ hexa.nearest_hex(hlist)
 # => #<Hex::Axial:0x007fbf482ad528 @q=20, @r=13>
 ```
 
+###Hexagons grid
+------
