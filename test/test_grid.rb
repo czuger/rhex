@@ -13,14 +13,18 @@ class TestGrid < Minitest::Test
       @g.set
       @g.set(1,2,3,4,5)
     end
+
     @g.set( Hex::Axial.new( 15, 15 ) )
-    refute @g.get( 15, 15 )
+    refute @g.get( 15, 15 ).val
+
     @g.set( Hex::Axial.new( 15, 15 ), :value )
-    assert_equal( @g.get( 15, 15 ), :value )
+    assert_equal( @g.get( 15, 15 ).val, :value )
+
     @g.set( 15, 15 )
-    refute @g.get( Hex::Axial.new( 15, 15 ) )
+    refute @g.get( Hex::Axial.new( 15, 15 ).val )
+
     @g.set( 15, 15, :value )
-    assert_equal( @g.get( Hex::Axial.new( 15, 15 ) ), :value )
+    assert_equal( @g.get( Hex::Axial.new( 15, 15 ) ).val, :value )
   end
 
 end

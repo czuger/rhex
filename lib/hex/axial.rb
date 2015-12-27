@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-require 'hex/cube'
+require_relative 'cube'
 
 module Hex
   class Axial
 
-    attr_reader :q, :r
+    attr_reader :q, :r, :val
 
     R = 16
 
@@ -13,12 +13,13 @@ module Hex
     DIRECTIONS = [ [0,-1], [1,-1], [1,0], [0,1], [-1,+1], [-1,0] ]
 
     # Create a new flat topped axial represented hexagon object
-    def initialize(q,r)
+    def initialize( q, r, val = nil)
       @q = q
       @r = r
+      @val = val.to_sym if val
     end
 
-    # Equality between two hexagones
+    # Equality between two hexagons
     def ==(h)
       @q==h.q && @r==h.r
     end
@@ -34,8 +35,9 @@ module Hex
 
     # Give the position of an hexagone object in pixel
     def to_xy
+      pix_r = r - ( @q/2 )
       x = R * 3/2 * @q
-      y = ( ( R.to_f * Math.sqrt(3) ).round * (@r.to_f + @q.to_f/2.to_f) )
+      y = ( ( R.to_f * Math.sqrt(3) ).round * (pix_r.to_f + @q.to_f/2.to_f) )
       [ x, y ]
     end
 
