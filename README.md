@@ -15,6 +15,22 @@ This repository contain a library for using a grid of hexagons with ruby.
 
 This gem has been tested with ruby 2.0.0
 
+## Setup
+
+```bash
+gem install rhex
+```
+
+Or in your gemfile : 
+```ruby
+gem 'rhex'
+```
+
+Then in your code :
+```ruby
+require 'rhex'
+```
+
 ## Usage
 
 ###Basics
