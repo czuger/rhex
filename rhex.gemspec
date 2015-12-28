@@ -1,14 +1,12 @@
 Gem::Specification.new do |s|
   s.name        = 'rhex'
-  s.version     = '1.2.0'
+  s.version     = '1.2.1'
   s.date        = '2015-12-28'
   s.summary     = 'Ruby HEXagonal grid'
   s.description = <<-EOF
     A library designed to provide hexagonal grids for ruby.
-    - Coordinate system is axial, bitmap representation is pointy topped.
-    - Provide various hex methods (surrounding hexes, nearest hex, distance between two hexes)
-    - Provide a method to create a grid from an ascii map
-    - Provide a method to dump your hex grid to a bitmap file (require rmagick)
+    Provide various hex methods (surrounding hexes, nearest hex, distance between two hexes).
+    Provide also a method to create a grid from an ascii map and a method to dump your hex grid to a bitmap file (require rmagick).
   EOF
   s.authors     = ['Cédric ZUGER']
   s.files       = Dir['lib/**/*.rb']
