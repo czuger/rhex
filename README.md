@@ -135,4 +135,5 @@ g.to_pic( 'test2.png' )
 ```
 
 You should see something like : 
+
 ![test picture](/images/test2.png)
