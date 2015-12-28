@@ -35,14 +35,18 @@ module Hex
       @border
     end
 
-    # Create an hexagon object from (x,y) coordinate
-    # def self.hex_at_xy(x, y)
-    #   x-=HEX_SIZE
-    #   y-=HEX_SIZE
-    #   q = x * 2/3 / HEX_SIZE
-    #   r = (-x / 3 + Math.sqrt(3)/3 * y) / HEX_SIZE
-    #   Hex::Axial.new(q, r).round
-    # end
+    # Create an hexagon object from (x,y) coordinate
+    # q = (x * sqrt(3)/3 - y / 3) / size
+    # r = y * 2/3 / size
+    # return hex_round(Hex(q, r))
+    def self.hex_at_xy(x, y)
+      x-=HEX_RAY
+      y-=HEX_RAY
+      q = (x * Math.sqrt(3)/3.0 - y/3.0) / HEX_RAY
+      r = y * 2.0/3.0 / HEX_RAY
+      Hex::Axial.new(q, r).round
+    end
+
 
     # Give the position of an hexagone object in pixel (we are working pointly topped)
     def to_xy
@@ -92,14 +96,12 @@ module Hex
       DIRECTIONS.map{ |e| Hex::Axial.new( @q+e[0], @r+e[1] ) }
     end
 
-    # Check if an hexagon is around another exagon
+    # Check if an hexagon is around another hexagon
     def hex_surrounding_hex?(hex)
       distance(hex)==1
     end
 
-    private
-
-    # Round an hexagone coordinates (useful after pixel to axial coordinate transformation)
+    # Round an hexagon coordinates (useful after pixel to axial coordinate transformation)
     def round
       to_cube.round.to_axial
     end

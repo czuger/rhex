@@ -46,6 +46,21 @@ class TestAxial < Minitest::Test
     assert_equal( 15, c.x )
     assert_equal( 15, c.z )
     assert_equal( -30, c.y )
+    d = c.to_axial
+    assert_equal( @h, d )
+  end
+
+  def test_xy_to_hex
+    h = Hex::Axial.hex_at_xy( Hex::Axial::HEX_RAY, Hex::Axial::HEX_RAY )
+    assert_equal( Hex::Axial.new( 0, 0 ), h )
+    h = Hex::Axial.hex_at_xy( Hex::Axial::HEX_RAY*2, Hex::Axial::HEX_RAY )
+    assert_equal( Hex::Axial.new( 1, 0 ), h )
+    h = Hex::Axial.hex_at_xy( Hex::Axial::HEX_RAY, Hex::Axial::HEX_RAY*3 )
+    assert_equal( Hex::Axial.new( 0, 1 ), h )
+    h = Hex::Axial.hex_at_xy( Hex::Axial::HEX_RAY*2, Hex::Axial::HEX_RAY*2 )
+    assert_equal( Hex::Axial.new( 1, 1 ), h )
+
+    # TODO : improve tests on hex borders.
   end
 
 end
