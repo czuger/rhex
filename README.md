@@ -127,7 +127,7 @@ Where m = mountains, g = grass and w = water. If this map is in a file called fo
 => true
 ```
 
-####Dumping an hex map
+####Dumping an hex map (require rmagick - see http://rmagick.rubyforge.org/install-faq.html)
 ------
 
 You can dump a grid to a bitmap file. In order to have different colors for your hex map, you need to specify them when creating the grid.
@@ -140,7 +140,7 @@ Where m = brown, g = green and w = blue (the colors for mountains, grass and wat
 I used rmagick to create the bitmap, so all rmagick color syntax are available : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
 
 ```ruby
-# Create a grid with a correspondence array from hex value to color
+# Create a grid with a correspondence array from val to color
 g = Hex::Grid.new(
   element_to_color_hash: {
     m: :brown, g: :green, w: :blue
