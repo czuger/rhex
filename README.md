@@ -133,12 +133,11 @@ Where m = mountains, g = grass and w = water. If this map is in a file called fo
 You can dump a grid to a bitmap file. In order to have different colors for your hex map, you need to specify them when creating the grid.
 ```ruby
   element_to_color_hash: {
-    m: :brown, g: :green, w: :blue
+    m: :brown, g: :green, w: :blue, u: '#e3e3e3'
   }
 ```
-Where m = brown, g = green and w = blue (the colors for mountains, grass and water). 
+Where m = brown, g = green and w = blue (the colors for mountains, grass and water - u mean unused, its only to show an example of RGB notation). 
 I used rmagick to create the bitmap, so all rmagick color syntax are available : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
-You can use RGB notation (like '#efefef')
 
 ```ruby
 # Create a grid with a correspondence array from hex value to color
