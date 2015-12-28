@@ -30,7 +30,7 @@ module Hex
 
     # Get the border status of the hex
     def border?
-      @border
+      !@border.nil?
     end
 
     # Transform flat topped axial represented hexagon object to flat topped cube represented hexagon object

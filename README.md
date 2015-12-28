@@ -6,7 +6,7 @@
 This repository contain a library for using a grid of hexagones with ruby.
 
 * It a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/) great thanks to him.
-* ~~The hexagons are flat topped by default.
+* ~~The hexagons are flat topped by default~~.
 * The hexagons are now pointy topped.
 * The coordinate system is axial.
 * Only required methods are implemented in the cube object.
@@ -87,18 +87,28 @@ g g g g g w g g g
 g g g g w g g g g
 ```
 
-Where m = mountains, g = grass and w = water.
+Where m = mountains, g = grass and w = water. If this map is in a file called for instance : ascii_map.txt then : 
 
-If this map is in a file called for instance : ascii_map.txt
- 
-You can load it with 
-
+Then You can load it with 
 ```ruby
+# Load it with 
 g.read_ascii_file( 'test/ascii_map.txt' )
 => 0
-```
 
-Then you can 
+# Get an hex 
+>> g.cget( 5, 5 )
+=> #<Hex::Axial:0x00000001445308 @q=5, @r=5, @border=nil, @val=:w>
+
+# Get an hex value
+>> g.cget( 5, 5 ).val
+=> :w
+
+# Check if the hex is at the border of the map or not 
+>> g.cget( 5, 5 ).border?
+=> false
+>> g.cget( 0, 0 ).border?
+=> true
+```
 
 
 
