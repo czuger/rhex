@@ -13,7 +13,7 @@ This repository contain a library for using a grid of hexagones with ruby.
 
 ## Compatibility
 
-This gem has been developped under ruby 2.1.2. It should be compatible with older versions but has not been tested yet.
+This gem has been tested with ruby 2.0.0
 
 ## Usage
 
@@ -48,6 +48,8 @@ hexa.nearest_hex(hlist)
 
 ###Hexagons grid
 ------
+
+Hexagons by themselves are not really useful. What we need is an hexagon grid.
 
 ```ruby
 # Create an hexagon grid
@@ -92,7 +94,7 @@ Where m = mountains, g = grass and w = water. If this map is in a file called fo
 Then You can load it with 
 ```ruby
 # Load it with 
-g.read_ascii_file( 'test/ascii_map.txt' )
+>> g.read_ascii_file( 'test/ascii_map.txt' )
 => 0
 
 # Get an hex 
@@ -120,8 +122,8 @@ You can dump a grid to a bitmap file. In order to have different colors for your
   }
 ```
 Where m = brown, g = green and w = blue (the colors for mountains, grass and water). 
-You can user all colors from rmagick : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
-You can also user RVB notation (like '#efefef') instead of color name (use strings rather than symbols).
+I used rmagick to create the bitmap, so all rmagick color syntaxes are avaliable : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
+For example RVB notation (like '#efefef') work well.
 
 ```ruby
 # Create a grid with a correspondence array from hex value to color
