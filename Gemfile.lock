@@ -18,6 +18,3 @@ PLATFORMS
 DEPENDENCIES
   codeclimate-test-reporter
   minitest
-
-BUNDLED WITH
-   1.11.2
