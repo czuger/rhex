@@ -22,8 +22,8 @@ module AsciiToGrid
         hex.border! if hex
       end
 
-      0.upto( max_r - 1 ).each do |r|
-        hex = cget( max_q - 1, r )
+      0.upto( max_r - 1 ).each do |row|
+        hex = cget( max_q - 1, row )
         hex.border! if hex
       end
 

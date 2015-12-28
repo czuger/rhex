@@ -26,7 +26,7 @@ module GridToPic
     half_width = Hex::Axial.width / 2.0
     quarter_height = Hex::Axial.height / 4.0
 
-    @hexes.each do |pos, hex|
+    @hexes.each do | _, hex|
       x, y = hex.to_xy
 
       color = get_color( hex )
