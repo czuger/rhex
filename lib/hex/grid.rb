@@ -11,6 +11,7 @@ module Hex
     def initialize( element_to_color_hash = {} )
       @hexes={}
       @element_to_color_hash = element_to_color_hash
+      set_hex_dimensions
     end
 
     # Create an hexagon at a given position (q, r)

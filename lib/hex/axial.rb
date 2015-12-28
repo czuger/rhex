@@ -35,6 +35,7 @@ module Hex
       @border
     end
 
+    # TODO : move this in grid : it's nonsense here
     # Create an hexagon object from (x,y) coordinate
     # q = (x * sqrt(3)/3 - y / 3) / size
     # r = y * 2/3 / size
@@ -54,15 +55,6 @@ module Hex
       x = HEX_RAY * Math.sqrt(3) * ( tmp_q + @r/2.0 )
       y = HEX_RAY * 3.0/2.0 * @r
       [ x, y ]
-    end
-
-    # The height of the hexagon as a float
-    def self.height
-      Hex::Axial::HEX_RAY * 2.0
-    end
-
-    def self.width
-      Math.sqrt(3)/2.0 * height
     end
 
     # Transform flat topped axial represented hexagon object to flat topped cube represented hexagon object
