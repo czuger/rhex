@@ -17,7 +17,7 @@ This gem has been tested with ruby 2.0.0
 
 ## Setup
 
-```bash
+```shell
 gem install rhex
 ```
 
