@@ -15,12 +15,14 @@ module GridToPic
       exit if exit_on_error
     end
 
-    canvas = Magick::Image.new( 500, 500 )
+    maxx = @hexes.keys.map{ |k| k[0] }.max * Hex::Axial.width
+    maxy = @hexes.keys.map{ |k| k[1] }.max * Hex::Axial.height * 3.0/4.0
+
+    canvas = Magick::Image.new( maxx, maxy )
     gc = Magick::Draw.new
-    width = Hex::Axial::R * 2
-    quarter_width = width / 4.0
-    height = Math.sqrt(3)/2 * width
-    half_height = height / 2.0
+
+    half_width = Hex::Axial.width / 2.0
+    quarter_height = Hex::Axial.height / 4.0
 
     @hexes.each do |pos, hex|
       x, y = hex.to_xy
@@ -28,8 +30,13 @@ module GridToPic
       color = get_color( hex )
       gc.stroke( 'black' )
       gc.fill( color.to_s )
-      gc.polygon( x-quarter_width, y-half_height, x+quarter_width, y-half_height, x+quarter_width*2, y,
-                  x+quarter_width, y+half_height, x-quarter_width, y+half_height, x-quarter_width*2, y )
+
+      gc.polygon( x - half_width, y + quarter_height,
+                  x, y + 2*quarter_height,
+                  x + half_width, y + quarter_height,
+                  x + half_width, y - quarter_height,
+                  x, y - 2*quarter_height,
+                  x - half_width, y - quarter_height )
     end
 
     gc.draw(canvas)

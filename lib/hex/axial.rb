@@ -7,7 +7,7 @@ module Hex
 
     attr_reader :q, :r, :val
 
-    R = 16
+    HEX_RAY = 16
 
     # Directions around hex from top left clockwise
     DIRECTIONS = [ [0,-1], [1,-1], [1,0], [0,1], [-1,+1], [-1,0] ]
@@ -25,20 +25,28 @@ module Hex
     end
 
     # Create an hexagon object from (x,y) coordinate
-    def self.hex_at_xy(x, y)
-      x-=R
-      y-=R
-      q = x * 2/3 / R
-      r = (-x / 3 + Math.sqrt(3)/3 * y) / R
-      Hex::Axial.new(q, r).round
+    # def self.hex_at_xy(x, y)
+    #   x-=HEX_SIZE
+    #   y-=HEX_SIZE
+    #   q = x * 2/3 / HEX_SIZE
+    #   r = (-x / 3 + Math.sqrt(3)/3 * y) / HEX_SIZE
+    #   Hex::Axial.new(q, r).round
+    # end
+
+    # Give the position of an hexagone object in pixel (we are working pointly topped)
+    def to_xy
+      x = HEX_RAY * Math.sqrt(3) * ( @q + @r/2.0 )
+      y = HEX_RAY * 3.0/2.0 * @r
+      [ x, y ]
     end
 
-    # Give the position of an hexagone object in pixel
-    def to_xy
-      pix_r = r - ( @q/2 )
-      x = R * 3/2 * @q
-      y = ( ( R.to_f * Math.sqrt(3) ).round * (pix_r.to_f + @q.to_f/2.to_f) )
-      [ x, y ]
+    # The height of the hexagon as a float
+    def self.height
+      Hex::Axial::HEX_RAY * 2.0
+    end
+
+    def self.width
+      Math.sqrt(3)/2.0 * height
     end
 
     # Transform flat topped axial represented hexagon object to flat topped cube represented hexagon object
