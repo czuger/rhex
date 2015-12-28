@@ -29,4 +29,26 @@ class TestGrid < Minitest::Test
     assert_equal( @g.hget( Hex::Axial.new( 15, 15 ) ).val, :value )
   end
 
+  def test_xy_to_hex
+    h = @g.hex_at_xy( 0, 0 )
+    assert_equal( Hex::Axial.new( 0, 0 ), h )
+
+    h = @g.hex_at_xy( @g.hex_width, 0 )
+    assert_equal( Hex::Axial.new( 1, 0 ), h )
+
+    h = @g.hex_at_xy( 0, @g.hex_height )
+    assert_equal( Hex::Axial.new( 0, 1 ), h )
+
+    h = @g.hex_at_xy( @g.hex_width, @g.hex_height )
+    assert_equal( Hex::Axial.new( 1, 1 ), h )
+
+    # h = @g.hex_at_xy( 9, 17 )
+    # assert_equal( Hex::Axial.new( 0, 1 ), h )
+    # h = @g.hex_at_xy( 14, 24 )
+    # assert_equal( Hex::Axial.new( 0, 1 ), h )
+    # h = @g.hex_at_xy( 20, 30 )
+    # assert_equal( Hex::Axial.new( 0, 1 ), h )
+
+  end
+
 end

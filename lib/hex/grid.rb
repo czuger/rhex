@@ -8,9 +8,10 @@ module Hex
     include GridToPic
     include AsciiToGrid
 
-    def initialize( element_to_color_hash = {} )
+    def initialize( hex_ray: 16, element_to_color_hash: {} )
       @hexes={}
       @element_to_color_hash = element_to_color_hash
+      @hex_ray = hex_ray
       set_hex_dimensions
     end
 
@@ -33,6 +34,26 @@ module Hex
     # Same method, but accept an hexagon instead of (q, r) coords
     def hget( hex )
       @hexes[ [ hex.q, hex.r ] ]
+    end
+
+    # Create an hexagon object from (x,y) coordinate
+    # q = (x * sqrt(3)/3 - y / 3) / size
+    # r = y * 2/3 / size
+    # return hex_round(Hex(q, r))
+    def hex_at_xy(x, y)
+      # x-=@hex_width/2.0
+      # y-=@hex_height/2.0
+      q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
+      r = y * 2.0/3.0 / @hex_ray
+      Hex::Axial.new(q + (r/2.0), r).round
+    end
+
+    # Give the position of an hexagone object in pixel (we are working pointly topped)
+    def to_xy( hex )
+      tmp_q = hex.q - ( hex.r/2.0 ).floor
+      x = @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 )
+      y = @hex_ray * 3.0/2.0 * hex.r
+      [ x, y ]
     end
 
   end

@@ -7,8 +7,6 @@ module Hex
 
     attr_reader :q, :r, :val
 
-    HEX_RAY = 16
-
     # Directions around hex from top left clockwise
     DIRECTIONS = [ [0,-1], [1,-1], [1,0], [0,1], [-1,+1], [-1,0] ]
 
@@ -33,28 +31,6 @@ module Hex
     # Get the border status of the hex
     def border?
       @border
-    end
-
-    # TODO : move this in grid : it's nonsense here
-    # Create an hexagon object from (x,y) coordinate
-    # q = (x * sqrt(3)/3 - y / 3) / size
-    # r = y * 2/3 / size
-    # return hex_round(Hex(q, r))
-    def self.hex_at_xy(x, y)
-      x-=HEX_RAY
-      y-=HEX_RAY
-      q = (x * Math.sqrt(3)/3.0 - y/3.0) / HEX_RAY
-      r = y * 2.0/3.0 / HEX_RAY
-      Hex::Axial.new(q, r).round
-    end
-
-
-    # Give the position of an hexagone object in pixel (we are working pointly topped)
-    def to_xy
-      tmp_q = @q - ( @r/2.0 ).floor
-      x = HEX_RAY * Math.sqrt(3) * ( tmp_q + @r/2.0 )
-      y = HEX_RAY * 3.0/2.0 * @r
-      [ x, y ]
     end
 
     # Transform flat topped axial represented hexagon object to flat topped cube represented hexagon object

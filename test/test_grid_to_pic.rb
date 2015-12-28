@@ -21,7 +21,7 @@ class TestGridToPic < Minitest::Test
 
   def test_map
     @g = Hex::Grid.new(
-      {
+      element_to_color_hash: {
         m: :brown, g: :green, w: :blue
       }
     )

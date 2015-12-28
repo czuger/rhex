@@ -9,14 +9,16 @@ end
 
 module GridToPic
 
+  attr_reader :hex_height, :hex_width
+
   def to_pic( pic_name, exit_on_error = true )
     unless defined?( Magick::Image ) && defined?( Magick::HatchFill ) && defined?( Magick::Draw )
       puts 'Rmagick is not installed !!! You can\'t dump hex grid to pic'
       exit if exit_on_error
     end
 
-    maxx = @hexes.keys.map{ |k| k[0] }.max * @width
-    maxy = @hexes.keys.map{ |k| k[1] }.max * @height * 3.0/4.0
+    maxx = @hexes.keys.map{ |k| k[0] }.max * @hex_width
+    maxy = @hexes.keys.map{ |k| k[1] }.max * @hex_height * 3.0/4.0
 
     canvas = Magick::Image.new( maxx, maxy )
     gc = Magick::Draw.new
@@ -31,11 +33,11 @@ module GridToPic
 
   def set_hex_dimensions
 
-    @height = Hex::Axial::HEX_RAY * 2.0
-    @width =  Math.sqrt(3)/2.0 * @height
+    @hex_height = @hex_ray * 2.0
+    @hex_width =  Math.sqrt(3)/2.0 * @hex_height
 
-    @half_width = @width / 2.0
-    @quarter_height = @height / 4.0
+    @half_width = @hex_width / 2.0
+    @quarter_height = @hex_height / 4.0
 
   end
 
@@ -47,7 +49,7 @@ module GridToPic
   end
 
   def draw_hex( gc, hex )
-    x, y = hex.to_xy
+    x, y = to_xy( hex )
 
     color = get_color( hex )
     gc.fill( color.to_s )
