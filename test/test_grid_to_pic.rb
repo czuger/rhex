@@ -1,9 +1,5 @@
 require_relative 'test_helper'
 
-require 'minitest/autorun'
-require 'hex/grid'
-require 'hex/axial'
-
 class TestGridToPic < Minitest::Test
 
   def setup

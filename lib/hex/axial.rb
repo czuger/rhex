@@ -70,9 +70,9 @@ module Hex
     end
 
     # Round an hexagon coordinates (useful after pixel to axial coordinate transformation)
-    def round
-      to_cube.round.to_axial
-    end
+    # def round
+    #   to_cube.round.to_axial
+    # end
 
   end
 end

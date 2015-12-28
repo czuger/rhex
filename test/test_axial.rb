@@ -1,8 +1,5 @@
 require_relative 'test_helper'
 
-require 'minitest/autorun'
-require 'hex/axial.rb'
-
 class TestAxial < Minitest::Test
 
   def setup

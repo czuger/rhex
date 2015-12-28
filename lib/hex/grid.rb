@@ -40,15 +40,15 @@ module Hex
     # q = (x * sqrt(3)/3 - y / 3) / size
     # r = y * 2/3 / size
     # return hex_round(Hex(q, r))
-    def hex_at_xy(x, y)
-      # x-=@hex_width/2.0
-      # y-=@hex_height/2.0
-      q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
-      r = y * 2.0/3.0 / @hex_ray
-      Hex::Axial.new(q + (r/2.0), r).round
-    end
+    # def hex_at_xy(x, y)
+    #   # x-=@hex_width/2.0
+    #   # y-=@hex_height/2.0
+    #   q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
+    #   r = y * 2.0/3.0 / @hex_ray
+    #   Hex::Axial.new(q, r).round
+    # end
 
-    # Give the position of an hexagone object in pixel (we are working pointly topped)
+    # Give the position of an hexagon object in pixel.
     def to_xy( hex )
       tmp_q = hex.q - ( hex.r/2.0 ).floor
       x = @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 )
