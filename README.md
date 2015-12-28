@@ -3,9 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/rhex.svg)](https://badge.fury.io/rb/rhex)
 
 # Rhex
-This repository contain a library for using a grid of hexagones with ruby.
+This repository contain a library for using a grid of hexagons with ruby.
 
-* It a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/) great thanks to him.
+* It is a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/).
 * ~~The hexagons are flat topped by default~~.
 * The hexagons are now pointy topped.
 * The coordinate system is axial.
@@ -122,7 +122,7 @@ You can dump a grid to a bitmap file. In order to have different colors for your
   }
 ```
 Where m = brown, g = green and w = blue (the colors for mountains, grass and water). 
-I used rmagick to create the bitmap, so all rmagick color syntaxes are avaliable : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
+I used rmagick to create the bitmap, so all rmagick color syntax are available : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
 For example RVB notation (like '#efefef') work well.
 
 ```ruby
