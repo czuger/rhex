@@ -138,7 +138,7 @@ You can dump a grid to a bitmap file. In order to have different colors for your
 ```
 Where m = brown, g = green and w = blue (the colors for mountains, grass and water). 
 I used rmagick to create the bitmap, so all rmagick color syntax are available : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
-For example RVB notation (like '#efefef') work well.
+You can use RGB notation (like '#efefef')
 
 ```ruby
 # Create a grid with a correspondence array from hex value to color
