@@ -10,7 +10,7 @@ end
 module GridToPic
 
   def to_pic( pic_name, exit_on_error = true )
-    unless defined?( Magick::Image ) && defined?( Magick::HatchFill ) && defined?( Magick::Draw )
+    unless defined?( Magick::Image )
       puts 'Rmagick is not installed !!! You can\'t dump hex grid to pic'
       exit if exit_on_error
     end
