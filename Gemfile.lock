@@ -5,6 +5,7 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     docile (1.1.5)
     json (1.8.3)
+    minitest (5.5.1)
     simplecov (0.11.1)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -16,3 +17,7 @@ PLATFORMS
 
 DEPENDENCIES
   codeclimate-test-reporter
+  minitest
+
+BUNDLED WITH
+   1.11.2

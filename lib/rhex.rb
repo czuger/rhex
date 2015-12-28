@@ -1,3 +1,3 @@
-require 'hex/axial'
-require 'hex/cube'
-require 'hex/grid'
+require_relative 'hex/axial'
+require_relative 'hex/cube'
+require_relative 'hex/grid'

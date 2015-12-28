@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class TestGridToPic < Minitest::Test
+class TestGridToPic < Minitest::Unit::TestCase
 
   def setup
     @g = Hex::Grid.new
