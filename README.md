@@ -113,14 +113,19 @@ g.read_ascii_file( 'test/ascii_map.txt' )
 ####Dumping an hex map
 ------
 
-The map you create can be dumped to a bitmap. Let's see : 
+You can dump a grid to a bitmap file.
+In order to have different colors for your hex map, you need to specify them when creating the grid
+```ruby
+  element_to_color_hash: {
+    m: :brown, g: :green, w: :blue
+  }
+```
+Where m = brown, g = green and w = blue (the colors for mountains, grass and water)
+You can user all colors from rmagick : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names
+You can also user rvb notation (#efefef for example) instead of color name (use strings rather than symbols)
 
 ```ruby
-# In order to have different colors for your hex map, you need to specify them when creating the grid
-# element_to_color_hash: { m: :brown, g: :green, w: :blue }
-# Where m = brown, g = green and w = blue (the colors for mountains, grass and water)
-# You can user all colors from rmagick : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names
-# You can also user rvb notation (#efefef for example) instead of color name (use strings rather than symbols)
+# Create a grid with a correspondence array from hex value to color
 g = Hex::Grid.new(
   element_to_color_hash: {
     m: :brown, g: :green, w: :blue
@@ -134,6 +139,6 @@ g.read_ascii_file( 'test/ascii_map.txt' )
 g.to_pic( 'test2.png' )
 ```
 
-You should see something like : 
+You should get your map as an hex bitmap grid : 
 
 ![test picture](/images/test2.png)
