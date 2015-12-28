@@ -12,16 +12,27 @@ module Hex
     # Directions around hex from top left clockwise
     DIRECTIONS = [ [0,-1], [1,-1], [1,0], [0,1], [-1,+1], [-1,0] ]
 
-    # Create a new flat topped axial represented hexagon object
-    def initialize( q, r, val = nil)
+    # Create a new pointy topped axial represented hexagon object
+    def initialize( q, r, val: nil, border: false )
       @q = q
       @r = r
       @val = val.to_sym if val
+      @border = @border
     end
 
     # Equality between two hexagons
     def ==(h)
       @q==h.q && @r==h.r
+    end
+
+    # Force the border status of the hex
+    def border!
+      @border = true
+    end
+
+    # Get the border status of the hex
+    def border?
+      @border
     end
 
     # Create an hexagon object from (x,y) coordinate

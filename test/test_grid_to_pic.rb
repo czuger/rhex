@@ -9,9 +9,9 @@ class TestGridToPic < Minitest::Test
   end
 
   def test_grid_to_pic
-    0.upto( 5 ).each do |i|
-      0.upto( 5 ).each do |j|
-        @g.set( i, j )
+    0.upto( 5 ).each do |r|
+      0.upto( 5 ).each do |q|
+        @g.cset( q - ( r/2.0 ).floor, r )
       end
     end
 

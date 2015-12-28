@@ -13,35 +13,25 @@ module Hex
       @element_to_color_hash = element_to_color_hash
     end
 
-    # Position aa value at hexagon coordinate
-    # You can use the form set( q, r, value )
-    # Or set( hex, value )
-    # In both case value can be nil.
-    def set( *args )
-      raise ArgumentError, 'Incorrect number of arguments' if args.length < 1 || args.length > 3
-      fa=args.shift
-      if fa.class == Hex::Axial
-        @hexes[ [ fa.q, fa.r ] ] = Hex::Axial.new( fa.q, fa.r, args.shift )
-      else
-        q=fa
-        r=args.shift
-        @hexes[ [ q, r ] ] = Hex::Axial.new( q, r, args.shift )
-      end
+    # Create an hexagon at a given position (q, r)
+    # You can set a value for the hexagon and set the hex as a border hex or not
+    def cset( q, r, val: nil, border: false )
+      @hexes[ [ q, r ] ] = Hex::Axial.new( q, r, val: val, border: border )
     end
 
-    # Get the value of stored at hexagon coordinate
-    # You can use the form get( q, r )
-    # Or get( hex )
-    def get( *args )
-      raise( ArgumentError, 'Incorrect number of arguments' ) if args.length < 1 || args.length > 2
-      fa=args.shift
-      if fa.class == Hex::Axial
-        @hexes[ [ fa.q, fa.r ] ]
-      else
-        q=fa
-        r=args.shift
-        @hexes[ [ q, r ] ]
-      end
+    # Same method, but accept an hexagon instead of (q, r) coords
+    def hset( hex, val: nil, border: false )
+      @hexes[ [ hex.q, hex.r ] ] = Hex::Axial.new( hex.q, hex.r, val: val, border: border )
+    end
+
+    # Get the hexagon at a given position (q, r)
+    def cget( q, r )
+      @hexes[ [ q, r ] ]
+    end
+
+    # Same method, but accept an hexagon instead of (q, r) coords
+    def hget( hex )
+      @hexes[ [ hex.q, hex.r ] ]
     end
 
   end

@@ -20,6 +20,8 @@ module GridToPic
 
     canvas = Magick::Image.new( maxx, maxy )
     gc = Magick::Draw.new
+    gc.stroke_antialias( true )
+    gc.stroke( 'black' )
 
     half_width = Hex::Axial.width / 2.0
     quarter_height = Hex::Axial.height / 4.0
@@ -28,7 +30,6 @@ module GridToPic
       x, y = hex.to_xy
 
       color = get_color( hex )
-      gc.stroke( 'black' )
       gc.fill( color.to_s )
 
       gc.polygon( x - half_width, y + quarter_height,

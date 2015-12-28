@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = 'http://rubygems.org/gems/rhex'
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.0.0'
 end
