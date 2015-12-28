@@ -17,7 +17,7 @@ module Hex
       @q = q
       @r = r
       @val = val.to_sym if val
-      @border = @border
+      @border = border
     end
 
     # Equality between two hexagons
@@ -46,7 +46,8 @@ module Hex
 
     # Give the position of an hexagone object in pixel (we are working pointly topped)
     def to_xy
-      x = HEX_RAY * Math.sqrt(3) * ( @q + @r/2.0 )
+      tmp_q = @q - ( @r/2.0 ).floor
+      x = HEX_RAY * Math.sqrt(3) * ( tmp_q + @r/2.0 )
       y = HEX_RAY * 3.0/2.0 * @r
       [ x, y ]
     end

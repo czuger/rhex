@@ -1,6 +1,5 @@
 module AsciiToGrid
 
-  # TODO : Need to test the borders
   def read_ascii_file( file_path )
     File.open( file_path ) do |file|
 
@@ -10,7 +9,7 @@ module AsciiToGrid
         q = 0
         elements.each do |element|
           border = true if ( r == 0 || q == 0 )
-          cset( q - ( r/2.0 ).floor, r, val: element, border: border )
+          cset( q, r, val: element, border: border )
           q += 1
           max_q = [ max_q, q ].max
         end
