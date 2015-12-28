@@ -107,7 +107,6 @@ g g g g w g g g g
 
 Where m = mountains, g = grass and w = water. If this map is in a file called for instance : ascii_map.txt then : 
 
-Then You can load it with 
 ```ruby
 # Load it with 
 >> g.read_ascii_file( 'test/ascii_map.txt' )
