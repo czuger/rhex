@@ -36,17 +36,17 @@ module Hex
       @hexes[ [ hex.q, hex.r ] ]
     end
 
-    # Create an hexagon object from (x,y) coordinate
+    #  Create an hexagon object from (x,y) coordinate
     # q = (x * sqrt(3)/3 - y / 3) / size
     # r = y * 2/3 / size
     # return hex_round(Hex(q, r))
-    # def hex_at_xy(x, y)
-    #   # x-=@hex_width/2.0
-    #   # y-=@hex_height/2.0
-    #   q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
-    #   r = y * 2.0/3.0 / @hex_ray
-    #   Hex::Axial.new(q, r).round
-    # end
+    def hex_at_xy(x, y)
+      # x-=@hex_width/2.0
+      # y-=@hex_height/2.0
+      q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
+      r = y * 2.0/3.0 / @hex_ray
+      Hex::Axial.new(q, r).round
+    end
 
     # Give the position of an hexagon object in pixel.
     def to_xy( hex )

@@ -31,6 +31,8 @@ module GridToPic
     canvas.write( pic_name )
   end
 
+  private
+
   def set_hex_dimensions
 
     @hex_height = @hex_ray * 2.0
@@ -40,8 +42,6 @@ module GridToPic
     @quarter_height = @hex_height / 4.0
 
   end
-
-  private
 
   def get_color( hex )
     color = @element_to_color_hash[ hex.val ]
