@@ -7,10 +7,17 @@ rescue Gem::LoadError
   puts 'Caution : Rmagick is not installed'
 end
 
+# This module contain methods to draw a grid to a picture file.
+# It is included in Grid.
 module GridToPic
 
-  attr_reader :hex_height, :hex_width
+  attr_reader :hex_height, :hex_width #:nodoc:
 
+  # Draw a picture of the hexagon grid
+  # - +pic_name+ : the name of the picture file (can be *.bmp, *.png, *.jpg)
+  # - +exit_on_error+ : by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
+  #
+  # *Returns* : true if the file was created successfully, false otherwise.
   def to_pic( pic_name, exit_on_error = true )
     unless defined?( Magick::Image ) && defined?( Magick::HatchFill ) && defined?( Magick::Draw )
       puts 'Rmagick is not installed !!! You can\'t dump hex grid to pic'

@@ -1,5 +1,8 @@
+# This module contains the methods relatives to ascii map reading
 module AsciiToGrid
 
+  #  Read an ascii file and load it into the hexagon grid.
+  #  - +file_path+ :  is the name of the ascii file to read. For how to create this file, please see : https://github.com/czuger/rhex#reading-a-grid-from-an-ascii-file
   def read_ascii_file( file_path )
     File.open( file_path ) do |file|
 

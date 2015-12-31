@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class TestGrid < Minitest::Unit::TestCase
+class TestGrid < Minitest::Unit::TestCase #:nodoc:
 
   def setup
     @g = Hex::Grid.new( hex_ray: 16 )
