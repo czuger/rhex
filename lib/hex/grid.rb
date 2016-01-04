@@ -71,7 +71,8 @@ module Hex
       q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
       r = y * 2.0/3.0 / @hex_ray
       hex = Hex::Axial.new(q, r).round
-      hget( hex )
+      # TODO : fix this, tests are not working
+      cget( hex.q + ( hex.r/2.0 ).floor, hex.r )
     end
 
     # Give the position of an hexagon object in pixel.
