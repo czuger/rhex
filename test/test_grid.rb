@@ -37,6 +37,8 @@ class TestGrid < Minitest::Unit::TestCase #:nodoc:
     #   end
     # end
 
+    @g.read_ascii_file( 'test/ascii_map.txt' )
+
     h = @g.hex_at_xy( 0, 0 )
     assert_equal( Hex::Axial.new( 0, 0 ), h )
 
@@ -50,6 +52,9 @@ class TestGrid < Minitest::Unit::TestCase #:nodoc:
     assert_equal( Hex::Axial.new( 0, 1 ), h )
 
     h = @g.hex_at_xy( 14, 24 )
+    assert_equal( Hex::Axial.new( 0, 1 ), h )
+
+    h = @g.hex_at_xy( 7, 50 )
     assert_equal( Hex::Axial.new( 0, 1 ), h )
 
     h = @g.hex_at_xy( 20, 30 )
