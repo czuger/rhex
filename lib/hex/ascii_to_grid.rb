@@ -6,29 +6,28 @@ module AsciiToGrid
   def read_ascii_file( file_path )
     File.open( file_path ) do |file|
 
-      r = max_q = max_r = 0
+      r = max_r = 0
+
       file.each_line do |line|
         elements = line.split
         q = 0
         elements.each do |element|
           border = true if ( r == 0 || q == 0 )
-          cset( q, r, val: element, border: border )
+          shifted_q = q - ( r/2 )
+          cset( shifted_q, r, val: element, border: border )
           q += 1
-          max_q = [ max_q, q ].max
         end
         r += 1
         max_r = [ max_r, r ].max
       end
 
-      0.upto( max_q - 1 ).each do |q|
-        hex = cget( q, max_r - 1 )
+      0.upto( max_r - 1 ).each do |row|
+        maxq = @hexes.map{ |key, e| e.q if e.r == row }.compact.max
+        hex = cget( maxq, row )
         hex.border! if hex
       end
 
-      0.upto( max_r - 1 ).each do |row|
-        hex = cget( max_q - 1, row )
-        hex.border! if hex
-      end
+      @hexes.each{ |key, e| e.border! if e.r == ( max_r - 1 ) }
 
     end
   end

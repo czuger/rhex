@@ -55,7 +55,7 @@ class TestGrid < Minitest::Unit::TestCase #:nodoc:
     assert_equal( Hex::Axial.new( 0, 1 ), h )
 
     h = @g.hex_at_xy( 7, 50 )
-    assert_equal( Hex::Axial.new( 0, 2 ), h )
+    assert_equal( Hex::Axial.new( -1, 2 ), h )
 
     h = @g.hex_at_xy( 20, 30 )
     assert_equal( Hex::Axial.new( 0, 1 ), h )

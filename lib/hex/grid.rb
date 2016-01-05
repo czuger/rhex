@@ -71,15 +71,14 @@ module Hex
       q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
       r = y * 2.0/3.0 / @hex_ray
       hex = Hex::Axial.new(q, r).round
-      # TODO : fix this, tests are not working
-      cget( hex.q + ( hex.r/2.0 ).floor, hex.r )
+      cget( hex.q, hex.r )
     end
 
     # Give the position of an hexagon object in pixel.
     #
     # *Returns* : an array of x, y positions.
     def to_xy( hex )
-      tmp_q = hex.q - ( hex.r/2.0 ).floor
+      tmp_q = hex.q
       x = @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 )
       y = @hex_ray * 3.0/2.0 * hex.r
       [ x, y ]
