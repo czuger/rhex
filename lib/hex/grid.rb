@@ -1,6 +1,7 @@
 require_relative 'axial'
 require_relative 'grid_to_pic'
 require_relative 'ascii_to_grid'
+require_relative 'movement'
 
 module Hex
 
@@ -11,6 +12,7 @@ module Hex
 
     include GridToPic
     include AsciiToGrid
+    include Movement
 
     # Create an hexagon object
     # - +hex_ray+ is the size of an hexagon. Please read : http://www.redblobgames.com/grids/hexagons/#basics for information about the size of an hexagon.

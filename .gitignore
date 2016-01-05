@@ -4,5 +4,4 @@ rhex*.gem
 coverage
 doc
 
-/test1.png
-/test2.png
+tmp

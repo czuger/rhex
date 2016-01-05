@@ -122,6 +122,13 @@ module Hex
       to_cube.round.to_axial
     end
 
+    # Transform an hex to it's q, r coordinates
+    #
+    # *Returns* : an array [ q, r ]
+    def qr
+      [ q, r ]
+    end
+
   end
 end
 

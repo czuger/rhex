@@ -12,7 +12,7 @@ class TestGridToPic < Minitest::Unit::TestCase #:nodoc:
         @g.cset( q, r )
       end
     end
-    @g.to_pic( 'test1.png' )
+    @g.to_pic( 'tmp/test1.png' )
   end
 
   def test_map
@@ -22,7 +22,7 @@ class TestGridToPic < Minitest::Unit::TestCase #:nodoc:
       }
     )
     @g.read_ascii_file( 'test/ascii_map.txt' )
-    @g.to_pic( 'test2.png' )
+    @g.to_pic( 'tmp/test2.png' )
   end
 
   def test_borders
