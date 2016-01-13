@@ -24,7 +24,7 @@ module GridToPic
       exit if exit_on_error
     end
 
-    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max + 0.5 ) * @hex_width
+    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) * @hex_width
     maxy = @hexes.keys.map{ |k| k[1] }.max * @hex_height * 3.0/4.0
 
     canvas = Magick::Image.new( maxx, maxy )

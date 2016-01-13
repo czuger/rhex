@@ -14,4 +14,5 @@ Gem::Specification.new do |s|
   # s.homepage    = 'http://rubygems.org/gems/rhex'
   s.license     = 'MIT'
   s.required_ruby_version = '>= 2.0.0'
+  s.add_runtime_dependency 'pqueue', '~> 2.1'
 end

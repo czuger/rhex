@@ -2,7 +2,7 @@ require 'pqueue'
 
 module Movement
 
-  def a_star( start, goal, costs )
+  def compute_movement( start, goal, costs )
 
     start = hget( start )
     goal = hget( goal )
