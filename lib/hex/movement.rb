@@ -20,6 +20,7 @@ module Movement
       break if current == goal
 
       neighbors = current.get_surrounding_hexs
+      new_cost = nil
 
       neighbors.each do |neighbor|
         neighbor = hget( neighbor ) # get_surrounding_hexs only give us a position. We need to transform it into an hex on the grid.
@@ -37,12 +38,15 @@ module Movement
 
     current = goal
     path = [ current ]
+    path_cost = [ new_cost ]
     until current == start
       current = came_from[ current.qr ]
+      cost = cost_so_far[ current.qr ]
       path << current
+      path_cost << cost
     end
 
-    path.reverse
+    [ path.reverse, path_cost.reverse ]
   end
 
   private

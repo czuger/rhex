@@ -12,6 +12,7 @@ end
 module GridToPic
 
   attr_reader :hex_height, :hex_width #:nodoc:
+  attr_reader :quarter_height, :half_width #:nodoc:
 
   # Draw a picture of the hexagon grid
   # - +pic_name+ : the name of the picture file (can be *.bmp, *.png, *.jpg)
