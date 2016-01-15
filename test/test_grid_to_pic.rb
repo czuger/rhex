@@ -34,14 +34,14 @@ class TestGridToPic < Minitest::Unit::TestCase #:nodoc:
     assert( @g.cget( 8, 0 ).border? )
     assert( @g.cget( 7, 0 ).border? )
 
-    assert( @g.cget( 8, 1 ).border? )
-    refute( @g.cget( 7, 1 ).border? )
+    assert( @g.cget( 10, 1 ).border? )
+    refute( @g.cget( 9, 1 ).border? )
 
-    assert( @g.cget( 7, 2 ).border? )
-    refute( @g.cget( 6, 2 ).border? )
+    assert( @g.cget( 10, 2 ).border? )
+    refute( @g.cget( 9, 2 ).border? )
 
-    assert( @g.cget( 7, 3 ).border? )
-    refute( @g.cget( 6, 3 ).border? )
+    assert( @g.cget( 9, 3 ).border? )
+    refute( @g.cget( 8, 3 ).border? )
 
     assert( @g.cget( -1, 3 ).border? )
     refute( @g.cget( 0, 3 ).border? )

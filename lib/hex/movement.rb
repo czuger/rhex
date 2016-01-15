@@ -38,16 +38,21 @@ module Movement
 
     current = goal
     path = [ current ]
-    path_cost = [ new_cost ]
     until current == start
       current = came_from[ current.qr ]
       cost = cost_so_far[ current.qr ]
       path << current
-      path_cost << cost
     end
 
-    [ path.reverse, path_cost.reverse ]
+    path.reverse!
+    path_cost = []
+    path.each do |h|
+      path_cost << cost_so_far[ h.qr ]
+    end
+
+    [ path, path_cost ]
   end
+
 
   private
 
