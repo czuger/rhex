@@ -1,5 +1,8 @@
 require 'pqueue'
 
+# TODO : finalize movement : add a cost limit (can't move more than n-points)
+# TODO : add a method that give all movements from a points (withing a cost limit)
+
 module Movement
 
   def compute_movement( start, goal, costs )

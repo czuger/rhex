@@ -7,6 +7,8 @@ GEM
     json (1.8.3)
     minitest (5.5.1)
     pqueue (2.1.0)
+    rake (10.1.0)
+    rmagick (2.15.4)
     simplecov (0.11.1)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -20,6 +22,5 @@ DEPENDENCIES
   codeclimate-test-reporter
   minitest
   pqueue (~> 2.1)
-
-BUNDLED WITH
-   1.10.5
+  rake
+  rmagick
