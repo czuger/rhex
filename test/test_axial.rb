@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class TestAxial < Minitest::Unit::TestCase #:nodoc:
+class TestAxial < Minitest::Test #:nodoc:
 
   def setup
     @h = Hex::Axial.new( 15, 15 )

@@ -33,6 +33,7 @@ module GridToPic
     gc = Magick::Draw.new
     gc.stroke_antialias( true )
     gc.stroke( 'black' )
+    gc.stroke_opacity( '60%' )
 
     @hexes.each{ | _, hex| draw_hex( gc, hex ) }
 

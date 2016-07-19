@@ -31,4 +31,5 @@ module AsciiToGrid
 
     end
   end
+
 end

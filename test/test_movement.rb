@@ -4,7 +4,7 @@ require 'pp'
 require 'rmagick'
 include Magick
 
-class TestGrid < Minitest::Unit::TestCase #:nodoc:
+class TestMovement < Minitest::Test #:nodoc:
 
   COSTS = { m: 4, f: 2, w: Float::INFINITY, h: 2, g: 1, r: 2 }
   COLORS = { m: :maroon, f: :green, w: :blue, h: :chocolate, g: :limegreen, r: :royalblue }
