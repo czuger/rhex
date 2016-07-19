@@ -7,4 +7,6 @@ gem 'minitest'
 
 gem 'pqueue', '~> 2.1'
 
-# gem 'rmagick'
+gem 'rake'
+
+gem 'rmagick'
