@@ -24,10 +24,10 @@ module AsciiToGrid
       0.upto( max_r - 1 ).each do |row|
         maxq = @hexes.map{ |key, e| e.q if e.r == row }.compact.max
         hex = cget( maxq, row )
-        hex.border! if hex
+        hex.border = true if hex
       end
 
-      @hexes.each{ |key, e| e.border! if e.r == ( max_r - 1 ) }
+      @hexes.each{ |key, e| e.border = true if e.r == ( max_r - 1 ) }
 
     end
   end

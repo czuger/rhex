@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rhex'
-  s.version     = '1.3.0'
+  s.version     = '2.0.0'
   s.date        = '2016-01-05'
   s.summary     = 'Ruby HEXagonal grid'
   s.description = <<-EOF
@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   # s.homepage    = 'http://rubygems.org/gems/rhex'
   s.license     = 'MIT'
   s.required_ruby_version = '>= 2.0.0'
-  s.add_runtime_dependency 'pqueue', '~> 2.1'
+  # s.add_runtime_dependency 'rmagick', '~> 2.1'
 end
