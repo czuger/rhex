@@ -66,6 +66,14 @@ module Hex
       @hexes[ [ hex.q, hex.r ] ]
     end
 
+    # Get all the hexes of the map
+    #
+    #
+    def each
+      @hexes.each do |h|
+        yield h
+      end
+    end
     # Get the hexagon at (x,y) coordinate.
     #
     # *Returns* : the Hex::Axial object at x, y pos.
