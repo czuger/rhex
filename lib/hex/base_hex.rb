@@ -1,8 +1,9 @@
 class BaseHex
-  attr_accessor :val, :border #:nodoc:
+  attr_accessor :color, :border, :data #:nodoc:
 
-  def initialize( val = nil, border = nil )
-    @val = val if val
+  def initialize( color = nil, border = nil, data = nil )
+    @color = color if color
     @border = @border if border
+    @data = data
   end
 end

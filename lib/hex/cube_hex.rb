@@ -14,19 +14,19 @@ class CubeHex < BaseHex
   # - +x+, +y+, +z+ are the coordinates in the axial coords system
   #
   # *Returns* : a new Hex::Cube object.
-  def initialize( x, y, z, val: nil, border: nil )
+  def initialize( x, y, z, color: nil, border: nil, data: nil )
     @x = x
     @y = y
     @z = z
 
-    super( val, border )
+    super( color, border, data )
   end
 
   # Transform a cube represented hexagon to an Hexagon::Axial represented hexagon
   #
   # *Returns* : a new Hex::Axial object.
   def to_axial
-    AxialHex.new(@x, @z, val: @val, border: @border)
+    AxialHex.new(@x, @z, color: @color, border: @border, data: @data)
   end
 
   # Round the float coordinates to integer coordinates.
@@ -48,7 +48,7 @@ class CubeHex < BaseHex
     else
       rz = -rx-ry
     end
-    CubeHex.new(rx, ry, rz, val: @val, border: @border)
+    CubeHex.new(rx, ry, rz, color: @color, border: @border, data: @data)
   end
 
   # Compute the distance between two hexagons (in hexagons)

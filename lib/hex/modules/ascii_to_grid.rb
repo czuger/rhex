@@ -14,7 +14,7 @@ module AsciiToGrid
         elements.each do |element|
           border = true if ( r == 0 || q == 0 )
           shifted_q = q - ( r/2 )
-          cset( shifted_q, r, val: element, border: border )
+          cset( shifted_q, r, color: element, border: border )
           q += 1
         end
         r += 1

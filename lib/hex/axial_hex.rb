@@ -15,19 +15,23 @@ class AxialHex < BaseHex
 
   # Create an hexagon object
   # - +q+ and +r+ are the coordinates in the axial coords system
-  # - +val+ : is a value anything you want.
+  # - +color+ : is a colorue anything you want.
   # - +border+ is a boolean and mean that the hex is at the border of the map.
   #
   # *Returns* : a new Hex::Axial object.
-  def initialize( q, r, val: nil, border: false )
+  def initialize( q, r, color: nil, border: false, data: nil )
     @q = q
     @r = r
-    super( val, border )
+    super( color, border, data )
   end
 
   # Check the equality between two hexagons.
   def ==(h) #:nodoc:
     @q==h.q && @r==h.r
+  end
+
+  def !=(h) #:nodoc:
+    @q!=h.q || @r!=h.r
   end
 
   # Transform an axial represented hexagon object to a cube represented hexagon object.
@@ -53,11 +57,15 @@ class AxialHex < BaseHex
     nearest_hex = nil
     current_distance = nil
     hex_array.each do |h|
-      unless nearest_hex
+      if nearest_hex
+        dist = distance( h )
+        if distance( h ) < current_distance
+          nearest_hex = h
+          current_distance = dist
+        end
+      else
         nearest_hex = h
         current_distance = distance( h )
-      else
-        nearest_hex = h if distance( h ) < current_distance
       end
     end
     nearest_hex
@@ -85,9 +93,9 @@ class AxialHex < BaseHex
   # Get all hexagons surrounding the current hexagon
   #
   # *Returns* : an array of Hex::Axial.
-  def get_surrounding_hexs
+  def surrounding_hexes
     # puts self.inspect, self.q.inspect, self.r.inspect
-    DIRECTIONS.map{ |e| AxialHex.new(@q+e[0], @r+e[1] ) }
+    DIRECTIONS.map{ |e| AxialHex.new( @q+e[0], @r+e[1] ) }
   end
 
   # Check if an hexagon is around another hexagon

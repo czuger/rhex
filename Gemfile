@@ -2,7 +2,9 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'codeclimate-test-reporter', group: :test, require: nil
+gem 'simplecov', group: :test
+
 gem 'minitest'
 
 gem 'rake'

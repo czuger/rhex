@@ -22,6 +22,7 @@ DEPENDENCIES
   minitest
   rake
   rmagick
+  simplecov
 
 BUNDLED WITH
    1.13.6

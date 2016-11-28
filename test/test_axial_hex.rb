@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class TestAxial < Minitest::Test #:nodoc:
+class TestAxialHex < Minitest::Test #:nodoc:
 
   def setup
     @h = AxialHex.new( 15, 15 )
@@ -36,7 +36,7 @@ class TestAxial < Minitest::Test #:nodoc:
   end
 
   def test_get_surrounding_hexs
-    assert_includes( @h.get_surrounding_hexs, AxialHex.new( 15, 16 ) )
+    assert_includes( @h.surrounding_hexes, AxialHex.new( 15, 16 ) )
   end
 
   def test_to_cube

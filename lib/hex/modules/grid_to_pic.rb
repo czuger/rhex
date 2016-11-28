@@ -55,7 +55,7 @@ module GridToPic
   end
 
   def get_color( hex )
-    color = @element_to_color_hash[ hex.val ]
+    color = @element_to_color_hash[ hex.color ]
     color ? color : :white
   end
 

@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class TestGrid < Minitest::Test #:nodoc:
+class TestAxialGrid < Minitest::Test #:nodoc:
 
   def setup
     @g = AxialGrid.new( hex_ray: 16 )
@@ -16,18 +16,34 @@ class TestGrid < Minitest::Test #:nodoc:
     end
 
     @g.hset( AxialHex.new( 15, 15 ) )
-    refute @g.cget( 15, 15 ).val
+    refute @g.cget( 15, 15 ).color
 
 
-    @g.hset( AxialHex.new( 15, 15, val: :value ) )
-    assert_equal( @g.cget( 15, 15 ).val, :value )
+    @g.hset( AxialHex.new( 15, 15, color: :value ) )
+    assert_equal( @g.cget( 15, 15 ).color, :value )
 
     @g.cset( 15, 15 )
-    refute @g.hget( AxialHex.new( 15, 15 ) ).val
+    refute @g.hget( AxialHex.new( 15, 15 ) ).color
 
-    @g.cset( 15, 15, val: :value )
-    assert_equal( @g.hget( AxialHex.new( 15, 15 ) ).val, :value )
+    @g.cset( 15, 15, color: :value )
+    assert_equal( @g.hget( AxialHex.new( 15, 15 ) ).color, :value )
   end
+
+  def test_x_y_to_hex
+    h = @g.hset( AxialHex.new( 0, 0 ) )
+    assert_equal( h, @g.hex_at_xy( 5, 5) )
+  end
+
+  def test_iterator
+    1.upto(10) do |i|
+      @g.cset( 1, i )
+    end
+
+    @g.each do |h|
+      assert @g.hget( h )
+    end
+  end
+
 
   def test_xy_to_hex
 
