@@ -14,12 +14,11 @@ module GridToPic
   attr_reader :hex_height, :hex_width #:nodoc:
   attr_reader :quarter_height, :half_width #:nodoc:
 
-  # Draw a picture of the hexagon grid
-  # - +pic_name+ : the name of the picture file (can be *.bmp, *.png, *.jpg)
+  # Draw the hex grid in a Magick::Image object
   # - +exit_on_error+ : by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
   #
-  # *Returns* : true if the file was created successfully, false otherwise.
-  def to_pic( pic_name, exit_on_error = true )
+  # *Returns* : the Magick::Image object
+  def to_rmagick_image( exit_on_error = true )
     unless defined?( Magick::Image ) && defined?( Magick::HatchFill ) && defined?( Magick::Draw )
       puts 'Rmagick is not installed !!! You can\'t dump hex grid to pic'
       exit if exit_on_error
@@ -38,8 +37,18 @@ module GridToPic
     @hexes.each{ | _, hex| draw_hex( gc, hex ) }
 
     gc.draw(canvas)
-    canvas.write( pic_name )
 
+    canvas
+  end
+
+  # Draw the hex grid on a Magick::Object and save it to a file
+  # - +pic_name+ : the name of the picture file (can be *.bmp, *.png, *.jpg)
+  # - +exit_on_error+ : by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
+  #
+  # *Returns* : true if the file was created successfully, false otherwise.
+  def to_pic( pic_name, exit_on_error = true )
+    to_rmagick_image( exit_on_error )
+    canvas.write( pic_name )
   end
 
   private
