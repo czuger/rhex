@@ -47,7 +47,7 @@ module GridToPic
   #
   # *Returns* : true if the file was created successfully, false otherwise.
   def to_pic( pic_name, exit_on_error = true )
-    to_rmagick_image( exit_on_error )
+    canvas = to_rmagick_image( exit_on_error )
     canvas.write( pic_name )
   end
 
