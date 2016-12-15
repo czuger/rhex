@@ -2,8 +2,11 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem 'codeclimate-test-reporter', group: :test, require: nil
-gem 'simplecov', group: :test
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov'
+end
 
 gem 'minitest'
 
