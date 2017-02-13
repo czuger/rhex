@@ -97,9 +97,12 @@ class AxialGrid
   #
   # *Returns* : an array of x, y positions.
   def to_xy( hex )
+
+    set_hex_dimensions
+
     tmp_q = hex.q
-    x = @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 )
-    y = @hex_ray * 3.0/2.0 * hex.r
+    x = ( @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 ) )
+    y = ( @hex_ray * 3.0/2.0 * hex.r )
     [ x, y ]
   end
 

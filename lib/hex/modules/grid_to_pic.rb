@@ -24,8 +24,11 @@ module GridToPic
       exit if exit_on_error
     end
 
-    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) * @hex_width
-    maxy = @hexes.keys.map{ |k| k[1] }.max * @hex_height * 3.0/4.0
+    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) * @hex_width - ( @hex_width / 2 ) + 1
+    maxy = @hexes.keys.map{ |k| k[1] }.max * ( ( @hex_height * 3.0 )/ 4.0 ).ceil - ( @hex_width / 4 ).ceil - 2
+
+    # maxx = ( ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) + 0.5 ) * @hex_width
+    # maxy = ( ( @hexes.keys.map{ |k| k[1] }.max * 3.0/4.0 ) + 0.5 ) + @hex_heig
 
     canvas = Magick::Image.new( maxx, maxy )
 
@@ -47,7 +50,7 @@ module GridToPic
   #
   # *Returns* : true if the file was created successfully, false otherwise.
   def to_pic( pic_name, exit_on_error = true )
-    to_rmagick_image( exit_on_error )
+    canvas = to_rmagick_image( exit_on_error )
     canvas.write( pic_name )
   end
 
@@ -70,6 +73,9 @@ module GridToPic
 
   def draw_hex( gc, hex )
     x, y = to_xy( hex )
+
+    x -= @hex_width
+    y -= @quarter_height * 2
 
     color = get_color( hex )
     gc.fill( color.to_s )
