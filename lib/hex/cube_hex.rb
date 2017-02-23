@@ -6,14 +6,21 @@ require_relative 'base_hex'
 # to understand what a cube coordinates system is
 # The cube class is only for computation.
 # It is not intended to be used directly in your program.
+#
+# @attr_reader [Integer] x the x coordinate of the cube representation of the hexagon
+# @attr_reader [Integer] y the y coordinate of the cube representation of the hexagon
+# @attr_reader [Integer] z the z coordinate of the cube representation of the hexagon
+#
 class CubeHex < BaseHex
 
-  attr_reader :x,:y,:z #:nodoc:
+  attr_reader :x,:y,:z
 
   # Create an hexagon object
-  # - +x+, +y+, +z+ are the coordinates in the axial coords system
   #
-  # *Returns* : a new Hex::Cube object.
+  # @param x [Integer] x coordinate
+  # @param y [Integer] y coordinate
+  # @param z [Integer] z coordinate
+  #
   def initialize( x, y, z, color: nil, border: nil, data: nil )
     @x = x
     @y = y
@@ -24,14 +31,16 @@ class CubeHex < BaseHex
 
   # Transform a cube represented hexagon to an Hexagon::Axial represented hexagon
   #
-  # *Returns* : a new Hex::Axial object.
+  # @return [AxialHex] a new AxialHex object
+  #
   def to_axial
     AxialHex.new(@x, @z, color: @color, border: @border, data: @data)
   end
 
-  # Round the float coordinates to integer coordinates.
+  # Round the float coordinates to integer coordinates
   #
-  # *Returns* : a new Hex::Cube object.
+  # @return [AxialCube] a new CubeHex object
+  #
   def round
     rx=@x.round(0)
     ry=@y.round(0)
@@ -53,7 +62,8 @@ class CubeHex < BaseHex
 
   # Compute the distance between two hexagons (in hexagons)
   #
-  # *Returns* : an integer : the distance between hex in hexagons.
+  # @return [Ingteger] the distance between hex in hexagons
+  #
   def distance(h)
     [(@x - h.x).abs, (@y - h.y).abs, (@z - h.z).abs].max
   end

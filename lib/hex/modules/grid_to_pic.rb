@@ -7,17 +7,15 @@ rescue Gem::LoadError
   puts 'Caution : Rmagick is not installed'
 end
 
-# This module contain methods to draw a grid to a picture file.
-# It is included in Grid.
+# This module contain the methods to draw a grid to a picture file.
 module GridToPic
 
-  attr_reader :hex_height, :hex_width #:nodoc:
-  attr_reader :quarter_height, :half_width #:nodoc:
-
   # Draw the hex grid in a Magick::Image object
-  # - +exit_on_error+ : by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
   #
-  # *Returns* : the Magick::Image object
+  # @param exit_on_error [Boolean] by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
+  #
+  # @return [Magick::Image] a Magick::Image object
+  #
   def to_rmagick_image( exit_on_error = true )
     unless defined?( Magick::Image ) && defined?( Magick::HatchFill ) && defined?( Magick::Draw )
       puts 'Rmagick is not installed !!! You can\'t dump hex grid to pic'
@@ -45,10 +43,12 @@ module GridToPic
   end
 
   # Draw the hex grid on a Magick::Object and save it to a file
-  # - +pic_name+ : the name of the picture file (can be *.bmp, *.png, *.jpg)
-  # - +exit_on_error+ : by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue.
   #
-  # *Returns* : true if the file was created successfully, false otherwise.
+  # @param exit_on_error [Boolean] by default, if you call this method and rmagic is not installed, the program exit with an error. You can disable it and make the program continue
+  # @param pic_name [String] the name of the picture file (can be *.bmp, *.png, *.jpg)
+  #
+  # @return [Boolean] true if the file was created successfully, false otherwise
+  #
   def to_pic( pic_name, exit_on_error = true )
     canvas = to_rmagick_image( exit_on_error )
     canvas.write( pic_name )
@@ -57,6 +57,8 @@ module GridToPic
   private
 
   def set_hex_dimensions
+
+    # p :call
 
     @hex_height = @hex_ray * 2.0
     @hex_width =  Math.sqrt(3)/2.0 * @hex_height
@@ -74,8 +76,8 @@ module GridToPic
   def draw_hex( gc, hex )
     x, y = to_xy( hex )
 
-    x -= @hex_width
-    y -= @quarter_height * 2
+    # p hex
+    # puts [ x, y ]
 
     color = get_color( hex )
     gc.fill( color.to_s )

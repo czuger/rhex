@@ -8,8 +8,7 @@
 This repository contain a library for using a grid of hexagons with ruby.
 
 * It is a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/).
-* ~~The hexagons are flat topped by default~~.
-* The hexagons are now pointy topped.
+* The hexagons are pointy topped.
 * The coordinate system is axial.
 * Only required methods are implemented in the cube object.
 
@@ -41,15 +40,15 @@ require 'rhex'
 ```ruby
 # Create a new hexagon (q = 10, r = 10 )
 # To understand what q and r mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
-hexa = Hex::Axial.new( 10, 10 )
-# => #<Hex::Axial:0x007fbf48339258 @q=10, @r=10>
+hexa = AxialHex.new( 10, 10 )
+# => #<AxialHex @q=10, @r=10>
 
 # Get hexes surrounding it
-hexa.get_surrounding_hexs
-# => [#<Hex::Axial:0x007fbf482f9f68 @q=10, @r=9>, #<Hex::Axial:0x007fbf482f9f40 @q=11, @r=9>, ... ]
+hexa.surrounding_hexs
+# => [#<AxialHex @q=10, @r=9>, #<AxialHex @q=11, @r=9>, ... ]
 
 # Get distance between two hexagons
-hexb = Hex::Axial.new( 20, 20 )
+hexb = AxialHex.new( 20, 20 )
 hexa.distance(hexb)
 # => 20
 
@@ -58,10 +57,10 @@ hexa.hex_surrounding_hex?(hexb)
 # => false
 
 # Get the nearset hex from a hexes list
-hexc = Hex::Axial.new( 20, 13 )
+hexc = AxialHex.new( 20, 13 )
 hlist = [ hexb, hexc ]
 hexa.nearest_hex(hlist)
-# => #<Hex::Axial:0x007fbf482ad528 @q=20, @r=13>
+# => #<AxialHex @q=20, @r=13>
 ```
 
 ###Hexagons grid
@@ -71,19 +70,19 @@ Hexagons by themselves are not really useful. What we need is an hexagon grid.
 
 ```ruby
 # Create an hexagon grid
-g = Hex::Grid.new
-=> #<Hex::Grid:0x0000000140bf68 @hexes={}, @element_to_color_hash={}, @hex_ray=16, @hex_height=32.0, @hex_width=27.712812921102035, @half_width=13.856406460551018, @quarter_height=8.0>
+g = AxialGrid.new
+# => #<AxialGrid @hexes={}, @element_to_color_hash={}, @hex_ray=16, @hex_height=32.0, @hex_width=27.712812921102035, @half_width=13.856406460551018, @quarter_height=8.0>
 
 # Add an hexagon to the grid
 g.cset( 5, 8 )
-=> #<Hex::Axial:0x0000000140c418 @q=5, @r=8, @border=false>
+# => #<AxialHex @q=5, @r=8, @border=false>
 
 # Get an hexagon from the grid
 g.cget( 5, 8 )
-=> #<Hex::Axial:0x0000000140c418 @q=5, @r=8, @border=false>
+# => #<AxialHex @q=5, @r=8, @border=false>
 
 g.cget( 5, 4 )
-=> nil
+# => nil
 ```
 
 ####Reading a grid from an ascii file
@@ -110,23 +109,26 @@ g g g g w g g g g
 Where m = mountains, g = grass and w = water. If this map is in a file called for instance : ascii_map.txt then : 
 
 ```ruby
+# CAUTION : don't use an axial grid for that, your asciimap is square
+g = SquareGrid.new
+
 # Load it with 
->> g.read_ascii_file( 'test/ascii_map.txt' )
-=> 0
+g.read_ascii_file( 'test/ascii_map.txt' )
 
 # Get an hex 
->> g.cget( 5, 5 )
-=> #<Hex::Axial:0x00000001445308 @q=5, @r=5, @border=nil, @val=:w>
+g.cget( 5, 5 )
+# => <AxialHex @q=5, @r=5, @color="w", @data=nil>
 
 # Get an hex value
->> g.cget( 5, 5 ).val
-=> :w
+g.cget( 5, 5 ).color
+# => "w"
 
+# Borders don't work, will be fixed
 # Check if the hex is at the border of the map or not 
->> g.cget( 5, 5 ).border?
-=> false
->> g.cget( 0, 0 ).border?
-=> true
+# g.cget( 5, 5 ).border
+# => nil
+# g.cget( 0, 0 ).border
+# => true
 ```
 
 ####Dumping an hex map (require rmagick - see http://rmagick.rubyforge.org/install-faq.html)
@@ -143,7 +145,7 @@ I used rmagick to create the bitmap, so all rmagick color syntax are available :
 
 ```ruby
 # Create a grid with a correspondence array from val to color
-g = Hex::Grid.new(
+g = SquareGrid.new(
   element_to_color_hash: {
     m: :brown, g: :green, w: :blue
   }

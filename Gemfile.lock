@@ -1,8 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    codeclimate-test-reporter (0.4.8)
-      simplecov (>= 0.7.1, < 1.0.0)
     docile (1.1.5)
     json (1.8.3)
     minitest (5.5.1)
@@ -13,16 +11,17 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    yard (0.9.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  codeclimate-test-reporter
   minitest
   rake
   rmagick
   simplecov
+  yard
 
 BUNDLED WITH
    1.13.6
