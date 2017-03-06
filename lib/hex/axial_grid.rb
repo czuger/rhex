@@ -133,4 +133,18 @@ class AxialGrid
     [ x, y ]
   end
 
+  # Return the grid as a hash object
+  #
+  # @return [Hash] the grid as a hash object
+  def to_hash
+    h = @hexes.clone
+    # p hash
+    h.each do |k, v|
+      # p k
+      h[ k ] = v.to_hash
+    end
+    # p h
+    h
+  end
+
 end

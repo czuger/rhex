@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+require 'json'
+
 require_relative 'cube_hex'
 
 # This class represents an hexagon stored in axial coordinate system.
@@ -133,6 +135,13 @@ class AxialHex < BaseHex
   #
   def qr
     [ q, r ]
+  end
+
+  # Return an hex as a hash object
+  #
+  # @return [Hash] the hex as a hash object
+  def to_hash
+    { q: @q, r: @r, color: @color, border: @border, data: @data.to_hash }
   end
 
 end
