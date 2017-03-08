@@ -100,39 +100,6 @@ class AxialGrid
     h.surrounding_hexes.map{ |sh| hget( sh ) }
   end
 
-  # Get the hexagon at (x,y) coordinate.
-  #
-  # @param x [Integer] the x coordinate of the hexagon you want to get
-  # @param y [Integer] the y coordinate of the hexagon you want to get
-  #
-  # @return [AxialGrid] the corresponding hex
-  #
-  def hex_at_xy(x, y)
-    q = (x * Math.sqrt(3)/3.0 - y/3.0) / @hex_ray
-    r = y * 2.0/3.0 / @hex_ray
-    hex = AxialHex.new(q, r).round
-    cget( hex.q, hex.r )
-  end
-
-  #
-  # Get the (x, y) position of an hexagon object
-  #
-  # @param hex [AxialHex] the hexagon you want to get the position
-  #
-  # @return [Array<Integer>] an array of two integers corrsponding respectively to the x, y values
-  #
-  def to_xy( hex )
-
-    tmp_q = hex.q
-    # x = ( @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 ) ) - @hex_width
-    # y = ( @hex_ray * 3.0/2.0 * hex.r ) - ( @quarter_height * 2 )
-
-    x = ( @hex_ray * Math.sqrt(3) * ( tmp_q + hex.r/2.0 ) )
-    y = ( @hex_ray * 3.0/2.0 * hex.r ) - ( @quarter_height * 2 )
-
-    [ x, y ]
-  end
-
   # Return the grid as a hash object
   #
   # @return [Hash] the grid as a hash object

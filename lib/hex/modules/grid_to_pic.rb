@@ -22,8 +22,8 @@ module GridToPic
       exit if exit_on_error
     end
 
-    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) * @hex_width - ( @hex_width / 2 ) + 1 + @hex_width
-    maxy = @hexes.keys.map{ |k| k[1] }.max * ( ( @hex_height * 3.0 )/ 4.0 ).ceil - ( @hex_width / 4 ).ceil - 2
+    maxx = ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) * @hex_width + ( @hex_width + @half_width + 1 )
+    maxy = @hexes.keys.map{ |k| k[1] }.max * ( ( @hex_height * 3.0 )/ 4.0 ).ceil + ( @hex_height + 1 )
 
     # maxx = ( ( @hexes.keys.map{ |k| k[0] + k[1]/2 }.max ) + 0.5 ) * @hex_width
     # maxy = ( ( @hexes.keys.map{ |k| k[1] }.max * 3.0/4.0 ) + 0.5 ) + @hex_heig
@@ -54,17 +54,32 @@ module GridToPic
     canvas.write( pic_name )
   end
 
+  # Get the (x, y) position of an hexagon object
+  #
+  # @param hex [AxialHex] the hexagon you want to get the position
+  #
+  # @return [Array<Integer>] an array of two integers corrsponding respectively to the x, y values
+  #
+  def to_xy( hex )
+    x = ( @hex_ray * Math.sqrt(3) * ( hex.q + hex.r/2.0 ) )
+    y = ( @hex_ray * 3.0/2.0 * hex.r )
+
+    x += @half_width
+    y += @half_height
+
+    [ x, y ]
+  end
+
   private
 
   def set_hex_dimensions
 
-    # p :call
-
     @hex_height = @hex_ray * 2.0
-    @hex_width =  Math.sqrt(3)/2.0 * @hex_height
-
-    @half_width = @hex_width / 2.0
+    @half_height = @hex_ray
     @quarter_height = @hex_height / 4.0
+
+    @hex_width =  Math.sqrt(3)/2.0 * @hex_height
+    @half_width = @hex_width / 2.0
 
   end
 

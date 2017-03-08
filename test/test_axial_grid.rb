@@ -29,11 +29,6 @@ class TestAxialGrid < Minitest::Test #:nodoc:
     assert_equal( @g.hget( AxialHex.new( 15, 15 ) ).color, :value )
   end
 
-  def test_x_y_to_hex
-    h = @g.hset( AxialHex.new( 0, 0 ) )
-    assert_equal( h, @g.hex_at_xy( 5, 5) )
-  end
-
   def test_iterator
     1.upto(10) do |i|
       @g.cset( 1, i )
