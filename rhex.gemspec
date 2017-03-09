@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rhex'
-  s.version     = '2.0.2'
+  s.version     = '2.0.3'
   s.date        = '2016-01-05'
   s.summary     = 'Ruby HEXagonal grid'
   s.description = <<-EOF
