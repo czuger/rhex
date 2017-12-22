@@ -34,7 +34,7 @@ require 'rhex'
 
 ## Usage
 
-###Basics
+### Basics
 ------
 
 ```ruby
@@ -63,7 +63,7 @@ hexa.nearest_hex(hlist)
 # => #<AxialHex @q=20, @r=13>
 ```
 
-###Hexagons grid
+### Hexagons grid
 ------
 
 Hexagons by themselves are not really useful. What we need is an hexagon grid.
@@ -85,7 +85,7 @@ g.cget( 5, 4 )
 # => nil
 ```
 
-####Reading a grid from an ascii file
+#### Reading a grid from an ascii file
 ------
 
 It will be far more fun to create your hex map from an ascii map. For example, if you have the following map : 
@@ -131,7 +131,7 @@ g.cget( 5, 5 ).color
 # => true
 ```
 
-####Dumping an hex map (require rmagick - see http://rmagick.rubyforge.org/install-faq.html)
+#### Dumping an hex map (require rmagick - see http://rmagick.rubyforge.org/install-faq.html)
 ------
 
 You can dump a grid to a bitmap file. In order to have different colors for your hex map, you need to specify them when creating the grid.

@@ -39,6 +39,10 @@ class TestAxialGrid < Minitest::Test #:nodoc:
     end
   end
 
+  def test_to_json
+    @g.cset( 15, 15, color: :value )
+    assert_equal '[{"q":15,"r":15,"c":"value"}]', @g.to_json
+  end
 
   def test_xy_to_hex
 

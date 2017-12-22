@@ -100,18 +100,12 @@ class AxialGrid
     h.surrounding_hexes.map{ |sh| hget( sh ) }
   end
 
-  # Return the grid as a hash object
+  # Return the grid as a json_array object
   #
-  # @return [Hash] the grid as a hash object
-  def to_hash
-    h = @hexes.clone
-    # p hash
-    h.each do |k, v|
-      # p k
-      h[ k ] = v.to_hash
-    end
-    # p h
-    h
+  # @return [Array] the grid as a hash object
+  def to_json
+    a = @hexes.map{ |e| { q: e[0][0], r: e[0][0], c: e[1].color, b: e[1].border } }
+    a.to_json
   end
 
 end
