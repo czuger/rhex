@@ -1,5 +1,4 @@
 require_relative 'axial_hex'
-require_relative 'modules/ascii_to_grid'
 require_relative 'modules/grid_to_pic'
 
 # This class represents a grid of hexagons stored in an axial coordinate system.

@@ -1,5 +1,7 @@
 require_relative 'axial_grid'
 require_relative 'cube_hex'
+require_relative 'modules/ascii_to_grid'
+require_relative 'modules/ascii_to_grid_flat'
 
 # This class represents a grid of hexagons stored in an axial coordinate system but manage the conversion to a square representation (what finally you want)
 #
@@ -8,6 +10,7 @@ require_relative 'cube_hex'
 class SquareGrid < AxialGrid
 
   include AsciiToGrid
+  include AsciiToGridFlat
   include GridToPic
 
   # Create an axial hexagon grid
