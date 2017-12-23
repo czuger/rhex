@@ -32,37 +32,37 @@ class SquareGrid < AxialGrid
     set_hex_dimensions
   end
 
-  # Create an hexagon at a given position (col, row)
+  # Create an hexagon at a given position (q, r)
   #
-  # @param col [Integer] the col coordinate of the hexagon
-  # @param row [Integer] the row coordinate of the hexagon
+  # @param q [Integer] the col coordinate of the hexagon
+  # @param r [Integer] the r coordinate of the hexagon
   # @param color [String] a colorstring that can be used by ImageMagic
   # @param border [Boolean] is the hex on the border of the screen (not fully draw)
   # @param data [Unknown] some data associated with the hexagone. Everything you want, it is up to you
   #
   # @return [AxialHex] an hexagon
   #
-  def cset( col, row, color: nil, border: false, data: nil )
-    hset( even_q_to_axial_hex( col, row, color: color, border: border, data: data ) )
+  def cset( q, r, color: nil, border: false, data: nil )
+    hset( even_q_to_axial_hex( q, r, color: color, border: border, data: data ) )
   end
 
-  # Get the hexagon at a given position (col, row)
+  # Get the hexagon at a given position (q, r)
   #
-  # @param col [Integer] the col coordinate of the hexagon
-  # @param row [Integer] the row coordinate of the hexagon
+  # @param q [Integer] the col coordinate of the hexagon
+  # @param r [Integer] the r coordinate of the hexagon
   #
   # @return [AxialHex] the hexagon at the requested position. nil if nothing
   #
-  def cget( col, row )
-    hget( even_q_to_axial_hex( col, row ) )
+  def cget( q, r )
+    hget( even_q_to_axial_hex( q, r ) )
   end
 
   private
 
-  def even_q_to_axial_hex( col, row, color: nil, border: false, data: nil  )
+  def even_q_to_axial_hex( q, r, color: nil, border: false, data: nil  )
     # convert odd-r offset to cube
-    x = col - (row - (row&1)) / 2
-    z = row
+    x = q - (r - (r&1)) / 2
+    z = r
     y = -x-z
 
     tmp_cube = CubeHex.new( x, y, z, color: color, border: border, data: data )

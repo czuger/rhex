@@ -11,23 +11,23 @@ module AsciiToGridFlat
     File.open( file_path ) do |file|
 
       odd = 0
-      base_r = 0
-      line_r = 0
+      base_q = 0
+      line_q = 0
 
       file.each_line do |line|
         elements = line.split
         # p elements
         elements.each_with_index do |element, index|
           # p element, index
-          cset( index*2 + odd, base_r - index, color: element.to_sym, border: nil )
+          cset( base_q - index, index*2 + odd, color: element.to_sym, border: nil )
         end
 
         odd = ( odd.odd? ? 0 : 1 )
 
-        line_r += 1
-        if line_r >= 2
-          line_r = 0
-          base_r += 1
+        line_q += 1
+        if line_q >= 2
+          line_q = 0
+          base_q += 1
         end
 
       end
