@@ -16,10 +16,12 @@ module AsciiToGridFlat
 
       file.each_line do |line|
         elements = line.split
-        # p elements
         elements.each_with_index do |element, index|
-          # p element, index
-          cset( base_q - index, index*2 + odd, color: element.to_sym, border: nil )
+          puts "element = %c, index = %d || q = %d, r = %d" % [element, index, index*2 + odd, base_q - index]
+          # cset( index*2 + odd, base_q - index, color: element.to_sym, border: nil )
+          q = index*2 + odd
+          r = base_q - index
+          @hexes[ [ q, r ] ] = AxialHex.new( q, r, color: element.to_sym )
         end
 
         odd = ( odd.odd? ? 0 : 1 )
