@@ -4,7 +4,7 @@ module AsciiToGridFlat
   # Read an ascii file and load it into the hexagon grid. The input grid is supposed to be odd flat topped (odd-q) and will be stored into an axial representation.
   #
   # @param file_path [String] the name of the ascii file to read. For how to create this file, please see : https://github.com/czuger/rhex#reading-a-grid-from-an-ascii-file
-  def read_ascii_file_flat( file_path )
+  def read_ascii_file_flat_topped_odd( file_path )
     File.open( file_path ) do |file|
 
       odd = 0
@@ -37,7 +37,7 @@ module AsciiToGridFlat
   # Write an ascii file representing an axial hex grid as an flat topped (odd-q) hex representation.
   #
   # @param file_path [String] the name of the ascii file to read. For how to create this file, please see : https://github.com/czuger/rhex#reading-a-grid-from-an-ascii-file
-  def write_ascii_file_flat( file_path )
+  def write_ascii_file_flat_topped_odd( file_path )
     File.open( file_path, 'w' ) do |file|
 
       base_r = 0
@@ -55,10 +55,7 @@ module AsciiToGridFlat
           line << hex.color
           q += 2
           r -= 1
-          # puts hex
         end
-
-        puts line
 
         break if line.empty?
 

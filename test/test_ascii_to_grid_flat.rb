@@ -6,7 +6,7 @@ class TestAsciiToGridFlat < Minitest::Test #:nodoc:
 
   def setup
     @g = SquareGridFlatTopped.new()
-    @g.read_ascii_file_flat( 'test/ascii_map_flat_topped.txt' )
+    @g.read_ascii_file_flat_topped_odd( 'test/ascii_map_flat_topped.txt' )
   end
 
   def test_reading
@@ -24,7 +24,7 @@ class TestAsciiToGridFlat < Minitest::Test #:nodoc:
   end
 
   def test_writting
-    @g.write_ascii_file_flat( '/tmp/ascii_map_flat_topped.txt' )
+    @g.write_ascii_file_flat_topped_odd( '/tmp/ascii_map_flat_topped.txt' )
     FileUtils.identical?( '/tmp/ascii_map_flat_topped.txt', 'test/ascii_map_flat_topped.txt' )
   end
 
