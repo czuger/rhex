@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'fileutils'
 require 'pp'
 
 class TestAsciiToGridFlat < Minitest::Test #:nodoc:
@@ -20,6 +21,11 @@ class TestAsciiToGridFlat < Minitest::Test #:nodoc:
     assert_equal( :m, @g.cget( 0, 1 ).color )
     assert_equal( :n, @g.cget( 2, 0 ).color )
     assert_equal( :o, @g.cget( 4, -1 ).color )
+  end
+
+  def test_writting
+    @g.write_ascii_file_flat( '/tmp/ascii_map_flat_topped.txt' )
+    FileUtils.identical?( '/tmp/ascii_map_flat_topped.txt', 'test/ascii_map_flat_topped.txt' )
   end
 
 end
