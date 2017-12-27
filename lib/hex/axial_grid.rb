@@ -96,7 +96,7 @@ class AxialGrid
   #
   # @return [Array<AxialHex>] all surrounding hexes
   def h_surrounding_hexes( h )
-    h.surrounding_hexes.map{ |sh| hget( sh ) }
+    h.surrounding_hexes.map{ |sh| hget( sh ) }.compact
   end
 
   # Return the grid as a json string
