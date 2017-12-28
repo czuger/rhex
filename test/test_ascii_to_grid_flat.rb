@@ -5,7 +5,7 @@ require 'pp'
 class TestAsciiToGridFlat < Minitest::Test #:nodoc:
 
   def setup
-    @g = SquareGridFlatTopped.new()
+    @g = AxialGrid.new()
     @g.read_ascii_file_flat_topped_odd( 'test/ascii_map_flat_topped.txt' )
   end
 

@@ -1,5 +1,6 @@
 require_relative 'axial_hex'
 require_relative 'modules/grid_to_pic'
+require_relative 'modules/ascii_to_grid_flat'
 
 # This class represents a grid of hexagons stored in an axial coordinate system.
 #
@@ -15,6 +16,8 @@ require_relative 'modules/grid_to_pic'
 # @attr_reader [Float] half_width the half of the width of an hexagon
 #
 class AxialGrid
+
+  include AsciiToGridFlat
 
   attr_reader :hex_ray, :hex_height, :hex_width, :quarter_height, :half_width
 
