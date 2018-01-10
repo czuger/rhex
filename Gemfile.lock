@@ -2,16 +2,16 @@ GEM
   remote: https://rubygems.org/
   specs:
     docile (1.1.5)
-    json (1.8.3)
-    minitest (5.5.1)
-    rake (10.1.0)
-    rmagick (2.15.4)
-    simplecov (0.11.1)
+    json (2.1.0)
+    minitest (5.11.1)
+    rake (12.3.0)
+    rmagick (2.16.0)
+    simplecov (0.15.1)
       docile (~> 1.1.0)
-      json (~> 1.8)
+      json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
-    yard (0.9.8)
+    simplecov-html (0.10.2)
+    yard (0.9.12)
 
 PLATFORMS
   ruby
@@ -24,4 +24,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.13.6
+   1.16.1
