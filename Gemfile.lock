@@ -3,7 +3,7 @@ GEM
   specs:
     docile (1.1.5)
     json (2.1.0)
-    minitest (5.11.1)
+    minitest (5.11.3)
     rake (12.3.0)
     rmagick (2.16.0)
     simplecov (0.15.1)
