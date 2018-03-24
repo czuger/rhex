@@ -41,19 +41,19 @@ class TestAxialGrid < Minitest::Test #:nodoc:
 
   def test_to_json
     @g.cset( 15, 15, color: :value )
-    assert_equal '[{"q":15,"r":15,"c":"value","b":null}]', @g.to_json
+    assert_equal '[{"q":15,"r":15,"c":"value","b":false}]', @g.to_json
 
     @g = AxialGrid.new( hex_ray: 16 )
     @g.cset( 15, -15, color: :value )
-    assert_equal '[{"q":15,"r":-15,"c":"value","b":null}]', @g.to_json
+    assert_equal '[{"q":15,"r":-15,"c":"value","b":false}]', @g.to_json
 
     @g = AxialGrid.new( hex_ray: 16 )
     @g.cset( 3, -6, color: :value )
-    assert_equal '[{"q":3,"r":-6,"c":"value","b":null}]', @g.to_json
+    assert_equal '[{"q":3,"r":-6,"c":"value","b":false}]', @g.to_json
 
     @g = AxialGrid.new( hex_ray: 16 )
     @g.cset( -3, 6, color: :value )
-    assert_equal '[{"q":-3,"r":6,"c":"value","b":null}]', @g.to_json
+    assert_equal '[{"q":-3,"r":6,"c":"value","b":false}]', @g.to_json
   end
 
 end

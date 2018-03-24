@@ -9,8 +9,8 @@ class BaseHex
   attr_accessor :color, :border, :data
 
   def initialize( color = nil, border = nil, data = nil )
-    @color = color if color
-    @border = border if border
+    @color = color
+    @border = border
     @data = data
   end
 end
