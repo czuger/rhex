@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/czuger/rhex'
   # s.homepage    = 'http://rubygems.org/gems/rhex'
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 2.3.6'
   # s.add_runtime_dependency 'rmagick', '~> 2.1'
 end
