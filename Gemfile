@@ -5,7 +5,7 @@ source "https://rubygems.org"
 
 group :test do
   # gem 'codeclimate-test-reporter', require: nil
-  gem 'simplecov'
+  gem 'simplecov', '0.17.1', require: false
 end
 
 group :dev do
