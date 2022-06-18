@@ -2,10 +2,17 @@
 
 require 'spec_helper'
 require 'rhex/cube_hex'
-require 'rhex/axial_hex'
 require 'rhex/grid_systems/axial'
 
 RSpec.describe Rhex::CubeHex do
+  describe '#to_axial' do
+    it 'converts cube to axial' do
+      cube = described_class.new(0, -1, 1)
+
+      expect(cube.to_axial).to eq(Rhex::AxialHex.new(0, -1))
+    end
+  end
+
   describe '#dijkstra_shortest_path' do
     it 'finds the shortest path' do
       obstacles = [Rhex::CubeHex.new(0, -1, 1), Rhex::CubeHex.new(1, -2, 1)]

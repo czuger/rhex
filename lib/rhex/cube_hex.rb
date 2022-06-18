@@ -3,6 +3,7 @@
 require 'bigdecimal'
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
+require 'rhex/axial_hex'
 
 # TODO: safe monkey patching
 module Math
@@ -95,7 +96,7 @@ module Rhex
     end
 
     def to_axial
-      AxialHex.new(q, s, data: data)
+      AxialHex.new(q, r, data: data)
     end
 
     protected

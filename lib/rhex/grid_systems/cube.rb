@@ -1,26 +1,25 @@
 # frozen_string_literal: true
 
 require 'rhex/grid'
+require 'rhex/cube_hex'
 
 module Rhex
   module GridSystems
     class Cube < Grid
-      def cget(q, s) # rubocop:disable Naming/MethodParameterName
-        r = s.abs + q.abs
+      def cset(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
+        hexes[[q, r]] = Rhex::CubeHex.new(q, r, -q - r, data: data)
+      end
+
+      def hset(hex)
+        hexes[[hex.q, hex.r]] = hex
+      end
+
+      def cget(q, r) # rubocop:disable Naming/MethodParameterName
         hexes[[q, r]]
       end
 
       def hget(hex)
-        cget(hex.q, hex.s)
-      end
-
-      def cset(q, s, data: nil) # rubocop:disable Naming/MethodParameterName
-        r = s.abs + q.abs
-        hexes[[q, r]] = Rhex::CubeHex.new(q, r, s, data: data)
-      end
-
-      def hset(hex)
-        hexes[[hex.q, hex.s]] = hex
+        cget(hex.q, hex.r)
       end
     end
   end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rhex/cube_hex'
+
 module Rhex
   class AxialHex
 
@@ -9,6 +11,22 @@ module Rhex
       @q = q
       @r = r
       @data = data
+    end
+
+    def hash
+      { q: q, r: r }.hash
+    end
+
+    def eql?(other)
+      self == other
+    end
+
+    def ==(other)
+      q == other.q && r == other.r
+    end
+
+    def !=(other)
+      q != other.q || r != other.r
     end
 
     def distance(axial_hex)
@@ -24,7 +42,7 @@ module Rhex
     end
 
     def to_cube
-      CubeHex.new(q, -q - r, r, data: data)
+      CubeHex.new(q, r, -q - r, data: data)
     end
   end
 end
