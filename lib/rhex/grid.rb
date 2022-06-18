@@ -8,16 +8,20 @@ module Rhex
       @hexes = {}
     end
 
-    def cget(q, r) # rubocop:disable Naming/MethodParameterName
-      hexes[[q, r]]
+    def cget(_q, _r) # rubocop:disable Naming/MethodParameterName
+      raise NotImplementedError
     end
 
-    def hget(hex)
-      cget(hex.q, hex.r)
+    def hget(_hex)
+      raise NotImplementedError
     end
 
-    def cset(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
-      hexes[[q, r]] = Rhex::AxialHex.new(q, r, data: data)
+    def cset(_q, _r, _data: nil) # rubocop:disable Naming/MethodParameterName
+      raise NotImplementedError
+    end
+
+    def hset(_hex)
+      raise NotImplementedError
     end
   end
 end

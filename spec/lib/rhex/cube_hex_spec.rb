@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'rhex/cube_hex'
 require 'rhex/axial_hex'
-require 'rhex/grid'
+require 'rhex/grid_systems/axial'
 
 RSpec.describe Rhex::CubeHex do
   describe '#dijkstra_shortest_path' do
@@ -37,7 +37,7 @@ RSpec.describe Rhex::CubeHex do
     end
 
     def grid(range)
-      grid = Rhex::Grid.new
+      grid = Rhex::GridSystems::Axial.new
 
       (-range..range).to_a.each do |q|
         ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
