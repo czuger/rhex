@@ -1,19 +1,7 @@
-# A sample Gemfile
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-# gem "rails"
+source 'https://rubygems.org'
 
-group :test do
-  # gem 'codeclimate-test-reporter', require: nil
-  gem 'simplecov', '0.17.1', require: false
-end
+ruby '3.0.3'
 
-group :dev do
-  gem 'yard'
-end
-
-gem 'minitest'
-
-gem 'rake'
-
-gem 'rmagick'
+gemspec

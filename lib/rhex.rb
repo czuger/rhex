@@ -1,4 +1,2 @@
-require_relative 'hex/axial_hex'
-require_relative 'hex/cube_hex'
-require_relative 'hex/axial_grid'
-require_relative 'hex/square_grid'
+require_relative 'rhex/axial_hex'
+require_relative 'rhex/cube_hex'
