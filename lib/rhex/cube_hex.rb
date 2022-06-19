@@ -15,6 +15,10 @@ end
 
 module Rhex
   class CubeHex # rubocop:disable Metrics/ClassLength
+    DIRECTION_VECTORS = [
+      [1, 0, -1], [1, -1, 0], [0, -1, 1], [-1, 0, 1], [-1, 1, 0], [0, 1, -1]
+    ].freeze
+
     attr_reader :q, :r, :s, :data
 
     def initialize(q, r, s, data: nil) # rubocop:disable Naming/MethodParameterName
@@ -49,19 +53,28 @@ module Rhex
       ].max
     end
 
-    # TODO: should exclude itself from the `neighbors` list
-    def neighbors(range = 1, grid: nil)
-      (-range..range).to_a.each_with_object([]) do |q, neighbors|
-        ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-          s = -q - r
+    def neighbors(_range = 1, grid: nil)
+      DIRECTION_VECTORS.each_with_object([]) do |(q, r, s), neighbors|
+        cube_hex = add(Rhex::CubeHex.new(q, r, s, data: data))
+        cube_hex = grid.hget(cube_hex) unless grid.nil?
 
-          cube_hex = Rhex::CubeHex.new(q, r, s, data: data)
-          cube_hex = grid.hget(cube_hex.to_axial)&.to_cube unless grid.nil?
-
-          neighbors.push(add(cube_hex)) unless cube_hex.nil?
-        end
+        neighbors.push(cube_hex) unless cube_hex.nil?
       end
     end
+
+    # TODO: should exclude itself from the `neighbors` list
+    # def neighbors(range = 1, grid: nil)
+    #   (-range..range).to_a.each_with_object([]) do |q, neighbors|
+    #     ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
+    #       s = -q - r
+    #
+    #       cube_hex = Rhex::CubeHex.new(q, r, s, data: data)
+    #       cube_hex = grid.hget(cube_hex) unless grid.nil?
+    #
+    #       neighbors.push(add(cube_hex)) unless cube_hex.nil?
+    #     end
+    #   end
+    # end
 
     # TODO: the target `cube_hex` should be in the `linedraw` list
     def linedraw(cube_hex)
@@ -73,7 +86,7 @@ module Rhex
       end
     end
 
-    # TODO: could ne as class method "reachable_hexes(start, steps_limit = 1, obstacles = [])"
+    # TODO: reachable!!! not the shortest path
     def dijkstra_shortest_path(target, steps_limit: distance(target), obstacles: [], grid: nil)
       graph = RGL::AdjacencyGraph.new
 

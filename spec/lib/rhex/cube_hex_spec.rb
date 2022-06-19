@@ -2,9 +2,24 @@
 
 require 'spec_helper'
 require 'rhex/cube_hex'
-require 'rhex/grid_systems/axial'
+require 'rhex/grid_systems/cube'
 
 RSpec.describe Rhex::CubeHex do
+  describe '#neighbors' do
+    context 'when `grid` is defined' do
+      it 'should return neighbors within grid' do
+        grid = grid(3)
+        cube_hex = Rhex::CubeHex.new(0, 3, -3)
+        expect(cube_hex.neighbors(grid: grid))
+          .to contain_exactly(
+            Rhex::CubeHex.new(-1, 3, -2),
+            Rhex::CubeHex.new(0, 2, -2),
+            Rhex::CubeHex.new(1, 2, -3)
+          )
+      end
+    end
+  end
+
   describe '#to_axial' do
     it 'converts cube to axial' do
       cube = described_class.new(0, -1, 1)
@@ -42,17 +57,17 @@ RSpec.describe Rhex::CubeHex do
           )
       end
     end
+  end
 
-    def grid(range)
-      grid = Rhex::GridSystems::Axial.new
+  def grid(range)
+    grid = Rhex::GridSystems::Cube.new
 
-      (-range..range).to_a.each do |q|
-        ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-          grid.cset(q, r)
-        end
+    (-range..range).to_a.each do |q|
+      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
+        grid.cset(q, r)
       end
-
-      grid
     end
+
+    grid
   end
 end
