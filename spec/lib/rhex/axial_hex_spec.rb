@@ -6,6 +6,21 @@ require 'rhex/grid'
 require 'rhex/dijkstra_shortest_path'
 
 RSpec.describe Rhex::AxialHex do
+  describe '#reachable' do
+    it 'shows reachable hexes' do
+      source = Rhex::AxialHex.new(0, 0)
+      obstacles = coords_to_hexes([
+                                    [1, -1], [2, -1], [2, 0], [2, 1], [1, 2], [0, 2],
+                                    [-1, 2], [-1, 1], [-2, 1], [-1, -1], [0, -2], [1, -3]
+                                  ])
+      expected_reachable = coords_to_hexes([
+                                             [0, 0], [1, 0], [0, 1], [1, 1], [-1, 0], [0, -1], [1, -2],
+                                             [2, -3], [2, -2], [-2, -1], [-3, 0], [-2, 0], [-3, 1]
+                                           ])
+      expect(source.reachable(3, obstacles: obstacles)).to contain_exactly(*expected_reachable)
+    end
+  end
+
   describe '#linedraw' do
     it 'returns straight path to the target' do
       source = Rhex::AxialHex.new(-4, 0)
@@ -52,5 +67,9 @@ RSpec.describe Rhex::AxialHex do
 
       expect(axial.to_cube).to eq(Rhex::CubeHex.new(0, -1, 1))
     end
+  end
+
+  def coords_to_hexes(coords)
+    coords.map { Rhex::AxialHex.new(*_1) }
   end
 end

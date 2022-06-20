@@ -54,6 +54,22 @@ module Rhex
       to_cube.linedraw(hex.to_cube).map(&:to_axial)
     end
 
+    def reachable(movements_limit = 1, obstacles: []) # rubocop:disable Metrics/MethodLength
+      fringes = [[self]] # array of arrays of all hexes that can be reached in "movement_limit" steps
+
+      1.upto(movements_limit).each_with_object([]) do |move, reachable|
+        fringes.push([])
+        fringes[move - 1].each do |hex|
+          hex.neighbors.each do |neighbor|
+            next if reachable.include?(neighbor) || obstacles.include?(neighbor)
+
+            reachable.push(neighbor)
+            fringes[move].push(neighbor)
+          end
+        end
+      end
+    end
+
     def to_cube
       Rhex::CubeHex.new(q, r, -q - r, data: data)
     end

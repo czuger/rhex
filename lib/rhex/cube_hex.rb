@@ -62,28 +62,6 @@ module Rhex
       end
     end
 
-    # TODO: reachable!!! not the shortest path
-    def dijkstra_shortest_path(target, steps_limit: distance(target), obstacles: [], grid: nil)
-      graph = RGL::AdjacencyGraph.new
-
-      fringes = [[self]] # array of arrays of all hexes that can be reached in "steps_limit" steps
-
-      1.upto(steps_limit) do |step|
-        fringes.push([])
-        fringes[step - 1].each do |cube_hex|
-          cube_hex.neighbors(grid: grid).each do |neighbor|
-            next if graph.has_vertex?(neighbor) || obstacles.include?(neighbor)
-
-            graph.add_edge(cube_hex, neighbor)
-
-            fringes[step].push(neighbor)
-          end
-        end
-      end
-
-      graph.dijkstra_shortest_path(Hash.new(1), self, target)
-    end
-
     def to_axial
       AxialHex.new(q, r, data: data)
     end
