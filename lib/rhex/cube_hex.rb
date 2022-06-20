@@ -49,31 +49,16 @@ module Rhex
       [subtracted_hex.q.abs, subtracted_hex.r.abs, subtracted_hex.s.abs].max
     end
 
-    def neighbors(range = 1, grid: nil)
-      to_axial.neighbors(range, grid: grid).map(&:to_cube)
+    def neighbors(grid: nil)
+      to_axial.neighbors(grid: grid).map(&:to_cube)
     end
 
-    # TODO: should exclude itself from the `neighbors` list
-    # def neighbors(range = 1, grid: nil)
-    #   (-range..range).to_a.each_with_object([]) do |q, neighbors|
-    #     ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-    #       s = -q - r
-    #
-    #       cube_hex = Rhex::CubeHex.new(q, r, s, data: data)
-    #       cube_hex = grid.hget(cube_hex) unless grid.nil?
-    #
-    #       neighbors.push(add(cube_hex)) unless cube_hex.nil?
-    #     end
-    #   end
-    # end
+    def linedraw(target)
+      distance = distance(target)
 
-    # TODO: the target `cube_hex` should be in the `linedraw` list
-    def linedraw(cube_hex)
-      distance = distance(cube_hex)
-
-      distance.times.each_with_object([]) do |t, cube_hexes|
+      (distance + 1).times.each_with_object([]) do |t, hexes|
         step = BigDecimal(1) / distance * t
-        cube_hexes.push(cube_hex_lerp(cube_hex, step).round)
+        hexes.push(cube_hex_lerp(target, step).round)
       end
     end
 
@@ -126,11 +111,11 @@ module Rhex
 
     private
 
-    def cube_hex_lerp(cube_hex, step)
+    def cube_hex_lerp(hex, step)
       Rhex::CubeHex.new(
-        Math.lerp(q, cube_hex.q, step),
-        Math.lerp(r, cube_hex.r, step),
-        Math.lerp(s, cube_hex.s, step),
+        Math.lerp(q, hex.q, step),
+        Math.lerp(r, hex.r, step),
+        Math.lerp(s, hex.s, step),
         data: data
       )
     end

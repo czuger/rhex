@@ -6,6 +6,21 @@ require 'rhex/axial_hex'
 require 'rhex/grid'
 
 RSpec.describe Rhex::CubeHex do
+  describe '#linedraw' do
+    it 'returns straight path to the target' do
+      source = Rhex::CubeHex.new(-4, 0, 4)
+      target = Rhex::CubeHex.new(-1, -1, 2)
+
+      expect(pp(source.linedraw(target)))
+        .to contain_exactly(
+          source,
+          Rhex::CubeHex.new(-3, 0, 3),
+          Rhex::CubeHex.new(-2, -1, 3),
+          target
+        )
+    end
+  end
+
   describe '#neighbors' do
     context 'when `grid` is defined' do
       it 'should return neighbors within grid' do

@@ -37,7 +37,7 @@ module Rhex
       [subtracted_hex.q.abs, subtracted_hex.r.abs, (-subtracted_hex.q - subtracted_hex.r).abs].max
     end
 
-    def neighbors(_range = 1, grid: nil)
+    def neighbors(grid: nil)
       DIRECTION_VECTORS.each_with_object([]) do |(q, r), neighbors|
         hex = add(Rhex::AxialHex.new(q, r, data: data))
         hex = grid.hget(hex) unless grid.nil?
@@ -48,6 +48,10 @@ module Rhex
 
     def dijkstra_shortest_path(target, grid, obstacles: [])
       DijkstraShortestPath.new(self, target, grid, obstacles: obstacles).call
+    end
+
+    def linedraw(hex)
+      to_cube.linedraw(hex.to_cube).map(&:to_axial)
     end
 
     def to_cube

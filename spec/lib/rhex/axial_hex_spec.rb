@@ -6,6 +6,21 @@ require 'rhex/grid'
 require 'rhex/dijkstra_shortest_path'
 
 RSpec.describe Rhex::AxialHex do
+  describe '#linedraw' do
+    it 'returns straight path to the target' do
+      source = Rhex::AxialHex.new(-4, 0)
+      target = Rhex::AxialHex.new(-1, -1)
+
+      expect(source.linedraw(target))
+        .to contain_exactly(
+          source,
+          Rhex::AxialHex.new(-3, 0),
+          Rhex::AxialHex.new(-2, -1),
+          target
+        )
+    end
+  end
+
   describe '#distance' do
     it 'calculates the distance between two hexes' do
       from = Rhex::AxialHex.new(0, 2)
