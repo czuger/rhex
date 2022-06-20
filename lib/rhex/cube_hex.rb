@@ -14,7 +14,7 @@ module Math
 end
 
 module Rhex
-  class CubeHex # rubocop:disable Metrics/ClassLength
+  class CubeHex
     DIRECTION_VECTORS = [
       [1, 0, -1], [1, -1, 0], [0, -1, 1], [-1, 0, 1], [-1, 1, 0], [0, 1, -1]
     ].freeze
@@ -44,22 +44,13 @@ module Rhex
       q != other.q || r != other.r || s != other.s
     end
 
-    def distance(cube_hex)
-      subtracted_cube_hex = subtract(cube_hex)
-      [
-        subtracted_cube_hex.q.abs,
-        subtracted_cube_hex.r.abs,
-        subtracted_cube_hex.s.abs
-      ].max
+    def distance(hex)
+      subtracted_hex = subtract(hex)
+      [subtracted_hex.q.abs, subtracted_hex.r.abs, subtracted_hex.s.abs].max
     end
 
-    def neighbors(_range = 1, grid: nil)
-      DIRECTION_VECTORS.each_with_object([]) do |(q, r, s), neighbors|
-        cube_hex = add(Rhex::CubeHex.new(q, r, s, data: data))
-        cube_hex = grid.hget(cube_hex) unless grid.nil?
-
-        neighbors.push(cube_hex) unless cube_hex.nil?
-      end
+    def neighbors(range = 1, grid: nil)
+      to_axial.neighbors(range, grid: grid).map(&:to_cube)
     end
 
     # TODO: should exclude itself from the `neighbors` list

@@ -2,10 +2,17 @@
 
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
+require 'rgl/traversal'
 
 module Rhex
   class DijkstraShortestPath
     attr_reader :source, :target, :obstacles, :grid
+
+    GridDoesNotContainSource = Class.new(StandardError)
+    GridDoesNotContainTarget = Class.new(StandardError)
+
+    EDGE_WEIGHTS_MAP = Hash.new(1)
+    private_constant :EDGE_WEIGHTS_MAP
 
     def initialize(source, target, grid, obstacles: [])
       @source = source
@@ -15,17 +22,17 @@ module Rhex
     end
 
     def call
-      raise '`grid` does not contain the `source`' if grid.hget(source).nil?
-      raise '`grid` does not contain the `target`' if grid.hget(target).nil?
+      raise GridDoesNotContainSource if grid.hget(source).nil?
+      raise GridDoesNotContainTarget if grid.hget(target).nil?
 
-      build_graph
+      graph = build_graph(RGL::AdjacencyGraph.new)
 
-      graph.dijkstra_shortest_path(edge_weights_map, source, target)
+      graph.dijkstra_shortest_path(EDGE_WEIGHTS_MAP, source, target)
     end
 
     private
 
-    def build_graph # rubocop:disable Metrics/AbcSize
+    def build_graph(graph) # rubocop:disable Metrics/MethodLength
       frontiers = [source]
 
       until frontiers.empty?
@@ -39,14 +46,8 @@ module Rhex
 
         break if current == target
       end
-    end
 
-    def graph
-      @graph ||= RGL::AdjacencyGraph.new
-    end
-
-    def edge_weights_map
-      Hash.new(1)
+      graph
     end
   end
 end

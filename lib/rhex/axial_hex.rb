@@ -4,10 +4,13 @@ require 'rhex/cube_hex'
 
 module Rhex
   class AxialHex
+    DIRECTION_VECTORS = [
+      [1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]
+    ].freeze
 
     attr_reader :q, :r, :data
 
-    def initialize(q, r, data: nil)# rubocop:disable Naming/MethodParameterName
+    def initialize(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
       @q = q
       @r = r
       @data = data
@@ -29,20 +32,44 @@ module Rhex
       q != other.q || r != other.r
     end
 
-    def distance(axial_hex)
-      to_cube.distance(axial_hex.to_cube)
+    def distance(hex)
+      subtracted_hex = subtract(hex)
+      [subtracted_hex.q.abs, subtracted_hex.r.abs, (-subtracted_hex.q - subtracted_hex.r).abs].max
     end
 
-    def neighbors(range = 1, grid: nil)
-      to_cube.neighbors(range, grid: grid).map(&:to_axial)
+    def neighbors(_range = 1, grid: nil)
+      DIRECTION_VECTORS.each_with_object([]) do |(q, r), neighbors|
+        hex = add(Rhex::AxialHex.new(q, r, data: data))
+        hex = grid.hget(hex) unless grid.nil?
+
+        neighbors.push(hex) unless hex.nil?
+      end
     end
 
-    def linedraw(axial_hex)
-      to_cube.linedraw(axial_hex.to_cube).map(&:to_axial)
+    def dijkstra_shortest_path(target, grid, obstacles: [])
+      DijkstraShortestPath.new(self, target, grid, obstacles: obstacles).call
     end
 
     def to_cube
-      CubeHex.new(q, r, -q - r, data: data)
+      Rhex::CubeHex.new(q, r, -q - r, data: data)
+    end
+
+    private
+
+    def subtract(hex)
+      Rhex::AxialHex.new(
+        q - hex.q,
+        r - hex.r,
+        data: data
+      )
+    end
+
+    def add(hex)
+      Rhex::AxialHex.new(
+        q + hex.q,
+        r + hex.r,
+        data: data
+      )
     end
   end
 end
