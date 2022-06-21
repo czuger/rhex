@@ -99,7 +99,7 @@ module Rhex
     end
 
     def to_axial
-      AxialHex.new(q, r, data: data)
+      Rhex::AxialHex.new(q, r, data: data)
     end
 
     protected
@@ -138,22 +138,12 @@ module Rhex
       )
     end
 
-    def subtract(cube_hex)
-      Rhex::CubeHex.new(
-        q - cube_hex.q,
-        r - cube_hex.r,
-        s - cube_hex.s,
-        data: data
-      )
+    def subtract(hex)
+      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data)
     end
 
-    def add(cube_hex)
-      Rhex::CubeHex.new(
-        q + cube_hex.q,
-        r + cube_hex.r,
-        s + cube_hex.s,
-        data: data
-      )
+    def add(hex)
+      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data)
     end
   end
 end

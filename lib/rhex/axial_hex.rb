@@ -86,19 +86,11 @@ module Rhex
     private
 
     def subtract(hex)
-      Rhex::AxialHex.new(
-        q - hex.q,
-        r - hex.r,
-        data: data
-      )
+      Rhex::AxialHex.new(q - hex.q, r - hex.r, data: data)
     end
 
     def add(hex)
-      Rhex::AxialHex.new(
-        q + hex.q,
-        r + hex.r,
-        data: data
-      )
+      Rhex::AxialHex.new(q + hex.q, r + hex.r, data: data)
     end
   end
 end
