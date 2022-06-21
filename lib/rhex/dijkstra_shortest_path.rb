@@ -2,7 +2,6 @@
 
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
-require 'rgl/traversal'
 
 module Rhex
   class DijkstraShortestPath

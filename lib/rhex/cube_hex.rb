@@ -3,22 +3,21 @@
 require 'rhex/axial_hex'
 require 'rhex/hex'
 
-# TODO: safe monkey patching
-module Math
-  module Hexagon
-    def movement_range(radius = 1)
-      (1 + 3 * radius * (radius + 1))
-    end
-  end
-
-  # linear interpolation
-  def self.lerp(start, stop, step)
-    (stop * step) + (start * (1.0 - step))
-  end
-end
-
 module Rhex
   class CubeHex < Hex
+    module Math
+      module Hexagon
+        def movement_range(radius = 1)
+          (1 + 3 * radius * (radius + 1))
+        end
+      end
+
+      # linear interpolation
+      def self.lerp(start, stop, step)
+        (stop * step) + (start * (1.0 - step))
+      end
+    end
+
     RadiusCannotBeZero = Class.new(StandardError)
 
     DIRECTION_VECTORS = [

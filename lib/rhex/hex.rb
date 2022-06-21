@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'rgl/adjacency'
-require 'rgl/dijkstra'
+require 'rhex/dijkstra_shortest_path'
 
 module Rhex
   class Hex
