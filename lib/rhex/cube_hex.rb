@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rgl/adjacency'
-require 'rgl/dijkstra'
 require 'rhex/axial_hex'
 require 'rhex/hex'
 
@@ -41,7 +39,7 @@ module Rhex
       @data = data
     end
 
-    def hashx
+    def hash
       { q: q, r: r, s: s }.hash
     end
 

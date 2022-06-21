@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'rgl/adjacency'
+require 'rgl/dijkstra'
+
 module Rhex
   class Hex
     NotInTheDirectionVectorsList = Class.new(StandardError)
