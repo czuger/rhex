@@ -3,6 +3,7 @@
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
 require 'rhex/axial_hex'
+require 'rhex/hex'
 
 # TODO: safe monkey patching
 module Math
@@ -19,7 +20,7 @@ module Math
 end
 
 module Rhex
-  class CubeHex
+  class CubeHex < Hex
     RadiusCannotBeZero = Class.new(StandardError)
 
     DIRECTION_VECTORS = [
@@ -40,12 +41,8 @@ module Rhex
       @data = data
     end
 
-    def hash
+    def hashx
       { q: q, r: r, s: s }.hash
-    end
-
-    def eql?(other)
-      self == other
     end
 
     def ==(other)

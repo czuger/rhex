@@ -19,7 +19,7 @@ module Rhex
     end
 
     def hget(hex)
-      storage(hex.q, hex.r)
+      cget(hex.q, hex.r)
     end
   end
 end
