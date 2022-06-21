@@ -7,6 +7,12 @@ require 'rhex/axial_hex'
 
 # TODO: safe monkey patching
 module Math
+  module Hexagon
+    def movement_range(radius = 1)
+      (1 + 3 * radius * (radius + 1))
+    end
+  end
+
   # linear interpolation
   def self.lerp(start, stop, step)
     (stop * step) + (start * (1.0 - step))
@@ -15,8 +21,15 @@ end
 
 module Rhex
   class CubeHex
+    RadiusCannotBeZero = Class.new(StandardError)
+
     DIRECTION_VECTORS = [
-      [1, 0, -1], [1, -1, 0], [0, -1, 1], [-1, 0, 1], [-1, 1, 0], [0, 1, -1]
+      [1, 0, -1],
+      [1, -1, 0],
+      [0, -1, 1],
+      [-1, 0, 1],
+      INITIAL_RING_VECTOR = [-1, 1, 0].freeze,
+      [0, 1, -1]
     ].freeze
 
     attr_reader :q, :r, :s, :data
@@ -53,6 +66,10 @@ module Rhex
       to_axial.neighbors(grid: grid).map(&:to_cube)
     end
 
+    def neighbor(direction_index, grid: nil)
+      to_axial.neighbor(direction_index, grid: grid)&.to_cube
+    end
+
     def linedraw(target)
       distance = distance(target)
 
@@ -62,11 +79,34 @@ module Rhex
       end
     end
 
+    def ring(radius = 1)
+      hex = add(Rhex::CubeHex.new(*INITIAL_RING_VECTOR).scale(radius))
+
+      DIRECTION_VECTORS.length.times.with_object([]) do |direction_index, hexes|
+        radius.times do
+          hexes.push(hex)
+          hex = hex.neighbor(direction_index)
+        end
+      end
+    end
+
+    def spiral_ring(radius = 1)
+      raise(RadiusCannotBeZero) unless radius.positive?
+
+      1.upto(radius).each_with_object([self]) do |r, hexes|
+        hexes.concat(ring(r))
+      end
+    end
+
     def to_axial
       AxialHex.new(q, r, data: data)
     end
 
     protected
+
+    def scale(factor)
+      Rhex::CubeHex.new(q * factor, r * factor, s * factor)
+    end
 
     def round
       rounded_q = q.round

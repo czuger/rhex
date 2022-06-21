@@ -4,6 +4,8 @@ require 'rhex/cube_hex'
 
 module Rhex
   class AxialHex
+    NotInTheDirectionVectorsList = Class.new(StandardError)
+
     DIRECTION_VECTORS = [
       [1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]
     ].freeze
@@ -38,12 +40,19 @@ module Rhex
     end
 
     def neighbors(grid: nil)
-      DIRECTION_VECTORS.each_with_object([]) do |(q, r), neighbors|
-        hex = add(Rhex::AxialHex.new(q, r, data: data))
-        hex = grid.hget(hex) unless grid.nil?
+      DIRECTION_VECTORS.length.times.each_with_object([]) do |direction_index, neighbors|
+        hex = neighbor(direction_index, grid: grid)
 
         neighbors.push(hex) unless hex.nil?
       end
+    end
+
+    def neighbor(direction_index, grid: nil)
+      q, r = DIRECTION_VECTORS[direction_index] || raise(NotInTheDirectionVectorsList)
+
+      hex = add(Rhex::AxialHex.new(q, r, data: data))
+      hex = grid.hget(hex) unless grid.nil?
+      hex
     end
 
     def dijkstra_shortest_path(target, grid, obstacles: [])

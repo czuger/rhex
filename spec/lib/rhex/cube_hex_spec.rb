@@ -6,12 +6,28 @@ require 'rhex/axial_hex'
 require 'rhex/grid'
 
 RSpec.describe Rhex::CubeHex do
+  describe '#spiral_ring' do
+    it 'returns a spiral list of hexagons' do
+      center = Rhex::CubeHex.new(0, 0, 0)
+
+      expect(center.spiral_ring(2).length).to eq(19)
+    end
+  end
+
+  describe '#ring' do
+    it 'returns a ring list of hexagons' do
+      center = Rhex::CubeHex.new(0, 0, 0)
+
+      expect(center.ring(2).length).to eq(12)
+    end
+  end
+
   describe '#linedraw' do
     it 'returns straight path to the target' do
       source = Rhex::CubeHex.new(-4, 0, 4)
       target = Rhex::CubeHex.new(-1, -1, 2)
 
-      expect(pp(source.linedraw(target)))
+      expect(source.linedraw(target))
         .to contain_exactly(
           source,
           Rhex::CubeHex.new(-3, 0, 3),
