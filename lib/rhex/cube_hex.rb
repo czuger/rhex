@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'bigdecimal'
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
 require 'rhex/axial_hex'
@@ -74,7 +73,7 @@ module Rhex
       distance = distance(target)
 
       (distance + 1).times.each_with_object([]) do |t, hexes|
-        step = BigDecimal(1) / distance * t
+        step = 1.0 / distance * t
         hexes.push(cube_hex_lerp(target, step).round)
       end
     end
@@ -109,9 +108,9 @@ module Rhex
     end
 
     def round
-      rounded_q = q.round
-      rounded_r = r.round
-      rounded_s = s.round
+      rounded_q = q.round(half: :down)
+      rounded_r = r.round(half: :down)
+      rounded_s = s.round(half: :down)
 
       q_diff = (rounded_q - q).abs
       r_diff = (rounded_r - r).abs

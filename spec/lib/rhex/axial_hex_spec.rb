@@ -6,6 +6,18 @@ require 'rhex/grid'
 require 'rhex/dijkstra_shortest_path'
 
 RSpec.describe Rhex::AxialHex do
+  describe '#field_of_view' do
+    it 'calculate field of view' do
+      grid = grid(3)
+      source = Rhex::AxialHex.new(0, 0)
+      obstacles = coords_to_hexes([[-1, 1], [-1, 0], [0, -1], [1, -1], [1, 0]])
+
+      expect_field_of_view = coords_to_hexes([[0, 1], [1, 1], [-1, 2], [0, 2], [-1, 3], [0, 3], [1, 2]])
+
+      expect(source.field_of_view(grid, obstacles)).to contain_exactly(*expect_field_of_view)
+    end
+  end
+
   describe '#reachable' do
     it 'shows reachable hexes' do
       source = Rhex::AxialHex.new(0, 0)
@@ -67,6 +79,18 @@ RSpec.describe Rhex::AxialHex do
 
       expect(axial.to_cube).to eq(Rhex::CubeHex.new(0, -1, 1))
     end
+  end
+
+  def grid(range)
+    grid = Rhex::Grid.new
+
+    (-range..range).to_a.each do |q|
+      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
+        grid.hset(Rhex::AxialHex.new(q, r))
+      end
+    end
+
+    grid
   end
 
   def coords_to_hexes(coords)

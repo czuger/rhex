@@ -2,22 +2,24 @@
 
 module Rhex
   class Grid
-    attr_reader :hexes
+    attr_reader :hexes, :storage
 
     def initialize
-      @hexes = {}
+      @hexes = []
+      @storage = {}
     end
 
     def hset(hex)
-      hexes[[hex.q, hex.r]] = hex
+      hexes.push(hex)
+      storage[[hex.q, hex.r]] = hex
     end
 
     def cget(q, r) # rubocop:disable Naming/MethodParameterName
-      hexes[[q, r]]
+      storage[[q, r]]
     end
 
     def hget(hex)
-      cget(hex.q, hex.r)
+      storage(hex.q, hex.r)
     end
   end
 end

@@ -79,6 +79,13 @@ module Rhex
       end
     end
 
+    def field_of_view(grid, obstacles = [], _radius: 1)
+      grid_except_self = grid.hexes - [self]
+      return grid_except_self if obstacles.empty?
+
+      grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? }
+    end
+
     def to_cube
       Rhex::CubeHex.new(q, r, -q - r, data: data)
     end
