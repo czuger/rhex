@@ -42,9 +42,7 @@ hex = Rhex::AxialHex.new(0, -2)
 
 # Get hexes surrounding it (neighbors)
 hex.neighbors
-# => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>,
- #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2>,
- #<Rhex::CubeHex @data=nil, @q=0, @r=-3, @s=3> ... ]
+# => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2> ... ]
 
 # Get distance between two hexagons
 Rhex::AxialHex.new(0, 2).distance(Rhex::AxialHex.new(0, -2))
