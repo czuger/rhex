@@ -26,14 +26,13 @@ module Rhex
       [0, 1, -1]
     ].freeze
 
-    attr_reader :q, :r, :s, :data
-
     def initialize(q, r, s, data: nil) # rubocop:disable Naming/MethodParameterName
-      @q = q
-      @r = r
+      super(q, r, data: data)
+
       @s = s
-      @data = data
     end
+
+    attr_reader :s
 
     def hash
       { q: q, r: r, s: s }.hash
@@ -50,14 +49,6 @@ module Rhex
     def distance(hex)
       subtracted_hex = subtract(hex)
       [subtracted_hex.q.abs, subtracted_hex.r.abs, subtracted_hex.s.abs].max
-    end
-
-    def neighbors(grid: nil)
-      to_axial.neighbors(grid: grid).map(&:to_cube)
-    end
-
-    def neighbor(direction_index, grid: nil)
-      to_axial.neighbor(direction_index, grid: grid)&.to_cube
     end
 
     def linedraw(target)

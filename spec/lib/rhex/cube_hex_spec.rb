@@ -62,7 +62,7 @@ RSpec.describe Rhex::CubeHex do
 
     (-range..range).to_a.each do |q|
       ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.hset(Rhex::AxialHex.new(q, r))
+        grid.hset(Rhex::CubeHex.new(q, r, -q - r))
       end
     end
 

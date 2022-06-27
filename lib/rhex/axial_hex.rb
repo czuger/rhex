@@ -6,14 +6,6 @@ module Rhex
       [1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]
     ].freeze
 
-    attr_reader :q, :r, :data
-
-    def initialize(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
-      @q = q
-      @r = r
-      @data = data
-    end
-
     def hash
       { q: q, r: r }.hash
     end

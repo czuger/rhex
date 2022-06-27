@@ -4,6 +4,14 @@ module Rhex
   class Hex
     NotInTheDirectionVectorsList = Class.new(StandardError)
 
+    def initialize(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
+      @q = q
+      @r = r
+      @data = data
+    end
+
+    attr_reader :q, :r, :data
+
     def eql?(other)
       self == other
     end
