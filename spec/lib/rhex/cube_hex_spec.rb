@@ -36,7 +36,7 @@ RSpec.describe Rhex::CubeHex do
 
   describe '#neighbors' do
     context 'when `grid` is defined' do
-      it 'should return neighbors within grid' do
+      it 'returns neighbors according to the grid' do
         grid = grid(3)
         cube_hex = Rhex::CubeHex.new(0, 3, -3)
         expect(cube_hex.neighbors(grid: grid))
@@ -44,6 +44,21 @@ RSpec.describe Rhex::CubeHex do
             Rhex::CubeHex.new(-1, 3, -2),
             Rhex::CubeHex.new(0, 2, -2),
             Rhex::CubeHex.new(1, 2, -3)
+          )
+      end
+    end
+
+    context 'when grid is not defined' do
+      it 'returns all 6 neighbors' do
+        cube_hex = Rhex::CubeHex.new(0, -2, 2)
+        expect(cube_hex.neighbors)
+          .to contain_exactly(
+            Rhex::CubeHex.new(0, -3, 3),
+            Rhex::CubeHex.new(1, -3, 2),
+            Rhex::CubeHex.new(1, -2, 1),
+            Rhex::CubeHex.new(0, -1, 1),
+            Rhex::CubeHex.new(-1, -1, 2),
+            Rhex::CubeHex.new(-1, -2, 3)
           )
       end
     end
