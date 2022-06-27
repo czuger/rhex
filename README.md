@@ -8,13 +8,10 @@
 This repository contain a library for using a grid of hexagons with ruby.
 
 * It is a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/).
-* The hexagons are pointy topped.
-* The coordinate system is axial.
-* Only required methods are implemented in the cube object.
 
 ## Compatibility
 
-This gem has been tested with ruby 2.4, 2.5, 2.6
+This gem has been tested with ruby 3.0.3
 
 ## Setup
 
@@ -38,29 +35,20 @@ require 'rhex'
 ------
 
 ```ruby
-# Create a new hexagon (q = 10, r = 10 )
+# Create a new hexagon (q = 0, r = -2)
 # To understand what q and r mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
-hexa = AxialHex.new( 10, 10 )
-# => #<AxialHex @q=10, @r=10>
+hex = Rhex::AxialHex.new(0, -2)
+# => #<Rhex::AxialHex @q=0, @r=-2, @data=nil>
 
-# Get hexes surrounding it
-hexa.surrounding_hexs
-# => [#<AxialHex @q=10, @r=9>, #<AxialHex @q=11, @r=9>, ... ]
+# Get hexes surrounding it (neighbors)
+hex.neighbors
+# => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>,
+ #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2>,
+ #<Rhex::CubeHex @data=nil, @q=0, @r=-3, @s=3> ... ]
 
 # Get distance between two hexagons
-hexb = AxialHex.new( 20, 20 )
-hexa.distance(hexb)
-# => 20
-
-# Check if a hex is adjacent to another hex
-hexa.hex_surrounding_hex?(hexb)
-# => false
-
-# Get the nearset hex from a hexes list
-hexc = AxialHex.new( 20, 13 )
-hlist = [ hexb, hexc ]
-hexa.nearest_hex(hlist)
-# => #<AxialHex @q=20, @r=13>
+Rhex::AxialHex.new(0, 2).distance(Rhex::AxialHex.new(0, -2))
+# => 4
 ```
 
 ### Hexagons grid
