@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rhex/dijkstra_shortest_path'
-
 module Rhex
   class Hex
     NotInTheDirectionVectorsList = Class.new(StandardError)

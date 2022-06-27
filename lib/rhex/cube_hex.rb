@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'rhex/axial_hex'
-require 'rhex/hex'
-
 module Rhex
   class CubeHex < Hex
     module Math

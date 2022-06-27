@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'rhex/cube_hex'
-require 'rhex/hex'
-
 module Rhex
   class AxialHex < Hex
     DIRECTION_VECTORS = [

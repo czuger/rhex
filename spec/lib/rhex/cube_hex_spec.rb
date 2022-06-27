@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rhex/cube_hex'
-require 'rhex/axial_hex'
-require 'rhex/grid'
 
 RSpec.describe Rhex::CubeHex do
   describe '#spiral_ring' do

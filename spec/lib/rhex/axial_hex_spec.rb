@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rhex/axial_hex'
-require 'rhex/grid'
-require 'rhex/dijkstra_shortest_path'
 
 RSpec.describe Rhex::AxialHex do
   describe '#field_of_view' do
