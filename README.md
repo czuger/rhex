@@ -16,12 +16,12 @@ This gem has been tested with ruby 3.0.3
 ## Setup
 
 ```shell
-gem install rhex
+gem install rhex -s https://github.com/mersen1/rhex
 ```
 
 Or in your gemfile : 
 ```ruby
-gem 'rhex'
+gem 'rhex', git: 'git@github.com:mersen1/rhex.git'
 ```
 
 Then in your code :
