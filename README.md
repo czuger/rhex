@@ -36,7 +36,7 @@ require 'rhex'
 
 Create a new hexagon `q = 0, r = -2`.
 </br>
-To understand what q and r mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
+To understand what `q` and `r` mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
 
 ```ruby
 hex = Rhex::AxialHex.new(0, -2)
