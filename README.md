@@ -43,6 +43,7 @@ hex = Rhex::AxialHex.new(0, -2)
 # => #<Rhex::AxialHex @q=0, @r=-2, @data=nil>
 ```
 
+#### Neighbors
 Get neighbors (hexes surrounding it).
 
 ```ruby
@@ -50,6 +51,7 @@ Rhex::AxialHex.new(0, -2).neighbors
 # => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2> ... ]
 ```
 
+#### Distance
 Get distance between two hexagons
 
 ```ruby
