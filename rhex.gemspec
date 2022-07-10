@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 3.0.3'
 
   s.add_dependency 'rgl'
+  s.add_dependency 'rmagick'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'

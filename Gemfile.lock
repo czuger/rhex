@@ -3,6 +3,7 @@ PATH
   specs:
     rhex (3.0.0)
       rgl
+      rmagick
 
 GEM
   remote: https://rubygems.org/
@@ -30,6 +31,7 @@ GEM
       lazy_priority_queue (~> 0.1.0)
       rexml (~> 3.2, >= 3.2.4)
       stream (~> 0.5.3)
+    rmagick (4.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
