@@ -34,18 +34,25 @@ require 'rhex'
 ### Basics
 ------
 
-Create a new hexagon (q = 0, r = -2)
+Create a new hexagon `q = 0, r = -2`.
+</br>
 To understand what q and r mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
 
 ```ruby
 hex = Rhex::AxialHex.new(0, -2)
 # => #<Rhex::AxialHex @q=0, @r=-2, @data=nil>
+```
 
-# Get hexes surrounding it (neighbors)
-hex.neighbors
+Get neighbors (hexes surrounding it).
+
+```ruby
+Rhex::AxialHex.new(0, -2).neighbors
 # => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2> ... ]
+```
 
-# Get distance between two hexagons
+Get distance between two hexagons
+
+```ruby
 Rhex::AxialHex.new(0, 2).distance(Rhex::AxialHex.new(0, -2))
 # => 4
 ```
