@@ -25,7 +25,7 @@ module Rhex
       end
 
       gc.draw(imgl)
-      imgl.write('polygon.png')
+      imgl.write('grid.png')
     end
 
     private
