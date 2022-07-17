@@ -42,8 +42,6 @@ module Rhex
           graph.add_edge(neighbor, current)
           frontiers.push(neighbor)
         end
-
-        break if current == target
       end
 
       graph
