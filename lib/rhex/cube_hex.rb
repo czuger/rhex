@@ -28,14 +28,15 @@ module Rhex
     ].freeze
     private_constant :DIRECTION_VECTORS, :INITIAL_RING_VECTOR
 
-    def initialize(q, r, s, data: nil) # rubocop:disable Naming/MethodParameterName
+    def initialize(q, r, s, data: nil, image_config: nil) # rubocop:disable Naming/MethodParameterName
       @q = q
       @r = r
       @s = s
       @data = data
+      @image_config = image_config
     end
 
-    attr_reader :q, :r, :s, :data
+    attr_reader :q, :r, :s, :data, :image_config
 
     def hash
       { q: q, r: r, s: s }.hash
@@ -80,7 +81,7 @@ module Rhex
     def neighbor(direction_index, grid: nil)
       direction_vector = DIRECTION_VECTORS[direction_index] || raise(NotInTheDirectionVectorsList)
 
-      hex = add(Rhex::CubeHex.new(*direction_vector, data: data))
+      hex = add(Rhex::CubeHex.new(*direction_vector, data: data, image_config: image_config))
       hex = grid.hget(hex) unless grid.nil?
       hex
     end
@@ -130,7 +131,7 @@ module Rhex
     end
 
     def to_axial
-      Rhex::AxialHex.new(q, r, data: data)
+      Rhex::AxialHex.new(q, r, data: data, image_config: image_config)
     end
 
     protected
@@ -155,7 +156,7 @@ module Rhex
       else
         rounded_s = -rounded_q - rounded_r
       end
-      Rhex::CubeHex.new(rounded_q, rounded_r, rounded_s, data: data)
+      Rhex::CubeHex.new(rounded_q, rounded_r, rounded_s, data: data, image_config: image_config)
     end
 
     private
@@ -165,16 +166,17 @@ module Rhex
         Math.lerp(q, hex.q, step),
         Math.lerp(r, hex.r, step),
         Math.lerp(s, hex.s, step),
-        data: data
+        data: data,
+        image_config: image_config
       )
     end
 
     def subtract(hex)
-      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data)
+      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data, image_config: image_config)
     end
 
     def add(hex)
-      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data)
+      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data, image_config: image_config)
     end
   end
 end

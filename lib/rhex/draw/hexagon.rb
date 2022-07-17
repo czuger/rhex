@@ -31,8 +31,8 @@ module Rhex
       end
 
       def call
-        draw_hexagon(DEFAULT_IMAGE_CONFIG.hexagon)
-        draw_text(DEFAULT_IMAGE_CONFIG.text)
+        draw_hexagon(image_config.hexagon)
+        draw_text(image_config.text)
       end
 
       private
@@ -41,6 +41,10 @@ module Rhex
 
       def_delegators :hex, :coordinates
       def_delegators :hex, :hex_size
+
+      def image_config
+        hex.image_config || DEFAULT_IMAGE_CONFIG
+      end
 
       def draw_hexagon(config)
         gc.fill(config.color)

@@ -4,8 +4,8 @@ require 'delegate'
 
 module Rhex
   class AxialHex < SimpleDelegator
-    def initialize(q, r, data: nil) # rubocop:disable Naming/MethodParameterName
-      super(Rhex::CubeHex.new(q, r, -q - r, data: data))
+    def initialize(q, r, data: nil, image_config: nil) # rubocop:disable Naming/MethodParameterName
+      super(Rhex::CubeHex.new(q, r, -q - r, data: data, image_config: image_config))
     end
 
     def to_cube
