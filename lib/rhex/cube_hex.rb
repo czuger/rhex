@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rhex
-  class CubeHex < Hex
+  class CubeHex # rubocop:disable Metrics/ClassLength
     module Math
       module Hexagon
         def movement_range(radius = 1)
@@ -16,6 +16,7 @@ module Rhex
     end
 
     RadiusCannotBeZero = Class.new(StandardError)
+    NotInTheDirectionVectorsList = Class.new(StandardError)
 
     DIRECTION_VECTORS = [
       [1, 0, -1],
@@ -25,14 +26,16 @@ module Rhex
       INITIAL_RING_VECTOR = [-1, 1, 0].freeze,
       [0, 1, -1]
     ].freeze
+    private_constant :DIRECTION_VECTORS, :INITIAL_RING_VECTOR
 
     def initialize(q, r, s, data: nil) # rubocop:disable Naming/MethodParameterName
-      super(q, r, data: data)
-
+      @q = q
+      @r = r
       @s = s
+      @data = data
     end
 
-    attr_reader :s
+    attr_reader :q, :r, :s, :data
 
     def hash
       { q: q, r: r, s: s }.hash
@@ -44,6 +47,53 @@ module Rhex
 
     def !=(other)
       q != other.q || r != other.r || s != other.s
+    end
+
+    def eql?(other)
+      self == other
+    end
+
+    def reachable(movements_limit = 1, obstacles: []) # rubocop:disable Metrics/MethodLength
+      fringes = [[self]] # array of arrays of all hexes that can be reached in "movement_limit" steps
+
+      1.upto(movements_limit).each_with_object([]) do |move, reachable|
+        fringes.push([])
+        fringes[move - 1].each do |hex|
+          hex.neighbors.each do |neighbor|
+            next if reachable.include?(neighbor) || obstacles.include?(neighbor)
+
+            reachable.push(neighbor)
+            fringes[move].push(neighbor)
+          end
+        end
+      end
+    end
+
+    def neighbors(grid: nil)
+      DIRECTION_VECTORS.length.times.each_with_object([]) do |direction_index, neighbors|
+        hex = neighbor(direction_index, grid: grid)
+
+        neighbors.push(hex) unless hex.nil?
+      end
+    end
+
+    def neighbor(direction_index, grid: nil)
+      direction_vector = DIRECTION_VECTORS[direction_index] || raise(NotInTheDirectionVectorsList)
+
+      hex = add(Rhex::CubeHex.new(*direction_vector, data: data))
+      hex = grid.hget(hex) unless grid.nil?
+      hex
+    end
+
+    def field_of_view(grid, obstacles = [], _radius: 1)
+      grid_except_self = grid.hexes - [self]
+      return grid_except_self if obstacles.empty?
+
+      grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? }
+    end
+
+    def dijkstra_shortest_path(target, grid, obstacles: [])
+      DijkstraShortestPath.new(self, target, grid, obstacles: obstacles).call
     end
 
     def distance(hex)
@@ -89,7 +139,7 @@ module Rhex
       Rhex::CubeHex.new(q * factor, r * factor, s * factor)
     end
 
-    def round
+    def round # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       rounded_q = q.round(half: :down)
       rounded_r = r.round(half: :down)
       rounded_s = s.round(half: :down)
