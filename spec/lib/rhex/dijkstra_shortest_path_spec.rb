@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'rhex/axial_hex'
-require 'rhex/dijkstra_shortest_path'
-require 'rhex/grid'
 
 RSpec.describe Rhex::DijkstraShortestPath do
   describe '#call' do

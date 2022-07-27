@@ -68,6 +68,20 @@ Rhex::AxialHex.new(0, 0).reachable(movements_limit)
 # => [#<Rhex::AxialHex @data=nil, @q=1, @r=0>, #<Rhex::AxialHex @data=nil, @q=0, @r=-1>, ...]
 ```
 
-![Screenshot_2022-07-10_at_16 07 46-removebg-preview](https://user-images.githubusercontent.com/12909125/178148676-7b85f93e-7a4e-46fb-a5d0-1bdd52f0afc6.png)
+#### Dijkstra shortest path
 
+Finds the shortest path using the [Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 
+```ruby
+obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-2, 1), ...]
+source = Rhex::AxialHex.new(0, 0)
+target = Rhex::AxialHex.new(-5, 5)
+
+grid = Rhex::Grid.new
+grid.hset(source)
+
+source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
+# => [#<Rhex::CubeHex @data=nil, @q=0, @r=0>, @s=0>, #<Rhex::CubeHex @data=nil, @q=0, @r=-1, @s=1>, ...]
+```
+
+![Screenshot_2022-07-10_at_16 07 46-removebg-preview](images/dijkstra_shortest_path.png)
