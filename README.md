@@ -74,14 +74,14 @@ Finds the shortest path using the [Dijkstra algorithm](https://en.wikipedia.org/
 
 ```ruby
 obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-2, 1), ...]
-source = Rhex::AxialHex.new(0, 0)
+source = Rhex::AxialHex.new(1, 1)
 target = Rhex::AxialHex.new(-5, 5)
 
 grid = Rhex::Grid.new
 grid.hset(source)
 
 source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
-# => [#<Rhex::CubeHex @data=nil, @q=0, @r=0>, @s=0>, #<Rhex::CubeHex @data=nil, @q=0, @r=-1, @s=1>, ...]
+# => [#<Rhex::CubeHex @data=nil, @q=1, @r=1>, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]
 ```
 
 ![Screenshot_2022-07-10_at_16 07 46-removebg-preview](images/dijkstra_shortest_path.png)
