@@ -3,6 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe Rhex::AxialHex do
+  before do
+    image_configs_path = Rhex.root.join('spec', 'fixtures', 'image_configs')
+
+    Rhex::ImageConfigs.load!(image_configs_path)
+  end
+
   describe '#field_of_view' do
     it 'calculate field of view' do
       grid = grid(3)
@@ -33,13 +39,18 @@ RSpec.describe Rhex::AxialHex do
   describe '#linedraw' do
     it 'returns straight path to the target' do
       source = Rhex::AxialHex.new(-4, 0)
-      target = Rhex::AxialHex.new(-1, -1)
+      target = Rhex::AxialHex.new(4, -2)
 
-      expect(source.linedraw(target))
+      path = source.linedraw(target)
+      path.each { _1.image_config = Rhex::ImageConfigs.path_image_config }
+      path.to_pic('linedraw')
+
+      expect(path).to be_kind_of(Rhex::Grid)
+      expect(path)
         .to contain_exactly(
           source,
-          Rhex::AxialHex.new(-3, 0),
-          Rhex::AxialHex.new(-2, -1),
+          Rhex::AxialHex.new(-3, 0), Rhex::AxialHex.new(-2, 0), Rhex::AxialHex.new(-1, -1), Rhex::AxialHex.new(0, -1),
+          Rhex::AxialHex.new(1, -1), Rhex::AxialHex.new(2, -1), Rhex::AxialHex.new(3, -2),
           target
         )
     end

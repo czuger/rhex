@@ -81,7 +81,20 @@ grid = Rhex::Grid.new
 grid.hset(source)
 
 source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
-# => [#<Rhex::CubeHex @data=nil, @q=1, @r=1>, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]
+# => [#<Rhex::CubeHex @data=nil, @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]
 ```
 
-![Screenshot_2022-07-10_at_16 07 46-removebg-preview](images/dijkstra_shortest_path.png)
+![dijkstra_shortest_path](images/dijkstra_shortest_path.png)
+
+#### Linedraw
+
+Draws a line from one hex to another.
+
+```ruby
+source = Rhex::AxialHex.new(-4, 0)
+target = Rhex::AxialHex.new(4, -2)
+
+source.linedraw(target)
+# => [#<Rhex::CubeHex @data=nil, @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @data=nil, @q=-3, @r=0, @s=3>, ...]
+```
+![linedraw](images/linedraw.png)

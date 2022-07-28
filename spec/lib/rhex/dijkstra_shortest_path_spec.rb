@@ -9,7 +9,9 @@ RSpec.describe Rhex::DijkstraShortestPath do
       source = Rhex::AxialHex.new(0, 2)
       target = Rhex::AxialHex.new(0, -2)
 
-      expect(described_class.new(source, target, grid).call)
+      shortest_path = described_class.new(source, target, grid).call
+
+      expect(shortest_path)
         .to contain_exactly(
           source,
           Rhex::AxialHex.new(0, 1),
@@ -47,8 +49,8 @@ RSpec.describe Rhex::DijkstraShortestPath do
 
         grid.concat(obstacles, expected_shortest_path).to_pic('dijkstra_shortest_path')
 
-        expect(shortest_path).to contain_exactly(*expected_shortest_path)
         expect(shortest_path).to be_kind_of(Rhex::Grid)
+        expect(shortest_path).to contain_exactly(*expected_shortest_path)
       end
     end
   end
