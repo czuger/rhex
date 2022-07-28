@@ -26,8 +26,10 @@ module Rhex
       self
     end
 
-    def to_pic(filename)
-      Rhex::GridToPic.new(self).call(filename)
+    def to_pic(filename, cols: Rhex::GridToPic::DEFAULT_COLS, rows: Rhex::GridToPic::DEFAULT_ROWS)
+      Rhex::GridToPic
+        .new(self, cols: cols, rows: rows)
+        .call(filename)
     end
   end
 end

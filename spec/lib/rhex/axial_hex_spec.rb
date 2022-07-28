@@ -43,7 +43,7 @@ RSpec.describe Rhex::AxialHex do
 
       path = source.linedraw(target)
       path.each { _1.image_config = Rhex::ImageConfigs.path_image_config }
-      path.to_pic('linedraw')
+      path.to_pic('linedraw', rows: 256)
 
       expect(path).to be_kind_of(Rhex::Grid)
       expect(path)

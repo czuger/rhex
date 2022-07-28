@@ -11,9 +11,11 @@ module Rhex
     DEFAULT_COLS = 648
     DEFAULT_ROWS = 648
 
-    def initialize(grid, hex_size: 32)
+    def initialize(grid, hex_size: 32, cols: DEFAULT_COLS, rows: DEFAULT_ROWS)
       @grid = grid
       @hex_size = hex_size
+      @cols = cols
+      @rows = rows
     end
 
     def call(filename)
@@ -29,17 +31,18 @@ module Rhex
 
     private
 
-    attr_reader :grid, :hex_size
+    attr_reader :grid, :hex_size, :cols, :rows
 
     def center
-      @center ||= OpenStruct.new(x: DEFAULT_COLS / 2, y: DEFAULT_ROWS / 2).freeze
+      # (rows / 2) + 48
+      @center ||= OpenStruct.new(x: cols / 2, y: rows / 2).freeze
     end
 
     def imgl
       @imgl ||=
         begin
           imgl = Magick::ImageList.new
-          imgl.new_image(DEFAULT_COLS, DEFAULT_ROWS, Magick::HatchFill.new('transparent', 'lightcyan2'))
+          imgl.new_image(cols, rows, Magick::HatchFill.new('transparent', 'lightcyan2'))
           imgl
         end
     end
