@@ -55,6 +55,18 @@ module Rhex
       self == other
     end
 
+    def reflection_q
+      Rhex::CubeHex.new(q, s, r)
+    end
+
+    def reflection_r
+      Rhex::CubeHex.new(s, r, q)
+    end
+
+    def reflection_s
+      Rhex::CubeHex.new(r, q, s)
+    end
+
     def reachable(movements_limit = 1, obstacles: []) # rubocop:disable Metrics/MethodLength
       fringes = [[self]] # array of arrays of all hexes that can be reached in "movement_limit" steps
       grid = Rhex::Grid.new
@@ -88,11 +100,11 @@ module Rhex
       hex
     end
 
-    def field_of_view(grid, obstacles = [], _radius: 1)
+    def field_of_view(grid, obstacles = [])
       grid_except_self = grid - [self]
       return grid_except_self if obstacles.empty?
 
-      grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? }
+      Rhex::Grid.new(grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? })
     end
 
     def dijkstra_shortest_path(target, grid, obstacles: [])

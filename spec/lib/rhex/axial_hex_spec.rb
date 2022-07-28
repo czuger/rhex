@@ -12,12 +12,24 @@ RSpec.describe Rhex::AxialHex do
   describe '#field_of_view' do
     it 'calculate field of view' do
       grid = grid(3)
-      source = Rhex::AxialHex.new(0, 0)
-      obstacles = coords_to_hexes([[-1, 1], [-1, 0], [0, -1], [1, -1], [1, 0]])
+      source = Rhex::AxialHex.new(-1, 2, image_config: Rhex::ImageConfigs.source_image_config)
+      obstacles = coords_to_hexes(
+        [[-1, 1], [-1, 0], [0, -1], [1, -1], [1, 0]],
+        image_config: Rhex::ImageConfigs.obstacle_image_config
+      )
 
-      expect_field_of_view = coords_to_hexes([[0, 1], [1, 1], [-1, 2], [0, 2], [-1, 3], [0, 3], [1, 2]])
+      expect_field_of_view = coords_to_hexes(
+        [[0, 1], [1, 1], [0, 2], [-1, 3], [0, 3], [1, 2], [-3, 1], [-3, 2], [-3, 3],
+         [-2, 2], [-2, 3], [0, 0], [2, 0], [2, 1], [3, 0]],
+        image_config: Rhex::ImageConfigs.path_image_config
+      )
 
-      expect(source.field_of_view(grid, obstacles)).to contain_exactly(*expect_field_of_view)
+      field_of_view = source.field_of_view(grid, obstacles)
+
+      grid.concat(obstacles, expect_field_of_view, [source]).to_pic('field_of_view', rows: 512)
+
+      expect(field_of_view).to be_kind_of(Rhex::Grid)
+      expect(field_of_view).to contain_exactly(*expect_field_of_view)
     end
   end
 
@@ -101,7 +113,7 @@ RSpec.describe Rhex::AxialHex do
     grid
   end
 
-  def coords_to_hexes(coords)
-    coords.map { Rhex::AxialHex.new(*_1) }
+  def coords_to_hexes(coords, **kwargs)
+    coords.map { Rhex::AxialHex.new(*_1, **kwargs) }
   end
 end

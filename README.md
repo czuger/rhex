@@ -98,3 +98,17 @@ source.linedraw(target)
 # => [#<Rhex::CubeHex @data=nil, @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @data=nil, @q=-3, @r=0, @s=3>, ...]
 ```
 ![linedraw](images/linedraw.png)
+
+#### Field of view
+
+Returns visible location which is not blocked by obstacles.
+
+```ruby
+grid = Rhex::Grid.new
+source = Rhex::AxialHex.new(-1, 2)
+obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-1, 0), ...]
+
+source.field_of_view(grid, obstacles)
+# => [#<Rhex::CubeHex @data=nil, @q=0, @r=0, @s=0>, #<Rhex::CubeHex @data=nil, @q=0, @r=1, @s=-1>, ...]
+```
+![field_of_view](images/field_of_view.png)
