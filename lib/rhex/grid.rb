@@ -1,44 +1,22 @@
 # frozen_string_literal: true
 
+require 'delegate'
+
 module Rhex
-  class Grid
-    def initialize(hexes = [])
-      @storage = {}
-
-      batch_hset(hexes)
-    end
-
-    def hexes
-      storage.values
+  class Grid < SimpleDelegator
+    def initialize(obj = [])
+      super(obj)
     end
 
     def hset(hex)
-      storage[[hex.q, hex.r]] = hex
-    end
+      index = index(hex)
+      delete_at(index) unless index.nil?
 
-    def batch_hset(hexes)
-      hexes.each { |hex| hset(hex) }
-    end
-
-    def cget(q, r) # rubocop:disable Naming/MethodParameterName
-      storage[[q, r]]
+      push(hex)
     end
 
     def hget(hex)
-      cget(hex.q, hex.r)
+      find { _1 == hex }
     end
-
-    def merge!(other_grid)
-      batch_hset(other_grid.hexes)
-      self
-    end
-
-    def each_hex(&block)
-      storage.each_value(&block)
-    end
-
-    private
-
-    attr_reader :storage
   end
 end

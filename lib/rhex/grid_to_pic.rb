@@ -12,12 +12,12 @@ module Rhex
     DEFAULT_ROWS = 648
 
     def initialize(grid, hex_size: 32)
-      @hexes = grid.hexes
+      @grid = grid
       @hex_size = hex_size
     end
 
     def call(filename)
-      hexes.each do |hex|
+      grid.each do |hex|
         decorated_hex = Decorators::FlatToppedHex.new(hex, hex_size: hex_size, center: center)
 
         Draw::Hexagon.new(gc, decorated_hex).call
@@ -29,7 +29,7 @@ module Rhex
 
     private
 
-    attr_reader :hexes, :hex_size
+    attr_reader :grid, :hex_size
 
     def center
       @center ||= OpenStruct.new(x: DEFAULT_COLS / 2, y: DEFAULT_ROWS / 2).freeze

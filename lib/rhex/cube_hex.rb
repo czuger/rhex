@@ -88,7 +88,7 @@ module Rhex
     end
 
     def field_of_view(grid, obstacles = [], _radius: 1)
-      grid_except_self = grid.hexes - [self]
+      grid_except_self = grid - [self]
       return grid_except_self if obstacles.empty?
 
       grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? }
