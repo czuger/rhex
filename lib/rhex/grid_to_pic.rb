@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rmagick'
-require 'ostruct'
 
 module Rhex
   class GridToPic
@@ -17,7 +16,7 @@ module Rhex
       @hex_size = hex_size
     end
 
-    def call
+    def call(filename)
       hexes.each do |hex|
         decorated_hex = Decorators::FlatToppedHex.new(hex, hex_size: hex_size, center: center)
 
@@ -25,7 +24,7 @@ module Rhex
       end
 
       gc.draw(imgl)
-      imgl.write('grid.png')
+      imgl.write(Rhex.root.join('images', "#{filename}.png"))
     end
 
     private

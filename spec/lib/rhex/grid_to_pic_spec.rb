@@ -5,13 +5,16 @@ require 'spec_helper'
 RSpec.describe Rhex::GridToPic do
   describe '#call' do
     it 'draws image using "image_config" attribute' do
-      obstacle_image_config = Rhex::Draw::Hexagon::ImageConfig.new(
-        hexagon: Rhex::Draw::Hexagon::ImageProperties.new(color: '#C2A3A3', stroke_color: '#B3B3B3'),
-        text: Rhex::Draw::Hexagon::ImageProperties.new(color: '#C2A3A3', stroke_color: '#C2A3A3')
+      image_config_class = Rhex::Draw::Hexagon::ImageConfig
+      image_properties_class = Rhex::Draw::Hexagon::ImageProperties
+
+      obstacle_image_config = image_config_class.new(
+        hexagon: image_properties_class.new(color: '#C2A3A3', stroke_color: '#B3B3B3'),
+        text: image_properties_class.new(color: '#C2A3A3', stroke_color: '#C2A3A3')
       )
-      path_image_config = Rhex::Draw::Hexagon::ImageConfig.new(
-        hexagon: Rhex::Draw::Hexagon::ImageProperties.new(color: '#B3D5E6', stroke_color: '#B3B3B3'),
-        text: Rhex::Draw::Hexagon::ImageProperties.new(color: '#B3D5E6', stroke_color: '#B3D5E6')
+      path_image_config = image_config_class.new(
+        hexagon: image_properties_class.new(color: '#B3D5E6', stroke_color: '#B3B3B3'),
+        text: image_properties_class.new(color: '#B3D5E6', stroke_color: '#B3D5E6')
       )
 
       grid = grid(5)
@@ -26,7 +29,7 @@ RSpec.describe Rhex::GridToPic do
 
       obstacles.concat(shortest_path).each { grid.hset(_1) }
 
-      expect { described_class.new(grid).call }.not_to raise_error
+      expect { described_class.new(grid).call('dijkstra_shortest_path') }.not_to raise_error
     end
   end
 

@@ -1,0 +1,6 @@
+hexagon:
+  color: '#C2A3A3'
+  stroke_color: '#B3B3B3'
+text:
+  color: '#000000'
+  stroke_color: 'none'

@@ -1,17 +1,25 @@
 # frozen_string_literal: true
 
+require 'set'
+
 module Rhex
   class Grid
-    attr_reader :hexes, :storage
+    attr_reader :storage
 
     def initialize
-      @hexes = []
       @storage = {}
     end
 
+    def hexes
+      @storage.values
+    end
+
     def hset(hex)
-      hexes.push(hex)
       storage[[hex.q, hex.r]] = hex
+    end
+
+    def batch_hset(hexes)
+      hexes.each { |hex| hset(hex) }
     end
 
     def cget(q, r) # rubocop:disable Naming/MethodParameterName

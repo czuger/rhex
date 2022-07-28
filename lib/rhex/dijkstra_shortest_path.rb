@@ -31,7 +31,7 @@ module Rhex
 
     private
 
-    def build_graph(graph) # rubocop:disable Metrics/MethodLength
+    def build_graph(graph)
       frontiers = [source]
 
       until frontiers.empty?

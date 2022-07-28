@@ -36,7 +36,8 @@ module Rhex
       @image_config = image_config
     end
 
-    attr_reader :q, :r, :s, :data, :image_config
+    attr_reader :q, :r, :s, :data
+    attr_accessor :image_config
 
     def hash
       { q: q, r: r, s: s }.hash
