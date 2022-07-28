@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require 'set'
-
 module Rhex
   class Grid
-    attr_reader :storage
-
-    def initialize
+    def initialize(hexes = [])
       @storage = {}
+
+      batch_hset(hexes)
     end
 
     def hexes
-      @storage.values
+      storage.values
     end
 
     def hset(hex)
@@ -29,5 +27,18 @@ module Rhex
     def hget(hex)
       cget(hex.q, hex.r)
     end
+
+    def merge!(other_grid)
+      batch_hset(other_grid.hexes)
+      self
+    end
+
+    def each_hex(&block)
+      storage.each_value(&block)
+    end
+
+    private
+
+    attr_reader :storage
   end
 end

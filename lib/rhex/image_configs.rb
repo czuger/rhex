@@ -8,8 +8,8 @@ module Rhex
     private_constant :CONFIG_PATTERN
 
     class << self
-      def load!
-        path = File.join(Rhex.configuration.image_configs_path, CONFIG_PATTERN)
+      def load!(image_configs_path)
+        path = File.join(image_configs_path, CONFIG_PATTERN)
         Dir.glob(path).each do |file_path|
           load_file!(file_path)
         end
@@ -20,7 +20,7 @@ module Rhex
       def load_file!(file_path)
         extname = File.extname(file_path)
         filename = File.basename(file_path, extname)
-        config = JSON.parse!(
+        config = JSON.parse(
           YAML.safe_load(File.read(file_path)).to_json,
           object_class: OpenStruct
         )
