@@ -26,7 +26,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
         Rhex::ImageConfigs.load!(image_configs_path)
       end
 
-      it 'finds the shortest path' do
+      it 'finds the shortest path', aggregate_failure: true do
         grid = grid(5)
         source = Rhex::AxialHex.new(1, 1)
         target = Rhex::AxialHex.new(-5, 5)
@@ -35,7 +35,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
           coords_to_hexes([
                             [1, -1], [2, -1], [2, 0], [2, 1], [1, 2], [0, 2], [-1, 2], [-1, 1],
                             [-2, 1], [-1, -1], [0, -2], [1, -3], [-3, 2], [-4, 3], [-5, 4]
-                          ])
+                          ], image_config: Rhex::ImageConfigs.obstacle_image_config)
 
         shortest_path = described_class.new(source, target, grid, obstacles: obstacles).call
 
@@ -43,9 +43,12 @@ RSpec.describe Rhex::DijkstraShortestPath do
           coords_to_hexes([
                             [1, 1], [1, 0], [0, 0], [0, -1], [1, -2], [2, -2], [3, -2], [3, -1], [3, 0],
                             [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-4, 4], [-5, 5]
-                          ])
+                          ], image_config: Rhex::ImageConfigs.path_image_config)
+
+        grid.concat(obstacles, expected_shortest_path).to_pic('dijkstra_shortest_path')
 
         expect(shortest_path).to contain_exactly(*expected_shortest_path)
+        expect(shortest_path).to be_kind_of(Rhex::Grid)
       end
     end
   end
@@ -62,7 +65,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
     grid
   end
 
-  def coords_to_hexes(coords)
-    coords.map { Rhex::AxialHex.new(*_1) }
+  def coords_to_hexes(coords, **kwargs)
+    coords.map { Rhex::AxialHex.new(*_1, **kwargs) }
   end
 end
