@@ -26,9 +26,7 @@ module Rhex
 
       graph = build_graph(RGL::AdjacencyGraph.new)
 
-      Rhex::Grid.new(
-        graph.dijkstra_shortest_path(EDGE_WEIGHTS_MAP, source, target) || []
-      )
+      Rhex::Grid.new(graph.dijkstra_shortest_path(EDGE_WEIGHTS_MAP, source, target) || [])
     end
 
     private
