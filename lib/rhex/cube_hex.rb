@@ -69,9 +69,8 @@ module Rhex
 
     def reachable(movements_limit = 1, obstacles: []) # rubocop:disable Metrics/MethodLength
       fringes = [[self]] # array of arrays of all hexes that can be reached in "movement_limit" steps
-      grid = Rhex::Grid.new
 
-      1.upto(movements_limit).each_with_object(grid) do |move, reachable|
+      1.upto(movements_limit).each_with_object([]) do |move, reachable|
         fringes.push([])
         fringes[move - 1].each do |hex|
           hex.neighbors.each do |neighbor|
@@ -85,7 +84,7 @@ module Rhex
     end
 
     def neighbors(grid: nil)
-      DIRECTION_VECTORS.length.times.each_with_object(Rhex::Grid.new) do |direction_index, neighbors|
+      DIRECTION_VECTORS.length.times.each_with_object([]) do |direction_index, neighbors|
         hex = neighbor(direction_index, grid: grid)
 
         neighbors.push(hex) unless hex.nil?
@@ -96,15 +95,16 @@ module Rhex
       direction_vector = DIRECTION_VECTORS[direction_index] || raise(NotInTheDirectionVectorsList)
 
       hex = add(Rhex::CubeHex.new(*direction_vector, data: data, image_config: image_config))
-      hex = grid.hget(hex) unless grid.nil?
+      return if !grid.nil? && !grid.include?(hex)
+
       hex
     end
 
     def field_of_view(grid, obstacles = [])
-      grid_except_self = grid - [self]
+      grid_except_self = grid.to_a - [self]
       return grid_except_self if obstacles.empty?
 
-      Rhex::Grid.new(grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? })
+      grid_except_self.filter_map { |hex| hex if linedraw(hex).intersection(obstacles).empty? }
     end
 
     def dijkstra_shortest_path(target, grid, obstacles: [])
@@ -118,9 +118,8 @@ module Rhex
 
     def linedraw(target)
       distance = distance(target)
-      grid = Rhex::Grid.new
 
-      (distance + 1).times.each_with_object(grid) do |t, hexes|
+      (distance + 1).times.each_with_object([]) do |t, hexes|
         step = 1.0 / distance * t
         hexes.push(cube_hex_lerp(target, step).round)
       end
@@ -128,9 +127,8 @@ module Rhex
 
     def ring(radius = 1)
       hex = add(Rhex::CubeHex.new(*INITIAL_RING_VECTOR).scale(radius))
-      grid = Rhex::Grid.new
 
-      DIRECTION_VECTORS.length.times.with_object(grid) do |direction_index, hexes|
+      DIRECTION_VECTORS.length.times.with_object([]) do |direction_index, hexes|
         radius.times do
           hexes.push(hex)
           hex = hex.neighbor(direction_index)
@@ -141,8 +139,7 @@ module Rhex
     def spiral_ring(radius = 1)
       raise(RadiusCannotBeZero) unless radius.positive?
 
-      grid = Rhex::Grid.new([self])
-      1.upto(radius).each_with_object(grid) do |r, hexes|
+      1.upto(radius).each_with_object([self]) do |r, hexes|
         hexes.concat(ring(r))
       end
     end

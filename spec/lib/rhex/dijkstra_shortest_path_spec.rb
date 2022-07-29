@@ -47,9 +47,10 @@ RSpec.describe Rhex::DijkstraShortestPath do
                             [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-4, 4], [-5, 5]
                           ], image_config: Rhex::ImageConfigs.path_image_config)
 
-        grid.concat(obstacles, expected_shortest_path).to_pic('dijkstra_shortest_path')
+        grid.merge(obstacles.to_grid)
+            .merge(expected_shortest_path.to_grid)
+            .to_pic('dijkstra_shortest_path')
 
-        expect(shortest_path).to be_kind_of(Rhex::Grid)
         expect(shortest_path).to contain_exactly(*expected_shortest_path)
       end
     end
@@ -60,7 +61,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
 
     (-range..range).to_a.each do |q|
       ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.hset(Rhex::AxialHex.new(q, r))
+        grid.add(Rhex::AxialHex.new(q, r))
       end
     end
 

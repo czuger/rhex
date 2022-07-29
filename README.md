@@ -78,7 +78,7 @@ source = Rhex::AxialHex.new(1, 1)
 target = Rhex::AxialHex.new(-5, 5)
 
 grid = Rhex::Grid.new
-grid.hset(source)
+grid.add(source)
 
 source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
 # => [#<Rhex::CubeHex @data=nil, @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]

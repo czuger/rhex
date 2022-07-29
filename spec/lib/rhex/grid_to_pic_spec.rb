@@ -27,7 +27,7 @@ RSpec.describe Rhex::GridToPic do
       shortest_path = source.dijkstra_shortest_path(Rhex::AxialHex.new(-5, 5), grid, obstacles: obstacles)
       shortest_path = shortest_path.map { Rhex::AxialHex.new(_1.q, _1.r, image_config: path_image_config) }
 
-      obstacles.concat(shortest_path).each { grid.hset(_1) }
+      obstacles.merge(shortest_path).each { grid.add(_1) }
 
       expect { described_class.new(grid).call('dijkstra_shortest_path') }.not_to raise_error
     end
@@ -38,7 +38,7 @@ RSpec.describe Rhex::GridToPic do
 
     (-range..range).to_a.each do |q|
       ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.hset(Rhex::AxialHex.new(q, r))
+        grid.add(Rhex::AxialHex.new(q, r))
       end
     end
 

@@ -26,9 +26,11 @@ RSpec.describe Rhex::AxialHex do
 
       field_of_view = source.field_of_view(grid, obstacles)
 
-      grid.concat(obstacles, expect_field_of_view, [source]).to_pic('field_of_view', rows: 512)
+      grid.merge(obstacles.to_grid)
+          .merge(expect_field_of_view.to_grid)
+          .merge([source].to_grid)
+          .to_pic('field_of_view', rows: 512)
 
-      expect(field_of_view).to be_kind_of(Rhex::Grid)
       expect(field_of_view).to contain_exactly(*expect_field_of_view)
     end
   end
@@ -55,9 +57,8 @@ RSpec.describe Rhex::AxialHex do
 
       path = source.linedraw(target)
       path.each { _1.image_config = Rhex::ImageConfigs.path_image_config }
-      path.to_pic('linedraw', rows: 256)
+      path.to_grid.to_pic('linedraw', rows: 256)
 
-      expect(path).to be_kind_of(Rhex::Grid)
       expect(path)
         .to contain_exactly(
           source,
@@ -106,7 +107,7 @@ RSpec.describe Rhex::AxialHex do
 
     (-range..range).to_a.each do |q|
       ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.hset(Rhex::AxialHex.new(q, r))
+        grid.add(Rhex::AxialHex.new(q, r))
       end
     end
 

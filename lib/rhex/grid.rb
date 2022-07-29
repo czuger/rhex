@@ -1,29 +1,59 @@
 # frozen_string_literal: true
 
-require 'delegate'
-
 module Rhex
-  class Grid < SimpleDelegator
-    def initialize(obj = [])
-      super(obj)
+  class Grid
+    include Enumerable
+
+    def self.[](*hexes)
+      new(hexes)
     end
 
-    def hset(hex)
-      index = index(hex)
-      delete_at(index) unless index.nil?
+    def initialize(hexes = nil)
+      @hash = {}
 
-      push(hex)
+      return if hexes.nil?
+
+      hexes.each { add(_1) }
     end
 
-    def hget(hex)
-      find { _1 == hex }
-    end
-
-    def concat(*other_grids)
-      other_grids.each do |other_grid|
-        other_grid.each { hset(_1) }
-      end
+    def add(hex)
+      @hash[key(hex)] = hex
       self
+    end
+    alias << add
+
+    def each(&block)
+      return enum_for(:each) { size } unless block_given?
+
+      @hash.each_value(&block)
+      self
+    end
+
+    def merge(other)
+      if other.instance_of?(self.class)
+        @hash.update(other.instance_variable_get(:@hash))
+      else
+        other.each { |hex| add(hex) }
+      end
+
+      self
+    end
+
+    def include?(hex)
+      @hash.key?(key(hex))
+    end
+
+    def exclude?(hex)
+      !include?(hex)
+    end
+
+    def size
+      @hash.size
+    end
+    alias length size
+
+    def to_a
+      @hash.values
     end
 
     def to_pic(filename, cols: Rhex::GridToPic::DEFAULT_COLS, rows: Rhex::GridToPic::DEFAULT_ROWS)
@@ -31,5 +61,17 @@ module Rhex
         .new(self, cols: cols, rows: rows)
         .call(filename)
     end
+
+    private
+
+    def key(hex)
+      [hex.q, hex.r]
+    end
+  end
+end
+
+module Enumerable
+  def to_grid(klass = Rhex::Grid)
+    klass.new(self)
   end
 end

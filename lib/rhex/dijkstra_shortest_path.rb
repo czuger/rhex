@@ -21,12 +21,12 @@ module Rhex
     end
 
     def call
-      raise GridDoesNotContainSource if grid.hget(source).nil?
-      raise GridDoesNotContainTarget if grid.hget(target).nil?
+      raise GridDoesNotContainSource unless grid.include?(source)
+      raise GridDoesNotContainTarget unless grid.include?(target)
 
       graph = build_graph(RGL::AdjacencyGraph.new)
 
-      Rhex::Grid.new(graph.dijkstra_shortest_path(EDGE_WEIGHTS_MAP, source, target) || [])
+      graph.dijkstra_shortest_path(EDGE_WEIGHTS_MAP, source, target)
     end
 
     private
