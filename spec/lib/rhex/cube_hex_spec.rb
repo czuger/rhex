@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe Rhex::CubeHex do
+  include GridHelpers
+
   describe '#spiral_ring' do
     it 'returns a spiral list of hexagons' do
       center = Rhex::CubeHex.new(0, 0, 0)
@@ -70,17 +72,5 @@ RSpec.describe Rhex::CubeHex do
 
       expect(cube.to_axial).to eq(Rhex::AxialHex.new(0, -1))
     end
-  end
-
-  def grid(range)
-    grid = Rhex::Grid.new
-
-    (-range..range).to_a.each do |q|
-      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.add(Rhex::CubeHex.new(q, r, -q - r))
-      end
-    end
-
-    grid
   end
 end

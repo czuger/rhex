@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe Rhex::AxialHex do
+  include AxialHexHelpers
+  include GridHelpers
+
   before do
     image_configs_path = Rhex.root.join('spec', 'fixtures', 'image_configs')
 
@@ -100,21 +103,5 @@ RSpec.describe Rhex::AxialHex do
 
       expect(axial.to_cube).to eq(Rhex::CubeHex.new(0, -1, 1))
     end
-  end
-
-  def grid(range)
-    grid = Rhex::Grid.new
-
-    (-range..range).to_a.each do |q|
-      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.add(Rhex::AxialHex.new(q, r))
-      end
-    end
-
-    grid
-  end
-
-  def coords_to_hexes(coords, **kwargs)
-    coords.map { Rhex::AxialHex.new(*_1, **kwargs) }
   end
 end

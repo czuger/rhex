@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe Rhex::GridToPic do
+  include GridHelpers
+
   describe '#call' do
     xit 'draws image using "image_config" attribute' do
       image_config_class = Rhex::Draw::Hexagon::ImageConfig
@@ -31,17 +33,5 @@ RSpec.describe Rhex::GridToPic do
 
       expect { described_class.new(grid).call('dijkstra_shortest_path') }.not_to raise_error
     end
-  end
-
-  def grid(range)
-    grid = Rhex::Grid.new
-
-    (-range..range).to_a.each do |q|
-      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.add(Rhex::AxialHex.new(q, r))
-      end
-    end
-
-    grid
   end
 end

@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe Rhex::DijkstraShortestPath do
+  include AxialHexHelpers
+  include GridHelpers
+
   describe '#call' do
     it 'finds the shortest path' do
       grid = grid(2)
@@ -54,21 +57,5 @@ RSpec.describe Rhex::DijkstraShortestPath do
         expect(shortest_path).to contain_exactly(*expected_shortest_path)
       end
     end
-  end
-
-  def grid(range)
-    grid = Rhex::Grid.new
-
-    (-range..range).to_a.each do |q|
-      ([-range, -q - range].max..[range, -q + range].min).to_a.each do |r|
-        grid.add(Rhex::AxialHex.new(q, r))
-      end
-    end
-
-    grid
-  end
-
-  def coords_to_hexes(coords, **kwargs)
-    coords.map { Rhex::AxialHex.new(*_1, **kwargs) }
   end
 end
