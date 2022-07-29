@@ -47,8 +47,8 @@ RSpec.describe Rhex::DijkstraShortestPath do
                             [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-4, 4], [-5, 5]
                           ], image_config: Rhex::ImageConfigs.path_image_config)
 
-        grid.merge(obstacles.to_grid)
-            .merge(expected_shortest_path.to_grid)
+        grid.merge(obstacles)
+            .merge(expected_shortest_path)
             .to_pic('dijkstra_shortest_path')
 
         expect(shortest_path).to contain_exactly(*expected_shortest_path)

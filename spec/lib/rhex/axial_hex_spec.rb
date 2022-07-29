@@ -26,9 +26,9 @@ RSpec.describe Rhex::AxialHex do
 
       field_of_view = source.field_of_view(grid, obstacles)
 
-      grid.merge(obstacles.to_grid)
-          .merge(expect_field_of_view.to_grid)
-          .merge([source].to_grid)
+      grid.merge(obstacles)
+          .merge(expect_field_of_view)
+          .merge([source])
           .to_pic('field_of_view', rows: 512)
 
       expect(field_of_view).to contain_exactly(*expect_field_of_view)
