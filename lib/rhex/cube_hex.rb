@@ -149,6 +149,14 @@ module Rhex
       Rhex::AxialHex.new(q, r, data: data, image_config: image_config)
     end
 
+    def subtract(hex)
+      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data, image_config: image_config)
+    end
+
+    def add(hex)
+      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data, image_config: image_config)
+    end
+
     protected
 
     def scale(factor)
@@ -174,13 +182,7 @@ module Rhex
       Rhex::CubeHex.new(rounded_q, rounded_r, rounded_s, data: data, image_config: image_config)
     end
 
-    def subtract(hex)
-      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data, image_config: image_config)
-    end
 
-    def add(hex)
-      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data, image_config: image_config)
-    end
 
     private
 

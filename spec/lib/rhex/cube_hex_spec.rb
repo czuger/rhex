@@ -5,11 +5,21 @@ require 'spec_helper'
 RSpec.describe Rhex::CubeHex do
   include GridHelpers
 
+  before do
+    image_configs_path = Rhex.root.join('spec', 'fixtures', 'image_configs')
+
+    Rhex::ImageConfigs.load!(image_configs_path)
+  end
+
   describe '#spiral_ring' do
     it 'returns a spiral list of hexagons' do
-      center = Rhex::CubeHex.new(0, 0, 0)
+      center = Rhex::AxialHex.new(-2, 0)
 
-      expect(center.spiral_ring(2).length).to eq(19)
+      spiral_ring = center.spiral_ring(2)
+
+      spiral_ring.to_grid.to_pic('spiral_ring')
+
+      expect(spiral_ring.length).to eq(19)
     end
   end
 
@@ -17,7 +27,11 @@ RSpec.describe Rhex::CubeHex do
     it 'returns a ring list of hexagons' do
       center = Rhex::CubeHex.new(0, 0, 0)
 
-      expect(center.ring(2).length).to eq(12)
+      ring = center.ring(2)
+
+      ring.to_grid.to_pic('ring')
+
+      expect(ring.length).to eq(12)
     end
   end
 
