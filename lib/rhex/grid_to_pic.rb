@@ -13,7 +13,7 @@ module Rhex
     ].freeze
 
     GRID_DECORATORS_MAPPER = {
-      FLAT_TOPPED => 'Rhex::Decorators::Grids::FlatToppedGrid'
+      FLAT_TOPPED => 'Rhex::Decorators::FlatToppedGrid'
     }.freeze
 
     DEFAULT_HEX_SIZE = 32

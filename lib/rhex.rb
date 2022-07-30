@@ -11,8 +11,8 @@ require_relative 'rhex/draw/hexagon'
 
 require_relative 'rhex/markups/auto_markup'
 
-require_relative 'rhex/decorators/hexes/flat_topped_hex'
-require_relative 'rhex/decorators/grids/flat_topped_grid'
+require_relative 'rhex/decorators/flat_topped_grid'
+require_relative 'rhex/decorators/flat_topped_hex'
 
 require 'ostruct'
 require 'yaml'
