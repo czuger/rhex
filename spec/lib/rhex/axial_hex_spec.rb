@@ -32,7 +32,7 @@ RSpec.describe Rhex::AxialHex do
       grid.merge(obstacles)
           .merge(expect_field_of_view)
           .merge([source])
-          .to_pic('field_of_view', rows: 512)
+          .to_pic('field_of_view')
 
       expect(field_of_view).to contain_exactly(*expect_field_of_view)
     end
@@ -60,7 +60,7 @@ RSpec.describe Rhex::AxialHex do
 
       path = source.linedraw(target)
       path.each { _1.image_config = Rhex::ImageConfigs.path_image_config }
-      path.to_grid.to_pic('linedraw', rows: 256)
+      path.to_grid.to_pic('linedraw')
 
       expect(path)
         .to contain_exactly(

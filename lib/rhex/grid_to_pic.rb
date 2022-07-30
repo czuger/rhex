@@ -8,19 +8,15 @@ module Rhex
 
     FONT_SIZE = 16
 
-    DEFAULT_COLS = 648
-    DEFAULT_ROWS = 648
-
-    def initialize(grid, hex_size: 32, cols: DEFAULT_COLS, rows: DEFAULT_ROWS)
+    def initialize(grid, hex_size: 32, markup: Rhex::Markups::AutoMarkup)
       @grid = grid
       @hex_size = hex_size
-      @cols = cols
-      @rows = rows
+      @markup = markup.new(grid, hex_size).call
     end
 
     def call(filename)
       grid.each do |hex|
-        decorated_hex = Decorators::FlatToppedHex.new(hex, hex_size: hex_size, center: center)
+        decorated_hex = Decorators::FlatToppedHex.new(hex, hex_size: hex_size, center: markup.center)
 
         Draw::Hexagon.new(gc, decorated_hex).call
       end
@@ -31,18 +27,13 @@ module Rhex
 
     private
 
-    attr_reader :grid, :hex_size, :cols, :rows
-
-    def center
-      # (rows / 2) + 48
-      @center ||= OpenStruct.new(x: cols / 2, y: rows / 2).freeze
-    end
+    attr_reader :grid, :hex_size, :markup
 
     def imgl
       @imgl ||=
         begin
           imgl = Magick::ImageList.new
-          imgl.new_image(cols, rows, Magick::HatchFill.new('transparent', 'lightcyan2'))
+          imgl.new_image(markup.cols, markup.rows, Magick::HatchFill.new('transparent', 'lightcyan2'))
           imgl
         end
     end

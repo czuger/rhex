@@ -56,10 +56,8 @@ module Rhex
       @hash.values
     end
 
-    def to_pic(filename, cols: Rhex::GridToPic::DEFAULT_COLS, rows: Rhex::GridToPic::DEFAULT_ROWS)
-      Rhex::GridToPic
-        .new(self, cols: cols, rows: rows)
-        .call(filename)
+    def to_pic(filename)
+      Rhex::GridToPic.new(self).call(filename)
     end
 
     private

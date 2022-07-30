@@ -19,14 +19,30 @@ module Rhex
         @coordinates ||= Coordinates.new(x: coordinate_x, y: coordinate_y)
       end
 
+      def absolute_coordinate_x
+        height * q
+      end
+
+      def absolute_coordinate_y
+        width * (r + q / 2.0)
+      end
+
+      def height
+        hex_size * 3.0 / 2.0
+      end
+
+      def width
+        hex_size * Math.sqrt(3)
+      end
+
       private
 
       def coordinate_x
-        center.x + hex_size * 3.0 / 2.0 * q
+        center.x + absolute_coordinate_x
       end
 
       def coordinate_y
-        center.y + hex_size * Math.sqrt(3) * (r + q / 2.0)
+        center.y + absolute_coordinate_y
       end
     end
   end
