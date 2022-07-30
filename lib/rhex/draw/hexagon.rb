@@ -8,10 +8,7 @@ module Rhex
       extend Forwardable
 
       ImageConfig = Struct.new(:hexagon, :text, keyword_init: true)
-      ImageProperties = Struct.new(:color, :stroke_color, keyword_init: true)
-
-      FLAT_TOPPED_ANGLES = [0, 60, 120, 180, 240, 300].freeze
-      private_constant :FLAT_TOPPED_ANGLES
+      ImageProperties = Struct.new(:color, :stroke_color, :font_size, keyword_init: true)
 
       DEFAULT_IMAGE_CONFIG = ImageConfig.new(
         hexagon: ImageProperties.new(
@@ -20,7 +17,8 @@ module Rhex
         ),
         text: ImageProperties.new(
           color: '#000000',
-          stroke_color: 'none'
+          stroke_color: 'none',
+          font_size: 16
         )
       ).freeze
       private_constant :DEFAULT_IMAGE_CONFIG
@@ -40,7 +38,7 @@ module Rhex
       attr_reader :gc, :hex
 
       def_delegators :hex, :coordinates
-      def_delegators :hex, :hex_size
+      def_delegators :hex, :size
 
       def image_config
         hex.image_config || DEFAULT_IMAGE_CONFIG
@@ -49,7 +47,7 @@ module Rhex
       def draw_hexagon(config)
         gc.fill(config.color)
 
-        polygon_coords = FLAT_TOPPED_ANGLES.each_with_object([]) do |angle, coords|
+        polygon_coords = hex.class::ANGLES.each_with_object([]) do |angle, coords|
           coords.concat(corner_coords(angle))
         end
 
@@ -57,9 +55,10 @@ module Rhex
         gc.polygon(*polygon_coords)
       end
 
-      def draw_text(config)
+      def draw_text(config) # rubocop:disable Metrics/AbcSize
         gc.fill(config.color)
         gc.stroke(config.stroke_color)
+        gc.font_size(config.font_size)
 
         gc.text(
           coordinates.x, coordinates.y,
@@ -71,8 +70,8 @@ module Rhex
         angle_rad = Math::PI / 180 * angle
 
         [
-          coordinates.x + hex_size * Math.cos(angle_rad),
-          coordinates.y + hex_size * Math.sin(angle_rad)
+          coordinates.x + size * Math.cos(angle_rad),
+          coordinates.y + size * Math.sin(angle_rad)
         ]
       end
     end

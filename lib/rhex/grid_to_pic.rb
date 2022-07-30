@@ -1,22 +1,33 @@
 # frozen_string_literal: true
 
 require 'rmagick'
+require 'forwardable'
 
 module Rhex
   class GridToPic
-    FLAT_TOPPED_ANGLES = [0, 60, 120, 180, 240, 300].freeze
+    extend Forwardable
 
-    FONT_SIZE = 16
+    ORIENTATIONS = [
+      FLAT_TOPPED = :flat_topped,
+      POINTY_TOPPED = :pointy_topped
+    ].freeze
 
-    def initialize(grid, hex_size: 32, markup: Rhex::Markups::AutoMarkup)
-      @grid = grid
-      @hex_size = hex_size
-      @markup = markup.new(grid, hex_size).call
+    GRID_DECORATORS_MAPPER = {
+      FLAT_TOPPED => 'Rhex::Decorators::Grids::FlatToppedGrid'
+    }.freeze
+
+    DEFAULT_HEX_SIZE = 32
+
+    def initialize(grid, hex_size: DEFAULT_HEX_SIZE, orientation: FLAT_TOPPED, markup: Rhex::Markups::AutoMarkup)
+      decorator = Object.const_get(GRID_DECORATORS_MAPPER.fetch(orientation))
+
+      @grid = decorator.new(grid, hex_size: hex_size)
+      @markup = markup.new(@grid).call
     end
 
     def call(filename)
       grid.each do |hex|
-        decorated_hex = Decorators::FlatToppedHex.new(hex, hex_size: hex_size, center: markup.center)
+        decorated_hex = hex_decorator_class.new(hex, size: hex_size, center: center)
 
         Draw::Hexagon.new(gc, decorated_hex).call
       end
@@ -27,13 +38,23 @@ module Rhex
 
     private
 
-    attr_reader :grid, :hex_size, :markup
+    attr_reader :grid, :markup
+
+    def_delegators :grid, :hex_size
+
+    def_delegators :markup, :center
+    def_delegators :markup, :cols
+    def_delegators :markup, :rows
+
+    def hex_decorator_class
+      Object.const_get(grid.class::HEX_DECORATOR_CLASS)
+    end
 
     def imgl
       @imgl ||=
         begin
           imgl = Magick::ImageList.new
-          imgl.new_image(markup.cols, markup.rows, Magick::HatchFill.new('transparent', 'lightcyan2'))
+          imgl.new_image(cols, rows, Magick::HatchFill.new('transparent', 'lightcyan2'))
           imgl
         end
     end
@@ -43,7 +64,6 @@ module Rhex
         begin
           gc = Magick::Draw.new
           gc.text_align(Magick::CenterAlign)
-          gc.font_size(FONT_SIZE)
           gc
         end
     end

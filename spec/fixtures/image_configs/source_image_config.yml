@@ -1,6 +1,8 @@
 hexagon:
   color: '#FFFF00'
   stroke_color: '#B3B3B3'
+  size: 32
 text:
   color: '#000000'
   stroke_color: 'none'
+  font_size: 16

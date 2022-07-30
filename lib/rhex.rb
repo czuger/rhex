@@ -6,9 +6,13 @@ require_relative 'rhex/dijkstra_shortest_path'
 require_relative 'rhex/grid'
 require_relative 'rhex/grid_to_pic'
 require_relative 'rhex/image_configs'
-require_relative 'rhex/decorators/flat_topped_hex'
+
 require_relative 'rhex/draw/hexagon'
+
 require_relative 'rhex/markups/auto_markup'
+
+require_relative 'rhex/decorators/hexes/flat_topped_hex'
+require_relative 'rhex/decorators/grids/flat_topped_grid'
 
 require 'ostruct'
 require 'yaml'
