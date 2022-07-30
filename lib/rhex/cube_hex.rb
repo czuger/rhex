@@ -117,11 +117,12 @@ module Rhex
     end
 
     def linedraw(target)
+      offset = Rhex::CubeHex.new(1e-6, 2e-6, -3e-6)
       distance = distance(target)
 
       (distance + 1).times.each_with_object([]) do |t, hexes|
         step = 1.0 / distance * t
-        hexes.push(cube_hex_lerp(target, step).round)
+        hexes.push(cube_hex_lerp(target, step).add(offset).round)
       end
     end
 
@@ -155,9 +156,9 @@ module Rhex
     end
 
     def round # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      rounded_q = q.round(half: :down)
-      rounded_r = r.round(half: :down)
-      rounded_s = s.round(half: :down)
+      rounded_q = q.round
+      rounded_r = r.round
+      rounded_s = s.round
 
       q_diff = (rounded_q - q).abs
       r_diff = (rounded_r - r).abs
@@ -173,6 +174,14 @@ module Rhex
       Rhex::CubeHex.new(rounded_q, rounded_r, rounded_s, data: data, image_config: image_config)
     end
 
+    def subtract(hex)
+      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data, image_config: image_config)
+    end
+
+    def add(hex)
+      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data, image_config: image_config)
+    end
+
     private
 
     def cube_hex_lerp(hex, step)
@@ -183,14 +192,6 @@ module Rhex
         data: data,
         image_config: image_config
       )
-    end
-
-    def subtract(hex)
-      Rhex::CubeHex.new(q - hex.q, r - hex.r, s - hex.s, data: data, image_config: image_config)
-    end
-
-    def add(hex)
-      Rhex::CubeHex.new(q + hex.q, r + hex.r, s + hex.s, data: data, image_config: image_config)
     end
   end
 end
