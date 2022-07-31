@@ -40,14 +40,6 @@ module Rhex
 
       private
 
-      def top_left_to_bottom_right_diagonal
-        top_left_corner.linedraw(bottom_right_corner)
-      end
-
-      def top_right_to_bottom_left_diagonal
-        top_right_corner.linedraw(bottom_left_corner)
-      end
-
       def q_map
         @q_map ||= to_a.map(&:q)
       end
