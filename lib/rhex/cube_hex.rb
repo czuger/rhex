@@ -116,6 +116,9 @@ module Rhex
       [subtracted_hex.q.abs, subtracted_hex.r.abs, subtracted_hex.s.abs].max
     end
 
+    # There are times when "cube_hex_lerp" will return a point that's exactly on the side between two hexes.
+    # Then "round" will push it one way or the other.
+    # Rhex::CubeHex.new(1e-6, 2e-6, -3e-6) will "nudge" the line in one direction to avoid landing on side boundaries.
     def linedraw(target)
       offset = Rhex::CubeHex.new(1e-6, 2e-6, -3e-6)
       distance = distance(target)

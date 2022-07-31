@@ -19,9 +19,9 @@ module Rhex
     DEFAULT_HEX_SIZE = 32
 
     def initialize(grid, hex_size: DEFAULT_HEX_SIZE, orientation: FLAT_TOPPED, markup: Rhex::Markups::AutoMarkup)
-      decorator = Object.const_get(GRID_DECORATORS_MAPPER.fetch(orientation))
+      grid_decorator_class = Object.const_get(GRID_DECORATORS_MAPPER.fetch(orientation))
 
-      @grid = decorator.new(grid, hex_size: hex_size)
+      @grid = grid_decorator_class.new(grid, hex_size: hex_size)
       @markup = markup.new(@grid).call
     end
 
