@@ -9,6 +9,8 @@ module Rhex
         super(hexes)
       end
 
+      attr_reader :hex_size
+
       def add(hex)
         @hash[key(hex)] = decorate_hex(hex)
         self
@@ -19,8 +21,6 @@ module Rhex
       end
 
       private
-
-      attr_reader :hex_size
 
       def hex_decorator_class
         raise NotImplementedError

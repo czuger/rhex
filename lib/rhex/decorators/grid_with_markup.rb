@@ -14,10 +14,8 @@ module Rhex
         @top_left_corner ||= Rhex::AxialHex.new(q_map.min, r_map.min)
       end
 
-      # To reflect over a line that's not at 0, pick a reference point on that line.
-      # Subtract the reference point, perform the reflection, then add the reference point back.
       def top_right_corner
-        @top_right_corner ||= central_hex.subtract(top_left_corner).reflection_q.add(central_hex)
+        @top_right_corner ||= Rhex::AxialHex.new(q_map.min, r_map.max)
       end
 
       def bottom_right_corner
@@ -25,7 +23,7 @@ module Rhex
       end
 
       def bottom_left_corner
-        @bottom_left_corner ||= central_hex.subtract(bottom_right_corner).reflection_q.add(central_hex)
+        @bottom_left_corner ||= Rhex::AxialHex.new(q_map.max, r_map.min)
       end
 
       private

@@ -31,11 +31,11 @@ module Rhex
       private
 
       def absolute_coordinate_x
-        width * 3 / 4 * r
+        width * 3 / 4 * q
       end
 
       def absolute_coordinate_y
-        height * (q + r / 2.0)
+        height * (r + q / 2.0)
       end
     end
   end

@@ -55,16 +55,22 @@ module Rhex
       self == other
     end
 
-    def reflection_q
-      Rhex::CubeHex.new(q, s, r)
+    def reflection_q(reference_point = Rhex::CubeHex.new(0, 0, 0))
+      with_reflection(reference_point) do |subtracted_hex|
+        Rhex::CubeHex.new(subtracted_hex.q, subtracted_hex.s, subtracted_hex.r)
+      end
     end
 
-    def reflection_r
-      Rhex::CubeHex.new(s, r, q)
+    def reflection_r(reference_point = Rhex::CubeHex.new(0, 0, 0))
+      with_reflection(reference_point) do |subtracted_hex|
+        Rhex::CubeHex.new(subtracted_hex.s, subtracted_hex.r, subtracted_hex.q)
+      end
     end
 
-    def reflection_s
-      Rhex::CubeHex.new(r, q, s)
+    def reflection_s(reference_point = Rhex::CubeHex.new(0, 0, 0))
+      with_reflection(reference_point) do |subtracted_hex|
+        Rhex::CubeHex.new(subtracted_hex.r, subtracted_hex.q, subtracted_hex.s)
+      end
     end
 
     def reachable(movements_limit = 1, obstacles: []) # rubocop:disable Metrics/MethodLength
@@ -185,9 +191,15 @@ module Rhex
       Rhex::CubeHex.new(rounded_q, rounded_r, rounded_s, data: data, image_config: image_config)
     end
 
-
-
     private
+
+    # To reflect over a line that's not at 0, pick a reference point on that line.
+    # Subtract the reference point, perform the reflection, then add the reference point back.
+    def with_reflection(reference_point, &block)
+      subtracted_hex = subtract(reference_point)
+      reflected_hex = block.call(subtracted_hex)
+      reflected_hex.add(reference_point)
+    end
 
     def cube_hex_lerp(hex, step)
       Rhex::CubeHex.new(

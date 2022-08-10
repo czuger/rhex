@@ -13,13 +13,14 @@ module Rhex
         @grid = Rhex::Decorators::GridWithMarkup.new(grid)
       end
 
+      # width
       def cols
-        @cols ||=
-          top_left_corner.distance(top_right_corner) * central_hex.height
+        @cols ||= top_left_corner.distance(bottom_left_corner) * central_hex.height + central_hex.height
       end
 
+      # height
       def rows
-        @rows ||= top_left_corner.distance(bottom_left_corner) * central_hex.width
+        @rows ||= top_left_corner.distance(top_right_corner) * central_hex.width + central_hex.width
       end
 
       def center
