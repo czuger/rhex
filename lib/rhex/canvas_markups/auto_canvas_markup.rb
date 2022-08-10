@@ -15,11 +15,11 @@ module Rhex
 
       def cols
         @cols ||=
-          top_left_corner.distance(top_right_corner) * central_hex.width + central_hex.width.ceil
+          top_left_corner.distance(top_right_corner) * central_hex.height
       end
 
       def rows
-        @rows ||= top_left_corner.distance(bottom_left_corner) * central_hex.height
+        @rows ||= top_left_corner.distance(bottom_left_corner) * central_hex.width
       end
 
       def center

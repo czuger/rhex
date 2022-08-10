@@ -7,7 +7,7 @@ module Rhex
     class PointyToppedHex < SimpleDelegator
       Coordinates = Struct.new(:x, :y, keyword_init: true)
 
-      ANGLES = [0, 60, 120, 180, 240, 300].freeze
+      ANGLES = [30, 90, 150, 210, 270, 330].freeze
 
       def initialize(obj, size:)
         super(obj)
@@ -21,7 +21,7 @@ module Rhex
       end
 
       def height
-        size * 3.0 / 2.0
+        size * 2.0
       end
 
       def width
@@ -31,11 +31,11 @@ module Rhex
       private
 
       def absolute_coordinate_x
-        height * q
+        width * (q + r / 2.0)
       end
 
       def absolute_coordinate_y
-        width * (r + q / 2.0)
+        height * 3 / 4 * r
       end
     end
   end

@@ -21,21 +21,21 @@ module Rhex
       end
 
       def height
-        size * 3.0 / 2.0
+        size * Math.sqrt(3)
       end
 
       def width
-        size * Math.sqrt(3)
+        size * 2.0
       end
 
       private
 
       def absolute_coordinate_x
-        height * q
+        width * 3 / 4 * r
       end
 
       def absolute_coordinate_y
-        width * (r + q / 2.0)
+        height * (q + r / 2.0)
       end
     end
   end

@@ -52,7 +52,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
 
         grid.merge(obstacles)
             .merge(expected_shortest_path)
-            .to_pic('dijkstra_shortest_path')
+            .to_pic('dijkstra_shortest_path', orientation: :pointy_topped)
 
         expect(shortest_path).to contain_exactly(*expected_shortest_path)
       end
