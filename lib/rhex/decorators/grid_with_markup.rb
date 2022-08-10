@@ -4,17 +4,7 @@ require 'delegate'
 
 module Rhex
   module Decorators
-    class FlatToppedGrid < SimpleDelegator
-      HEX_DECORATOR_CLASS = 'Rhex::Decorators::FlatToppedHex'
-
-      def initialize(obj, hex_size:)
-        super(obj)
-
-        @hex_size = hex_size
-      end
-
-      attr_reader :hex_size
-
+    class GridWithMarkup < SimpleDelegator
       def central_hex
         linedraw = top_left_corner.linedraw(bottom_right_corner)
         linedraw[linedraw.length / 2.0]
@@ -30,12 +20,12 @@ module Rhex
         @top_right_corner ||= central_hex.subtract(top_left_corner).reflection_q.add(central_hex)
       end
 
-      def bottom_left_corner
-        @bottom_left_corner ||= central_hex.subtract(bottom_right_corner).reflection_q.add(central_hex)
-      end
-
       def bottom_right_corner
         @bottom_right_corner ||= Rhex::AxialHex.new(q_map.max, r_map.max)
+      end
+
+      def bottom_left_corner
+        @bottom_left_corner ||= central_hex.subtract(bottom_right_corner).reflection_q.add(central_hex)
       end
 
       private

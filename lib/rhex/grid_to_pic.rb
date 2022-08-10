@@ -12,25 +12,24 @@ module Rhex
       POINTY_TOPPED = :pointy_topped
     ].freeze
 
-    GRID_DECORATORS_MAPPER = {
-      FLAT_TOPPED => 'Rhex::Decorators::FlatToppedGrid'
+    ORIENTED_GRIDS_MAPPER = {
+      FLAT_TOPPED => 'Rhex::FlatToppedGrid',
+      POINTY_TOPPED => 'Rhex::PointyToppedGrid'
     }.freeze
 
+    DEFAULT_ORIENTATION = FLAT_TOPPED
     DEFAULT_HEX_SIZE = 32
 
-    def initialize(grid, hex_size: DEFAULT_HEX_SIZE, orientation: FLAT_TOPPED, markup: Rhex::Markups::AutoMarkup)
-      grid_decorator_class = Object.const_get(GRID_DECORATORS_MAPPER.fetch(orientation))
+    def initialize(grid, hex_size: DEFAULT_HEX_SIZE, orientation: DEFAULT_ORIENTATION)
+      oriented_grid_class = Object.const_get(ORIENTED_GRIDS_MAPPER.fetch(orientation))
+      oriented_grid = grid.to_grid(oriented_grid_class, hex_size: hex_size)
 
-      @grid = grid_decorator_class.new(grid, hex_size: hex_size)
-      @markup = markup.new(@grid).call
+      @grid = oriented_grid
+      @canvas_markup = Rhex::CanvasMarkups::AutoCanvasMarkup.new(oriented_grid)
     end
 
     def call(filename)
-      grid.each do |hex|
-        decorated_hex = hex_decorator_class.new(hex, size: hex_size, center: center)
-
-        Draw::Hexagon.new(gc, decorated_hex).call
-      end
+      grid.each { |hex| Draw::Hexagon.new(gc: gc, center: center, hex: hex).call }
 
       gc.draw(imgl)
       imgl.write(Rhex.root.join('images', "#{filename}.png"))
@@ -38,17 +37,11 @@ module Rhex
 
     private
 
-    attr_reader :grid, :markup
+    attr_reader :grid, :canvas_markup
 
-    def_delegators :grid, :hex_size
-
-    def_delegators :markup, :center
-    def_delegators :markup, :cols
-    def_delegators :markup, :rows
-
-    def hex_decorator_class
-      Object.const_get(grid.class::HEX_DECORATOR_CLASS)
-    end
+    def_delegators :canvas_markup, :center
+    def_delegators :canvas_markup, :cols
+    def_delegators :canvas_markup, :rows
 
     def imgl
       @imgl ||=

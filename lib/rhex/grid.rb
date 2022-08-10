@@ -56,8 +56,18 @@ module Rhex
       @hash.values
     end
 
-    def to_pic(filename)
-      Rhex::GridToPic.new(self).call(filename)
+    def to_pic(
+      filename,
+      hex_size: Rhex::GridToPic::DEFAULT_HEX_SIZE,
+      orientation: Rhex::GridToPic::DEFAULT_ORIENTATION
+    )
+      Rhex::GridToPic.new(self, hex_size: hex_size, orientation: orientation).call(filename)
+    end
+
+    def to_grid(klass = Rhex::Grid, *args, **kwargs, &block)
+      return self if instance_of?(Rhex::Grid) && klass == Rhex::Grid
+
+      klass.new(self, *args, **kwargs, &block)
     end
 
     private
@@ -69,7 +79,7 @@ module Rhex
 end
 
 module Enumerable
-  def to_grid(klass = Rhex::Grid)
-    klass.new(self)
+  def to_grid(klass = Rhex::Grid, *args, **kwargs, &block)
+    klass.new(self, *args, **kwargs, &block)
   end
 end

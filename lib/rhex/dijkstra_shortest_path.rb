@@ -7,8 +7,8 @@ module Rhex
   class DijkstraShortestPath
     attr_reader :source, :target, :obstacles, :grid
 
-    GridDoesNotContainSource = Class.new(StandardError)
-    GridDoesNotContainTarget = Class.new(StandardError)
+    GridDoesNotContainSourceError = Class.new(StandardError)
+    GridDoesNotContainTargetError = Class.new(StandardError)
 
     EDGE_WEIGHTS_MAP = Hash.new(1)
     private_constant :EDGE_WEIGHTS_MAP
@@ -21,8 +21,8 @@ module Rhex
     end
 
     def call
-      raise GridDoesNotContainSource unless grid.include?(source)
-      raise GridDoesNotContainTarget unless grid.include?(target)
+      raise GridDoesNotContainSourceError unless grid.include?(source)
+      raise GridDoesNotContainTargetError unless grid.include?(target)
 
       graph = build_graph(RGL::AdjacencyGraph.new)
 

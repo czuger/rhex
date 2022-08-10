@@ -4,7 +4,7 @@ require 'delegate'
 
 module Rhex
   module Decorators
-    class FlatToppedHex < SimpleDelegator
+    class PointyToppedHex < SimpleDelegator
       Coordinates = Struct.new(:x, :y, keyword_init: true)
 
       ANGLES = [0, 60, 120, 180, 240, 300].freeze
