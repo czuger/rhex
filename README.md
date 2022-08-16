@@ -83,7 +83,6 @@ grid.add(source)
 source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
 # => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=1, @r=0, @s=-1>, ...]
 ```
-
 <img src="images/dijkstra_shortest_path.png" height="500" alt="dijkstra_shortest_path"/>
 
 #### Linedraw
@@ -97,7 +96,6 @@ target = Rhex::AxialHex.new(4, -2)
 source.linedraw(target)
 # => [#<Rhex::CubeHex @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @q=-3, @r=0, @s=3>, ...]
 ```
-
 <img src="images/linedraw.png" height="500" alt="linedraw"/>
 
 #### Field of view
@@ -112,7 +110,6 @@ obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-1, 0), ...]
 source.field_of_view(grid, obstacles)
 # => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
-
 <img src="images/field_of_view.png" height="500" alt="field_of_view"/>
 
 #### Reachable
@@ -128,3 +125,17 @@ source.reachable(movements_limit, obstacles: obstacles)
 # => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
 <img src="images/reachable.png" height="500" alt="reachable"/>
+
+#### Ring
+
+Returns array of all hexes which are take `radius` steps away from the center starting from `Rhex::CubeHex::INITIAL_RING_VECTOR`.
+
+```ruby
+ring = 2
+center = Rhex::AxialHex.new(0, 0)
+
+center.ring(ring)
+# => [<Rhex::CubeHex @q=-2, @r=2, @s=0>, <Rhex::CubeHex @q=-1, @r=2, @s=-1>, ...]
+```
+<img src="images/reachable.png" height="500" alt="reachable"/>
+
