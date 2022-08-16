@@ -44,7 +44,8 @@ hex = Rhex::AxialHex.new(0, -2)
 
 #### Neighbors
 Returns array of hexagon "neighbors".
-If a `grid` was provided, the neighbors will be searched within the grid.
+<br />
+The neighbors will be searched within a `grid`, if it was provided.
 
 ```ruby
 grid = Rhex::Grid.new([Rhex::AxialHex.new(0, 0), ...])
@@ -53,6 +54,7 @@ center = Rhex::AxialHex.new(0, -2)
 center.neighbors(grid: grid)
 # => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
+<img src="images/neighbors_inside_grid.png" height="500" alt="neighbors_inside_grid"/>
 
 #### Distance
 Get the distance between two hexagons.
