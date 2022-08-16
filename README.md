@@ -44,6 +44,7 @@ cube_hex = Rhex::AxialHex.new(0, -2, 2)
 The main attributes in cube/axial hex are coordinates (`q, r, s`).
 </br>
 They are used for comparison of two different or same objects.
+
 ```ruby
 axial_hex = Rhex::AxialHex.new(0, -2)
 cube_hex = Rhex::AxialHex.new(0, -2, 2)
@@ -56,6 +57,15 @@ axial_hex.eql?(cube_hex)
 
 Hash[axial_hex, nil].key?(cube_hex)
 # => true
+```
+
+Each array could be converted to `grid`.
+```ruby
+[Rhex::AxialHex.new(0, -2)].to_grid
+# => #<Rhex::Grid
+        @hash= {
+          [0, -2]=> #<Rhex::CubeHex @q=0, @r=-2, @s=2>
+        }
 ```
 
 #### Neighbors
