@@ -34,8 +34,28 @@ Create a new hexagon `q = 0, r = -2`.
 To understand what `q` and `r` mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
 
 ```ruby
-hex = Rhex::AxialHex.new(0, -2)
+axial_hex = Rhex::AxialHex.new(0, -2)
 # => #<Rhex::CubeHex @data=nil, @image_config=nil, @q=0, @r=-2, @s=2>
+
+cube_hex = Rhex::AxialHex.new(0, -2, 2)
+# => #<Rhex::CubeHex @data=nil, @image_config=nil, @q=0, @r=-2, @s=2>
+```
+
+The main attributes in cube/axial hex are coordinates (`q, r, s`).
+</br>
+They are used for comparison of two different or same objects.
+```ruby
+axial_hex = Rhex::AxialHex.new(0, -2)
+cube_hex = Rhex::AxialHex.new(0, -2, 2)
+
+axial_hex == cube_hex
+# => true
+
+axial_hex.eql?(cube_hex)
+# => true
+
+Hash[axial_hex, nil].key?(cube_hex)
+# => true
 ```
 
 #### Neighbors
