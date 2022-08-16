@@ -43,29 +43,23 @@ hex = Rhex::AxialHex.new(0, -2)
 ```
 
 #### Neighbors
-Get neighbors (hexes surrounding it).
+Returns array of hexagon "neighbors".
+If a `grid` was provided, the neighbors will be searched within the grid.
 
 ```ruby
-Rhex::AxialHex.new(0, -2).neighbors
-# => [#<Rhex::CubeHex @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @q=1, @r=-3, @s=2>, ...]
+grid = Rhex::Grid.new([Rhex::AxialHex.new(0, 0), ...])
+center = Rhex::AxialHex.new(0, -2)
+
+center.neighbors(grid: grid)
+# => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
 
 #### Distance
-Get distance between two hexagons
+Get the distance between two hexagons.
 
 ```ruby
 Rhex::AxialHex.new(0, 2).distance(Rhex::AxialHex.new(0, -2))
-# => 4
-```
-
-#### Reachable
-
-Returns array of all hexes that can be reached in `movements_limit` steps.
-
-```ruby
-movements_limit = 4
-Rhex::AxialHex.new(0, 0).reachable(movements_limit)
-# => [#<Rhex::AxialHex @q=1, @r=0>, #<Rhex::AxialHex @q=0, @r=-1>, ...]
+# => 4
 ```
 
 #### Dijkstra shortest path

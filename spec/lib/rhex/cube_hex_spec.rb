@@ -54,21 +54,31 @@ RSpec.describe Rhex::CubeHex do
   describe '#neighbors' do
     context 'when `grid` is defined' do
       it 'returns neighbors according to the grid' do
-        grid = grid(3)
-        cube_hex = Rhex::CubeHex.new(0, 3, -3)
-        expect(cube_hex.neighbors(grid: grid))
-          .to contain_exactly(
-            Rhex::CubeHex.new(-1, 3, -2),
-            Rhex::CubeHex.new(0, 2, -2),
-            Rhex::CubeHex.new(1, 2, -3)
-          )
+        grid = grid(2)
+        center = Rhex::AxialHex.new(0, 2)
+        center.image_config = Rhex::ImageConfigs.source_image_config
+
+        expected_neighbors = coords_to_hexes(
+          [[1, 1], [0, 1], [-1, 2]],
+          image_config: Rhex::ImageConfigs.path_image_config
+        )
+
+        grid
+          .merge(expected_neighbors)
+          .merge([center])
+          .to_pic('neighbors_inside_grid')
+
+        expect(center.neighbors(grid: grid)).to contain_exactly(*expected_neighbors)
       end
     end
 
     context 'when grid is not defined' do
       it 'returns all 6 neighbors' do
-        cube_hex = Rhex::CubeHex.new(0, -2, 2)
-        expect(cube_hex.neighbors)
+        center = Rhex::AxialHex.new(0, -2)
+
+        center.neighbors.to_grid.to_pic('neighbors')
+
+        expect(center.neighbors)
           .to contain_exactly(
             Rhex::CubeHex.new(0, -3, 3),
             Rhex::CubeHex.new(1, -3, 2),
@@ -139,11 +149,11 @@ RSpec.describe Rhex::CubeHex do
 
       expect(path)
         .to contain_exactly(
-              source,
-              Rhex::AxialHex.new(-3, 0), Rhex::AxialHex.new(-2, 0), Rhex::AxialHex.new(-1, -1), Rhex::AxialHex.new(0, -1),
-              Rhex::AxialHex.new(1, -1), Rhex::AxialHex.new(2, -1), Rhex::AxialHex.new(3, -2),
-              target
-            )
+          source,
+          Rhex::AxialHex.new(-3, 0), Rhex::AxialHex.new(-2, 0), Rhex::AxialHex.new(-1, -1), Rhex::AxialHex.new(0, -1),
+          Rhex::AxialHex.new(1, -1), Rhex::AxialHex.new(2, -1), Rhex::AxialHex.new(3, -2),
+          target
+        )
     end
   end
 
