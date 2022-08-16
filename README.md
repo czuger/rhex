@@ -1,13 +1,9 @@
-[![Build Status](https://travis-ci.org/czuger/rhex.svg?branch=master)](https://travis-ci.org/czuger/rhex)
-[![Gem Version](https://badge.fury.io/rb/rhex.svg)](https://badge.fury.io/rb/rhex)
-[![Code Climate](https://codeclimate.com/github/czuger/rhex/badges/gpa.svg)](https://codeclimate.com/github/czuger/rhex)
-[![Test Coverage](https://codeclimate.com/github/czuger/rhex/badges/coverage.svg)](https://codeclimate.com/github/czuger/rhex/coverage)
-
-
 # Rhex
 This repository contain a library for using a grid of hexagons with ruby.
 
 * It is a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/).
+* The coordinate system is cube/axial.
+* All methods are implemented in cube. Axial is a wrapper around the cube.
 
 ## Compatibility
 
@@ -43,8 +39,8 @@ hex = Rhex::AxialHex.new(0, -2)
 ```
 
 #### Neighbors
-Returns array of hexagon "neighbors".
-<br />
+Returns array of hexagon's "neighbors".
+</br>
 The neighbors will be searched within a `grid`, if it was provided.
 
 ```ruby
