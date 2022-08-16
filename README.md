@@ -62,10 +62,10 @@ Hash[axial_hex, nil].key?(cube_hex)
 Each array could be converted to `grid`.
 ```ruby
 [Rhex::AxialHex.new(0, -2)].to_grid
-# => #<Rhex::Grid
-        @hash= {
-          [0, -2]=> #<Rhex::CubeHex @q=0, @r=-2, @s=2>
-        }
+
+# => <Rhex::Grid @hash= {
+#   [0, -2]=> #<Rhex::CubeHex @q=0, @r=-2, @s=2>
+# }>
 ```
 
 #### Neighbors
