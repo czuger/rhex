@@ -137,5 +137,5 @@ center = Rhex::AxialHex.new(0, 0)
 center.ring(ring)
 # => [<Rhex::CubeHex @q=-2, @r=2, @s=0>, <Rhex::CubeHex @q=-1, @r=2, @s=-1>, ...]
 ```
-<img src="images/reachable.png" height="500" alt="reachable"/>
+<img src="images/ring.png" height="500" alt="ring"/>
 
