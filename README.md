@@ -68,6 +68,13 @@ Each array could be converted to `grid`.
 # }>
 ```
 
+Each grid could be converted to `picture`.
+```ruby
+filename = 'example'
+[Rhex::AxialHex.new(0, -2)].to_grid.to_pic(filename)
+# => creates a picture of grid with provided file name
+```
+
 #### Neighbors
 Returns array of hexagon's "neighbors".
 </br>
