@@ -65,7 +65,7 @@ Each array could be converted to `grid`.
 ```ruby
 [Rhex::AxialHex.new(0, -2)].to_grid
 ```
-<br/>
+
 Each grid could be converted to `picture`.
 ```ruby
 filename = 'example'
