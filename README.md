@@ -84,7 +84,7 @@ source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
 # => [#<Rhex::CubeHex @data=nil, @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]
 ```
 
-![dijkstra_shortest_path](images/dijkstra_shortest_path.png)
+<img src="images/dijkstra_shortest_path.png" style="max-height: 300px;" alt="dijkstra_shortest_path"/>
 
 #### Linedraw
 
@@ -97,7 +97,8 @@ target = Rhex::AxialHex.new(4, -2)
 source.linedraw(target)
 # => [#<Rhex::CubeHex @data=nil, @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @data=nil, @q=-3, @r=0, @s=3>, ...]
 ```
-![linedraw](images/linedraw.png)
+
+<img src="images/linedraw.png" style="max-height: 300px;" alt="linedraw"/>
 
 #### Field of view
 
@@ -111,4 +112,5 @@ obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-1, 0), ...]
 source.field_of_view(grid, obstacles)
 # => [#<Rhex::CubeHex @data=nil, @q=0, @r=0, @s=0>, #<Rhex::CubeHex @data=nil, @q=0, @r=1, @s=-1>, ...]
 ```
-![field_of_view](images/field_of_view.png)
+
+<img src="images/field_of_view.png" style="max-height: 300px;" alt="field_of_view"/>
