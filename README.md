@@ -27,7 +27,7 @@ require 'rhex'
 
 ## Usage
 
-### Basics
+### Hex Basics
 
 Create a new hexagon `q = 0, r = -2`.
 </br>
@@ -59,20 +59,17 @@ Hash[axial_hex, nil].key?(cube_hex)
 # => true
 ```
 
+### Grid Basics
+
 Each array could be converted to `grid`.
 ```ruby
 [Rhex::AxialHex.new(0, -2)].to_grid
-
-# => <Rhex::Grid @hash= {
-#   [0, -2]=> #<Rhex::CubeHex @q=0, @r=-2, @s=2>
-# }>
 ```
-
+<br/>
 Each grid could be converted to `picture`.
 ```ruby
 filename = 'example'
 [Rhex::AxialHex.new(0, -2)].to_grid.to_pic(filename)
-# => creates a picture of grid with provided file name
 ```
 
 #### Neighbors
