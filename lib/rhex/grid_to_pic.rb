@@ -18,7 +18,7 @@ module Rhex
     }.freeze
 
     DEFAULT_ORIENTATION = FLAT_TOPPED
-    DEFAULT_HEX_SIZE = 32
+    DEFAULT_HEX_SIZE = 64
 
     def initialize(grid, hex_size: DEFAULT_HEX_SIZE, orientation: DEFAULT_ORIENTATION)
       oriented_grid_class = Object.const_get(ORIENTED_GRIDS_MAPPER.fetch(orientation))

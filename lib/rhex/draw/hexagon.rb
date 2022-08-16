@@ -19,7 +19,7 @@ module Rhex
         text: ImageProperties.new(
           color: '#000000',
           stroke_color: 'none',
-          font_size: 16
+          font_size: 32
         )
       ).freeze
       private_constant :DEFAULT_IMAGE_CONFIG
