@@ -40,8 +40,6 @@ RSpec.describe Rhex::AxialHex do
 
   describe '#reachable' do
     it 'shows reachable hexes' do
-      grid = grid(4)
-
       source = Rhex::AxialHex.new(0, 0)
       obstacles = coords_to_hexes([
                                     [1, -1], [2, -1], [2, 0], [2, 1], [1, 2], [0, 2],
@@ -52,23 +50,12 @@ RSpec.describe Rhex::AxialHex do
                                              [2, -3], [2, -2], [-2, -1], [-3, 0], [-2, 0], [-3, 1]
                                            ], image_config: Rhex::ImageConfigs.path_image_config)
 
-      # Rhex::Grid.new(
-      #   coords_to_hexes([
-      #                     *7.times.map { [_1 * 2, 0] },
-      #                     *7.times.map { [_1 * 2 + 1, 1] },
-      #                     *7.times.map { [_1 * 2, 2] },
-      #                     *7.times.map { [_1 * 2 + 1, 3] },
-      #                     *7.times.map { [_1 * 2, 4] },
-      #                     [13, 4], [13, 5], [13, 6], [13, 7], [0, -1], [-1, 5]
-      #                 ])
-      # ).to_pic('reachable2', orientation: :pointy_topped)
-      #
-      # (obstacles + expected_reachable).to_grid.to_pic('reachable1', orientation: :pointy_topped)
-      grid.merge(obstacles)
-          .merge(expected_reachable)
-          .to_pic('reachable', orientation: :pointy_topped)
+      obstacles
+        .to_grid
+        .merge(expected_reachable)
+        .to_pic('reachable', orientation: Rhex::GridToPic::POINTY_TOPPED)
 
-      expect(source.reachable(3, obstacles: obstacles)).to contain_exactly(*expected_reachable)
+      expect(pp(source.reachable(3, obstacles: obstacles))).to contain_exactly(*expected_reachable)
     end
   end
 

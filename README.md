@@ -39,7 +39,7 @@ To understand what `q` and `r` mean, please have a look at http://www.redblobgam
 
 ```ruby
 hex = Rhex::AxialHex.new(0, -2)
-# => #<Rhex::AxialHex @q=0, @r=-2, @data=nil>
+# => #<Rhex::CubeHex @data=nil, @image_config=nil, @q=0, @r=-2, @s=2>
 ```
 
 #### Neighbors
@@ -47,7 +47,7 @@ Get neighbors (hexes surrounding it).
 
 ```ruby
 Rhex::AxialHex.new(0, -2).neighbors
-# => [#<Rhex::CubeHex @data=nil, @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @data=nil, @q=1, @r=-3, @s=2>, ...]
+# => [#<Rhex::CubeHex @q=1, @r=-2, @s=1>, #<Rhex::CubeHex @q=1, @r=-3, @s=2>, ...]
 ```
 
 #### Distance
@@ -65,7 +65,7 @@ Returns array of all hexes that can be reached in `movements_limit` steps.
 ```ruby
 movements_limit = 4
 Rhex::AxialHex.new(0, 0).reachable(movements_limit)
-# => [#<Rhex::AxialHex @data=nil, @q=1, @r=0>, #<Rhex::AxialHex @data=nil, @q=0, @r=-1>, ...]
+# => [#<Rhex::AxialHex @q=1, @r=0>, #<Rhex::AxialHex @q=0, @r=-1>, ...]
 ```
 
 #### Dijkstra shortest path
@@ -81,7 +81,7 @@ grid = Rhex::Grid.new
 grid.add(source)
 
 source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
-# => [#<Rhex::CubeHex @data=nil, @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @data=nil, @q=1, @r=0, @s=-1>, ...]
+# => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=1, @r=0, @s=-1>, ...]
 ```
 
 <img src="images/dijkstra_shortest_path.png" height="500" alt="dijkstra_shortest_path"/>
@@ -95,7 +95,7 @@ source = Rhex::AxialHex.new(-4, 0)
 target = Rhex::AxialHex.new(4, -2)
 
 source.linedraw(target)
-# => [#<Rhex::CubeHex @data=nil, @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @data=nil, @q=-3, @r=0, @s=3>, ...]
+# => [#<Rhex::CubeHex @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @q=-3, @r=0, @s=3>, ...]
 ```
 
 <img src="images/linedraw.png" height="500" alt="linedraw"/>
@@ -110,7 +110,21 @@ source = Rhex::AxialHex.new(-1, 2)
 obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-1, 0), ...]
 
 source.field_of_view(grid, obstacles)
-# => [#<Rhex::CubeHex @data=nil, @q=0, @r=0, @s=0>, #<Rhex::CubeHex @data=nil, @q=0, @r=1, @s=-1>, ...]
+# => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
 
 <img src="images/field_of_view.png" height="500" alt="field_of_view"/>
+
+#### Reachable
+
+Returns array of all hexes that can be reached in `movements_limit` steps.
+
+```ruby
+movements_limit = 3
+source = Rhex::AxialHex.new(0, 0)
+obstacles = [Rhex::AxialHex.new(1, -1), Rhex::AxialHex.new(2, -1), ...]
+
+source.reachable(movements_limit, obstacles: obstacles)
+# => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
+```
+<img src="images/reachable.png" height="500" alt="reachable"/>
