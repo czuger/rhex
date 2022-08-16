@@ -24,10 +24,9 @@ module Rhex
       ).freeze
       private_constant :DEFAULT_IMAGE_CONFIG
 
-      def initialize(gc:, center:, hex:) # rubocop:disable Naming/MethodParameterName
+      def initialize(gc:, hex:) # rubocop:disable Naming/MethodParameterName
         @gc = gc
         @hex = hex
-        @center = center
       end
 
       def call
@@ -37,7 +36,9 @@ module Rhex
 
       private
 
-      attr_reader :gc, :center, :hex
+      attr_reader :gc, :hex
+
+      def_delegators :hex, :coordinates
 
       def image_config
         hex.image_config || DEFAULT_IMAGE_CONFIG
@@ -72,13 +73,6 @@ module Rhex
           coordinates.x + hex.size * Math.cos(angle_rad),
           coordinates.y + hex.size * Math.sin(angle_rad)
         ]
-      end
-
-      def coordinates
-        @coordinates ||= Coordinates.new(
-          x: center.x + hex.absolute_coordinates.x,
-          y: center.y + hex.absolute_coordinates.y
-        )
       end
     end
   end

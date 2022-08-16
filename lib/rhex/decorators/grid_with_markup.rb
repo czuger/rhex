@@ -14,16 +14,14 @@ module Rhex
         @top_left_corner ||= Rhex::AxialHex.new(q_map.min, r_map.min)
       end
 
-      def top_right_corner
-        @top_right_corner ||= Rhex::AxialHex.new(q_map.min, r_map.max)
-      end
-
       def bottom_right_corner
         @bottom_right_corner ||= Rhex::AxialHex.new(q_map.max, r_map.max)
       end
 
       def bottom_left_corner
-        @bottom_left_corner ||= Rhex::AxialHex.new(q_map.max, r_map.min)
+        return bottom_right_corner.reflection_r(central_hex) if pointy_topped?
+
+        top_left_corner.reflection_q(central_hex)
       end
 
       private

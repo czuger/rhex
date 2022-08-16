@@ -20,10 +20,14 @@ module Rhex
         hex_decorator_class.new(hex, size: hex_size)
       end
 
+      def pointy_topped?
+        raise NotImplementedError, "method #{__method__} is not implemented"
+      end
+
       private
 
       def hex_decorator_class
-        raise NotImplementedError
+        raise NotImplementedError, "method #{__method__} is not implemented"
       end
     end
   end

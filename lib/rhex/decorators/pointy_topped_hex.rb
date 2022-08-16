@@ -16,8 +16,8 @@ module Rhex
 
       attr_reader :size
 
-      def absolute_coordinates
-        @absolute_coordinates ||= Coordinates.new(x: absolute_coordinate_x, y: absolute_coordinate_y)
+      def coordinates
+        @coordinates ||= Coordinates.new(x: coordinate_x, y: coordinate_y)
       end
 
       def height
@@ -30,11 +30,11 @@ module Rhex
 
       private
 
-      def absolute_coordinate_x
+      def coordinate_x
         width * (q + r / 2.0)
       end
 
-      def absolute_coordinate_y
+      def coordinate_y
         height * 3 / 4 * r
       end
     end

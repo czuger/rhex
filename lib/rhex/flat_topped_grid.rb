@@ -9,6 +9,10 @@ module Rhex
     FLAT_TOPPED_HEX_CLASS_NAME = 'Rhex::Decorators::FlatToppedHex'
     private_constant :FLAT_TOPPED_HEX_CLASS_NAME
 
+    def pointy_topped?
+      false
+    end
+
     private
 
     def hex_decorator_class

@@ -29,10 +29,11 @@ module Rhex
     end
 
     def call(filename)
-      grid.each { |hex| Draw::Hexagon.new(gc: gc, center: center, hex: hex).call }
+      gc.translate(center.x, center.y)
 
-      gc.draw(imgl)
-      imgl.write(Rhex.root.join('images', "#{filename}.png"))
+      grid.each { |hex| Draw::Hexagon.new(gc: gc, hex: hex).call }
+
+      draw_and_save(filename)
     end
 
     private
@@ -42,6 +43,11 @@ module Rhex
     def_delegators :canvas_markup, :center
     def_delegators :canvas_markup, :cols
     def_delegators :canvas_markup, :rows
+
+    def draw_and_save(filename)
+      gc.draw(imgl)
+      imgl.write(Rhex.root.join('images', "#{filename}.png"))
+    end
 
     def imgl
       @imgl ||=
