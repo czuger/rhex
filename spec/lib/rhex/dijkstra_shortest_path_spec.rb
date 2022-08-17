@@ -12,7 +12,7 @@ RSpec.describe Rhex::DijkstraShortestPath do
       source = Rhex::AxialHex.new(0, 2)
       target = Rhex::AxialHex.new(0, -2)
 
-      shortest_path = described_class.new(source, target, grid).call
+      shortest_path = described_class.new(grid).call(source, target)
 
       expect(shortest_path)
         .to contain_exactly(
@@ -42,12 +42,12 @@ RSpec.describe Rhex::DijkstraShortestPath do
                             [-2, 1], [-1, -1], [0, -2], [1, -3], [-3, 2], [-4, 3], [-5, 4]
                           ], image_config: Rhex::ImageConfigs.obstacle_image_config)
 
-        shortest_path = described_class.new(source, target, grid, obstacles: obstacles).call
+        shortest_path = described_class.new(grid, obstacles: obstacles).call(source, target)
 
         expected_shortest_path =
           coords_to_hexes([
                             [1, 1], [1, 0], [0, 0], [0, -1], [1, -2], [2, -2], [3, -2], [3, -1], [3, 0],
-                            [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-4, 4], [-5, 5]
+                            [3, 1], [2, 2], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 4], [-4, 5], [-5, 5]
                           ], image_config: Rhex::ImageConfigs.path_image_config)
 
         grid.merge(obstacles)

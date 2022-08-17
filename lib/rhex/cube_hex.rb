@@ -114,7 +114,7 @@ module Rhex
     end
 
     def dijkstra_shortest_path(target, grid, obstacles: [])
-      DijkstraShortestPath.new(self, target, grid, obstacles: obstacles).call
+      Rhex::DijkstraShortestPath.new(grid, obstacles: obstacles).call(self, target)
     end
 
     def distance(hex)

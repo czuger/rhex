@@ -173,10 +173,11 @@ RSpec.describe Rhex::CubeHex do
       obstacles = instance_double(Array)
 
       shortest_path = double
-      dijkstra_shortest_path_instance = double(call: shortest_path)
+      dijkstra_shortest_path_instance = double
 
       expect(Rhex::DijkstraShortestPath)
-        .to receive(:new).with(source, target, grid, obstacles: obstacles).and_return(dijkstra_shortest_path_instance)
+        .to receive(:new).with(grid, obstacles: obstacles).and_return(dijkstra_shortest_path_instance)
+      expect(dijkstra_shortest_path_instance).to receive(:call).with(source, target).and_return(shortest_path)
 
       expect(source.dijkstra_shortest_path(target, grid, obstacles: obstacles)).to eq(shortest_path)
     end
