@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'delegate'
-
 module Rhex
   class AxialHex < SimpleDelegator
     # Axial is the same as cube except not storing the third coordinate,

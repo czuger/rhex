@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-
 module Rhex
   module Draw
     class Hexagon
@@ -70,8 +68,8 @@ module Rhex
         angle_rad = Math::PI / 180 * angle
 
         [
-          coordinates.x + hex.size * Math.cos(angle_rad),
-          coordinates.y + hex.size * Math.sin(angle_rad)
+          coordinates.x + (hex.size * Math.cos(angle_rad)),
+          coordinates.y + (hex.size * Math.sin(angle_rad))
         ]
       end
     end

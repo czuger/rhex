@@ -22,10 +22,10 @@ module Rhex
     end
     alias << add
 
-    def each(&block)
+    def each(&)
       return enum_for(:each) { size } unless block_given?
 
-      @hash.each_value(&block)
+      @hash.each_value(&)
       self
     end
 
@@ -64,10 +64,10 @@ module Rhex
       Rhex::GridToPic.new(self, hex_size: hex_size, orientation: orientation).call(filename)
     end
 
-    def to_grid(klass = Rhex::Grid, *args, **kwargs, &block)
+    def to_grid(klass = Rhex::Grid, *args, **kwargs, &)
       return self if instance_of?(Rhex::Grid) && klass == Rhex::Grid
 
-      klass.new(self, *args, **kwargs, &block)
+      klass.new(self, *args, **kwargs, &)
     end
 
     private
@@ -79,7 +79,7 @@ module Rhex
 end
 
 module Enumerable
-  def to_grid(klass = Rhex::Grid, *args, **kwargs, &block)
-    klass.new(self, *args, **kwargs, &block)
+  def to_grid(klass = Rhex::Grid, *args, **kwargs, &)
+    klass.new(self, *args, **kwargs, &)
   end
 end

@@ -21,13 +21,13 @@ module Rhex
       end
 
       def pointy_topped?
-        raise NotImplementedError, "method #{__method__} is not implemented"
+        raise NoMethodError, "method #{__method__} is not implemented"
       end
 
       private
 
       def hex_decorator_class
-        raise NotImplementedError, "method #{__method__} is not implemented"
+        raise NoMethodError, "method #{__method__} is not implemented"
       end
     end
   end

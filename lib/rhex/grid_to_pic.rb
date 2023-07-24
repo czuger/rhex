@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'rmagick'
-require 'forwardable'
-
 module Rhex
   class GridToPic
     extend Forwardable

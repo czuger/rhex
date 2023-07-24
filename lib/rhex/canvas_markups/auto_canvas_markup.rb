@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-
 module Rhex
   module CanvasMarkups
     class AutoCanvasMarkup
@@ -25,8 +23,8 @@ module Rhex
 
       def center
         @center ||= Center.new(
-          x: cols / 2 - central_hex.coordinates.x,
-          y: rows / 2 - central_hex.coordinates.y
+          x: (cols / 2) - central_hex.coordinates.x,
+          y: (rows / 2) - central_hex.coordinates.y
         ).freeze
       end
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'delegate'
-
 module Rhex
   module Decorators
     class FlatToppedHex < SimpleDelegator
@@ -35,7 +33,7 @@ module Rhex
       end
 
       def coordinate_y
-        height * (r + q / 2.0)
+        height * (r + (q / 2.0))
       end
     end
   end

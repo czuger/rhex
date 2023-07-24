@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'delegate'
-
 module Rhex
   module Decorators
     class GridWithMarkup < SimpleDelegator

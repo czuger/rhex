@@ -5,7 +5,7 @@ module Rhex
     module Math
       module Hexagon
         def movement_range(radius = 1)
-          (1 + 3 * radius * (radius + 1))
+          (1 + (3 * radius * (radius + 1)))
         end
       end
 

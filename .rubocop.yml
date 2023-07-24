@@ -1,2 +1,7 @@
+AllCops:
+  NewCops: enable
+
 Style/Documentation:
+  Enabled: false
+Style/HashSyntax:
   Enabled: false

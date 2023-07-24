@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
-
 module Rhex
   class ImageConfigs
     CONFIG_PATTERN = '*_config.yml'
@@ -22,7 +20,7 @@ module Rhex
         filename = File.basename(file_path, extname)
         config = JSON.parse(
           YAML.safe_load(File.read(file_path)).to_json,
-          object_class: OpenStruct
+          object_class: OpenStruct # rubocop:disable Style/OpenStructUse
         )
 
         define_singleton_method(filename) do

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rhex/concerns/oriented_grid'
-
 module Rhex
   class PointyToppedGrid < Rhex::Grid
     include Rhex::Concerns::OrientedGrid

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'delegate'
-
 module Rhex
   module Decorators
     class PointyToppedHex < SimpleDelegator
@@ -31,7 +29,7 @@ module Rhex
       private
 
       def coordinate_x
-        width * (q + r / 2.0)
+        width * (q + (r / 2.0))
       end
 
       def coordinate_y
