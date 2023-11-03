@@ -1,9 +1,0 @@
-.idea
-rhex*.gem
-
-coverage
-doc
-
-tmp
-bundle
-.yardoc

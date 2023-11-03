@@ -1,30 +1,23 @@
-[![Build Status](https://travis-ci.org/czuger/rhex.svg?branch=master)](https://travis-ci.org/czuger/rhex)
-[![Gem Version](https://badge.fury.io/rb/rhex.svg)](https://badge.fury.io/rb/rhex)
-[![Code Climate](https://codeclimate.com/github/czuger/rhex/badges/gpa.svg)](https://codeclimate.com/github/czuger/rhex)
-[![Test Coverage](https://codeclimate.com/github/czuger/rhex/badges/coverage.svg)](https://codeclimate.com/github/czuger/rhex/coverage)
-
-
 # Rhex
 This repository contain a library for using a grid of hexagons with ruby.
 
 * It is a partial ruby implementation of the huge work of Amit Patel (http://www.redblobgames.com/grids/hexagons/).
-* The hexagons are pointy topped.
-* The coordinate system is axial.
-* Only required methods are implemented in the cube object.
+* The coordinate system is cube/axial.
+* All methods are implemented in cube. Axial is a wrapper around the cube.
 
 ## Compatibility
 
-This gem has been tested with ruby 2.4, 2.5, 2.6
+This gem has been tested with ruby 3.0.3
 
 ## Setup
 
 ```shell
-gem install rhex
+gem install rhex -s https://github.com/mersen1/rhex
 ```
 
 Or in your gemfile : 
 ```ruby
-gem 'rhex'
+gem 'rhex', git: 'git@github.com:mersen1/rhex.git'
 ```
 
 Then in your code :
@@ -34,130 +27,141 @@ require 'rhex'
 
 ## Usage
 
-### Basics
-------
+### Hex Basics
+
+Create a new hexagon `q = 0, r = -2`.
+</br>
+To understand what `q` and `r` mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
 
 ```ruby
-# Create a new hexagon (q = 10, r = 10 )
-# To understand what q and r mean, please have a look at http://www.redblobgames.com/grids/hexagons/#coordinates
-hexa = AxialHex.new( 10, 10 )
-# => #<AxialHex @q=10, @r=10>
+axial_hex = Rhex::AxialHex.new(0, -2)
+# => #<Rhex::CubeHex @data=nil, @image_config=nil, @q=0, @r=-2, @s=2>
 
-# Get hexes surrounding it
-hexa.surrounding_hexs
-# => [#<AxialHex @q=10, @r=9>, #<AxialHex @q=11, @r=9>, ... ]
-
-# Get distance between two hexagons
-hexb = AxialHex.new( 20, 20 )
-hexa.distance(hexb)
-# => 20
-
-# Check if a hex is adjacent to another hex
-hexa.hex_surrounding_hex?(hexb)
-# => false
-
-# Get the nearset hex from a hexes list
-hexc = AxialHex.new( 20, 13 )
-hlist = [ hexb, hexc ]
-hexa.nearest_hex(hlist)
-# => #<AxialHex @q=20, @r=13>
+cube_hex = Rhex::AxialHex.new(0, -2, 2)
+# => #<Rhex::CubeHex @data=nil, @image_config=nil, @q=0, @r=-2, @s=2>
 ```
 
-### Hexagons grid
-------
-
-Hexagons by themselves are not really useful. What we need is an hexagon grid.
+The main attributes in cube/axial hex are coordinates (`q, r, s`).
+</br>
+They are used for comparison of two different or same objects.
 
 ```ruby
-# Create an hexagon grid
-g = AxialGrid.new
-# => #<AxialGrid @hexes={}, @element_to_color_hash={}, @hex_ray=16, @hex_height=32.0, @hex_width=27.712812921102035, @half_width=13.856406460551018, @quarter_height=8.0>
+axial_hex = Rhex::AxialHex.new(0, -2)
+cube_hex = Rhex::AxialHex.new(0, -2, 2)
 
-# Add an hexagon to the grid
-g.cset( 5, 8 )
-# => #<AxialHex @q=5, @r=8, @border=false>
+axial_hex == cube_hex
+# => true
 
-# Get an hexagon from the grid
-g.cget( 5, 8 )
-# => #<AxialHex @q=5, @r=8, @border=false>
+axial_hex.eql?(cube_hex)
+# => true
 
-g.cget( 5, 4 )
-# => nil
+Hash[axial_hex, nil].key?(cube_hex)
+# => true
 ```
 
-#### Reading a grid from an ascii file
-------
+### Grid Basics
 
-It will be far more fun to create your hex map from an ascii map. For example, if you have the following map : 
-
-```
-m m g g m m m m m
- m g g g m m m m g
-m g w w g m m m m
- m g w w w g m g g
-g w w w w g g g w
- g w w w w w g g g
-g g w w w g g g m
- g g g w w g g m m
-g g g g w g g g g
- g g g g w g g g g
-g g g g g w g g g
- g g g g w g g g g
-g g g g w g g g g
+Each array could be converted to `grid`.
+```ruby
+[Rhex::AxialHex.new(0, -2)].to_grid
 ```
 
-Where m = mountains, g = grass and w = water. If this map is in a file called for instance : ascii_map.txt then : 
+Each grid could be converted to `picture`.
+```ruby
+filename = 'example'
+[Rhex::AxialHex.new(0, -2)].to_grid.to_pic(filename)
+```
+
+#### Neighbors
+Returns array of hexagon's "neighbors".
+</br>
+The neighbors will be searched within a `grid`, if it was provided.
 
 ```ruby
-# CAUTION : don't use an axial grid for that, your asciimap is square
-g = SquareGrid.new
+grid = Rhex::Grid.new([Rhex::AxialHex.new(0, 0), ...])
+center = Rhex::AxialHex.new(0, -2)
 
-# Load it with 
-g.read_ascii_file( 'test/ascii_map.txt' )
-
-# Get an hex 
-g.cget( 5, 5 )
-# => <AxialHex @q=5, @r=5, @color="w", @data=nil>
-
-# Get an hex value
-g.cget( 5, 5 ).color
-# => "w"
-
-# Borders don't work, will be fixed
-# Check if the hex is at the border of the map or not 
-# g.cget( 5, 5 ).border
-# => nil
-# g.cget( 0, 0 ).border
-# => true
+center.neighbors(grid: grid)
+# => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
 ```
+<img src="images/neighbors_inside_grid.png" height="500" alt="neighbors_inside_grid"/>
 
-#### Dumping an hex map (require rmagick - see http://rmagick.rubyforge.org/install-faq.html)
-------
-
-You can dump a grid to a bitmap file. In order to have different colors for your hex map, you need to specify them when creating the grid.
-```ruby
-  element_to_color_hash: {
-    m: :brown, g: :green, w: :blue, u: '#e3e3e3'
-  }
-```
-Where m = brown, g = green and w = blue (the colors for mountains, grass and water - u mean unused, its only to show an example of RGB notation). 
-I used rmagick to create the bitmap, so all rmagick color syntax are available : http://www.simplesystems.org/RMagick/doc/imusage.html#color_names.
+#### Distance
+Get the distance between two hexagons.
 
 ```ruby
-# Create a grid with a correspondence array from val to color
-g = SquareGrid.new(
-  element_to_color_hash: {
-    m: :brown, g: :green, w: :blue
-  }
-)
-
-# Load the same map we used before
-g.read_ascii_file( 'test/ascii_map.txt' )
-
-# Create the pic
-g.to_pic( 'test2.png' )
+Rhex::AxialHex.new(0, 2).distance(Rhex::AxialHex.new(0, -2))
+# => 4
 ```
 
-You should get your map as an hex bitmap grid : 
+#### Dijkstra shortest path
 
-![test picture](/images/test2.png)
+Finds the shortest path using the [Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+
+```ruby
+obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-2, 1), ...]
+source = Rhex::AxialHex.new(1, 1)
+target = Rhex::AxialHex.new(-5, 5)
+
+grid = Rhex::Grid.new
+grid.add(source)
+
+source.dijkstra_shortest_path(target, grid, obstacles: obstacles)
+# => [#<Rhex::CubeHex @q=1, @r=1, @s=-2>, #<Rhex::CubeHex @q=1, @r=0, @s=-1>, ...]
+```
+<img src="images/dijkstra_shortest_path.png" height="500" alt="dijkstra_shortest_path"/>
+
+#### Linedraw
+
+Draws a line from one hex to another.
+
+```ruby
+source = Rhex::AxialHex.new(-4, 0)
+target = Rhex::AxialHex.new(4, -2)
+
+source.linedraw(target)
+# => [#<Rhex::CubeHex @q=-4, @r=0, @s=4>, #<Rhex::CubeHex @q=-3, @r=0, @s=3>, ...]
+```
+<img src="images/linedraw.png" height="500" alt="linedraw"/>
+
+#### Field of view
+
+Returns visible location which is not blocked by obstacles.
+
+```ruby
+grid = Rhex::Grid.new
+source = Rhex::AxialHex.new(-1, 2)
+obstacles = [Rhex::AxialHex.new(-1, 1), Rhex::AxialHex.new(-1, 0), ...]
+
+source.field_of_view(grid, obstacles)
+# => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
+```
+<img src="images/field_of_view.png" height="500" alt="field_of_view"/>
+
+#### Reachable
+
+Returns array of all hexes that can be reached in `movements_limit` steps.
+
+```ruby
+movements_limit = 3
+source = Rhex::AxialHex.new(0, 0)
+obstacles = [Rhex::AxialHex.new(1, -1), Rhex::AxialHex.new(2, -1), ...]
+
+source.reachable(movements_limit, obstacles: obstacles)
+# => [#<Rhex::CubeHex @q=0, @r=0, @s=0>, #<Rhex::CubeHex @q=0, @r=1, @s=-1>, ...]
+```
+<img src="images/reachable.png" height="500" alt="reachable"/>
+
+#### Ring
+
+Returns array of all hexes which are take `radius` steps away from the center starting from `Rhex::CubeHex::INITIAL_RING_VECTOR`.
+
+```ruby
+ring = 2
+center = Rhex::AxialHex.new(0, 0)
+
+center.ring(ring)
+# => [<Rhex::CubeHex @q=-2, @r=2, @s=0>, <Rhex::CubeHex @q=-1, @r=2, @s=-1>, ...]
+```
+<img src="images/ring.png" height="500" alt="ring"/>
+
